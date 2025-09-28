@@ -1,0 +1,396 @@
+﻿@model TADTitleConversion.Models.ClientInfoStatus
+@{
+    ViewBag.Title = "Archive";
+}
+
+<body class="background-White" style="background-color:white">
+    <div class="widget-body" style="background-color:white">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                        <li class="active">
+                            <a data-toggle="tab" href="#home4">Pull Out Documents</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#profile4">Cancelled Documents</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="home4" class="tab-pane in active">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="widget-box widget-color-blue3">
+                                        <div class="widget-header">
+                                            <div class="widget-title">
+                                                Documents
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <table id="pullout" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue" hidden>Customer Name</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Customer Name</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Blk Lot/Unit No</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Full Payment Date</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">TCP</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Title NO</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Tax Dec No</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">DOAS</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">DST</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Notarized Doas</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Transfer Tax</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">EWT</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">CTS</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Receipts</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Document Status</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">ACTION STATUS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        int count = 100000;
+                                                        foreach (var cis in ViewBag.PullOut)
+                                                        {
+                                                            count += cis.id;
+                                                            <tr>
+                                                                <td style="text-align:center" hidden>
+                                                                    <label>
+                                                                        @cis.name
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.name
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.block
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.unit_no != null)
+                                                                        {
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.unit_no)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.tcp
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.title_no
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.tax_dec_no
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.doas != null)
+                                                                        {
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.doas)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.dst != null)
+                                                                        {
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.dst)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.notarized_doas != null)
+                                                                        {
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.notarized_doas)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.transfer_tax != null)
+                                                                        {
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.transfer_tax)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.ewt != null)
+                                                                        {
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.ewt)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.cts != null)
+                                                                        {
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.cts)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.receipts != null)
+                                                                        {
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.receipts)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <label>
+                                                                        @if (cis.status == 3)
+                                                                        {<span class="label label-sm label-pink arrowed-right">Pull Out</span>}
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <div class="pull-center">
+                                                                        <a href="../Masters/Pullout?id=@cis.id" class="btn btn-white btn-warning btn-round btn-xs no-hover">
+                                                                            <i class="ace-icon fa fa-eye"></i>
+                                                                            View
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Modal Edit-->
+                        <div class="modal fade" id="ModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit Company Name</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post">
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">Developer:</label>
+                                                <input type="text" placeholder="Enter Company Name" class="form-control" id="EditDeveloper">
+                                            </div>
+                                            <div class="form-group" style="display:none">
+                                                <label for="recipient-name" class="col-form-label">ID:</label>
+                                                <input type="text" placeholder="Enter Financing" class="form-control" id="EditIDdeveloper">
+                                            </div>
+                                        </form>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" id="UpdateDeveloper">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="profile4" class="tab-pane">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="widget-box widget-color-blue3">
+                                        <div class="widget-header">
+                                            <div class="widget-title">
+                                                Documents
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <table id="cancel" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue" hidden>Customer Name</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Customer Name</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Blk Lot/Unit No:</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Full Payment Date</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">TCP</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Title NO</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Tax Dec No</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">DOAS</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">DST</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Notarized Doas</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Transfer Tax</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">EWT</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">CTS</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Receipts</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Document Status</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">ACTION STATUS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        int count1 = 100000;
+                                                        foreach (var cis in ViewBag.Cancel)
+                                                        {
+                                                            count1 += cis.id;
+                                                            <tr>
+                                                                <td style="text-align:center" hidden>
+                                                                    <label>
+                                                                        @cis.name
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.name
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.block
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.unit_no != null) { 
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.unit_no)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.tcp
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.title_no
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.tax_dec_no
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.doas != null) { 
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.doas)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.dst != null) { 
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.dst)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.notarized_doas != null) { 
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.notarized_doas)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.transfer_tax != null) { 
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.transfer_tax)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.ewt != null)
+                                                                        {
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.ewt)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.cts != null) { 
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.cts)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @if (cis.receipts != null) { 
+                                                                            @String.Format("{0:MM/dd/yyyy}", cis.receipts)
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <label>
+                                                                        @if (cis.status == 4)
+                                                                        {<span class="label label-sm label-pink arrowed-right">Cancelled</span>}
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <div class="pull-center">
+                                                                        <a href="../Masters/Cancelled?id=@cis.id" class="btn btn-white btn-warning btn-round btn-xs no-hover">
+                                                                            <i class="ace-icon fa fa-eye"></i>
+                                                                            View
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</body>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(document).ready(function () {
+            //Datatable Financing
+            $('#pullout').DataTable();
+            $('#cancel').DataTable();
+
+
+            //after click add or edit in turnover checklist.. dapat naka view ra japon sa kana nga tab
+            if (location.hash) {
+                $("a[href='" + location.hash + "']").tab("show");
+            }
+            $(document.body).on("click", "a[data-toggle='tab']", function (event) {
+                location.hash = this.getAttribute("href");
+            });
+
+        }); //end from document.ready
+
+        TableManageButtons.init();
+
+        //kani sumpay sa open tab after load sa page.
+        $(window).on("popstate", function () {
+            var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
+            $("a[href='" + anchor + "']").tab("show");
+        });
+
+
+    </script>
+
+}

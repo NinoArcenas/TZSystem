@@ -1,0 +1,775 @@
+﻿@model TADTitleConversion.Models.Client
+@{
+    ViewBag.Title = "AccountHistory";
+
+    string account = "";
+    string project = "";
+    string company_name = "";
+    string location = "";
+    string rd_location = "";
+    string ass_location = "";
+    string financing = "";
+    string unit_no = "";
+    string generatedcode = "";
+    int status = 0;
+    int id = 0;
+    foreach (var cis in ViewBag.client)
+    {
+        id = cis.id;
+        account = cis.account;
+        project = cis.project;
+        company_name = cis.company_name;
+        status = cis.status;
+        location = cis.location;
+        rd_location = cis.rd_location;
+        ass_location = cis.ass_location;
+        financing = cis.financing;
+        unit_no = cis.unit_no;
+        generatedcode = cis.generatedcode;
+    }
+
+    //Pre BIR
+    var Block = "";
+    var Fullpay = "";
+    var Tcp = "";
+    var Titleno = "";
+    var Taxdecno = "";
+    var Doas = "";
+    var Dst = "";
+    var Notarizeddoas = "";
+    var Transfertax = "";
+    var Ewt = "";
+    var Cts = "";
+    var Receipts = "";
+    var RemarksPreBIR = "";
+    var GenCode = "";
+    int idprebir = 0;
+    foreach (var preBIR in ViewBag.prebir)
+    {
+        if (preBIR.generatedcode == generatedcode)
+        {
+            idprebir = preBIR.id;
+            GenCode = preBIR.generatedcode;
+            Block = preBIR.block;
+            if (preBIR.unit_no != null)
+            {
+                Fullpay = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preBIR.unit_no)));
+            }
+            if (preBIR.doas != null)
+            {
+                Doas = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preBIR.doas)));
+            }
+            if (preBIR.notarized_doas != null)
+            {
+                Notarizeddoas = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preBIR.notarized_doas)));
+            }
+            if (preBIR.transfer_tax != null)
+            {
+                Transfertax = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preBIR.transfer_tax)));
+            }
+            if (preBIR.ewt != null)
+            {
+                Ewt = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preBIR.ewt)));
+            }
+            if (preBIR.cts != null)
+            {
+                Cts = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preBIR.cts)));
+            }
+            if (preBIR.dst != null)
+            {
+                Dst = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preBIR.dst)));
+            }
+            if (preBIR.receipts != null)
+            {
+                Receipts = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preBIR.receipts)));
+            }
+            Tcp = preBIR.tcp;
+            Titleno = preBIR.title_no;
+            Taxdecno = preBIR.tax_dec_no;
+            RemarksPreBIR = preBIR.remarks;
+        }
+    }
+
+    //BIR
+    var Submission = "";
+    var Released = "";
+    var Ecarno = "";
+    var Ecarexpirrydate = "";
+    var RemarksBIR = "";
+    var GenCodeBIR = "";
+    int idbir = 0;
+    foreach (var BIR in ViewBag.bir)
+    {
+        if (BIR.generatedcode == generatedcode)
+        {
+            idbir = BIR.id;
+            GenCodeBIR = BIR.generatedcode;
+            Submission = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(BIR.submission)));
+            Released = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(BIR.released)));
+            Ecarno = BIR.ecar_no;
+            Ecarexpirrydate = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(BIR.ecar_expirry_date)));
+            RemarksBIR = BIR.remarks;
+        }
+    }
+
+    //Pre ROD
+    var Titlerequestate = "";
+    var Titleavailabilitydate = "";
+    var Datecompleted = "";
+    var RemarkspreROD = "";
+    var GenCodepreROD = "";
+    int idprerod = 0;
+    ; foreach (var preROD in ViewBag.prerod)
+    {
+        if (preROD.generatedcode == generatedcode)
+        {
+            idprerod = preROD.id;
+            GenCodepreROD = preROD.generatedcode;
+            Titlerequestate = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preROD.title_request_ate)));
+            Titleavailabilitydate = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preROD.title_availability_date)));
+            Datecompleted = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preROD.date_completed)));
+            RemarkspreROD = preROD.remarks;
+        }
+    }
+
+    //ROD
+    var GenCodeROD = "";
+    var Datesubmitted = "";
+    var Datereleased = "";
+    var Mortgagesub = "";
+    var Mortgagerel = "";
+    var Epebno = "";
+    var TitlenoROD = "";
+    var Epednohide = "";
+    var Titlenohide = "";
+    var RemarksROD = "";
+    int idrod = 0;
+    foreach (var ROD in ViewBag.rod)
+    {
+        if (ROD.generatedcode == generatedcode)
+        {
+            idrod = ROD.id;
+            GenCodeROD = ROD.generatedcode;
+            if (ROD.date_submitted != null)
+            {
+                Datesubmitted = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(ROD.date_submitted)));
+            }
+            if (ROD.date_released != null)
+            {
+                Datereleased = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(ROD.date_released)));
+            }
+            if (ROD.mortgage_sub != null)
+            {
+                Mortgagesub = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(ROD.mortgage_sub)));
+            }
+            if (ROD.mortgage_rel != null)
+            {
+                Mortgagerel = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(ROD.mortgage_rel)));
+            }
+            Epebno = ROD.epeb_no;
+            TitlenoROD = ROD.title_no;
+            Epednohide = ROD.eped_no_hide;
+            Titlenohide = ROD.title_no_hide;
+            RemarksROD = ROD.remarks;
+        }
+    }
+
+    //Pre-Assessor
+    var GenCodePreAsse = "";
+    var Datecompletedpreass = "";
+    var RemarksPreAss = "";
+    int idpreassessor = 0;
+    foreach (var preAss in ViewBag.preass)
+    {
+        if (preAss.generatedcode == generatedcode)
+        {
+            idpreassessor = preAss.id;
+            GenCodePreAsse = preAss.generatedcode;
+            Datecompletedpreass = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(preAss.date_completed)));
+            RemarksPreAss = preAss.remarks;
+        }
+    }
+
+    //Assessor
+    var GenCodeAsse = "";
+    var TaxdecnoAss = "";
+    var Taxdexnoland = "";
+    var Landunitno = "";
+    var Taxdexnobuilding = "";
+    var DatereleasedAss = "";
+    var RemarksAss = "";
+    int idassessor = 0;
+    foreach (var Ass in ViewBag.ass)
+    {
+        if (Ass.generatedcode == generatedcode)
+        {
+            idassessor = Ass.id;
+            GenCodeAsse = Ass.generatedcode;
+            TaxdecnoAss = Ass.tax_dec_no;
+            Taxdexnoland = Ass.tax_dex_no_land;
+            Landunitno = Ass.land_unit_no;
+            Taxdexnobuilding = Ass.tax_dex_no_building;
+            DatereleasedAss = Convert.ToString(String.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(Ass.date_released)));
+            RemarksAss = Ass.remarks;
+        }
+    }
+}
+
+<div class="row" style="display:none">
+    <div class="col-xs-12">
+        <div class="widget-box widget-color-green">
+            <div class="widget-header">
+                <h4 class="widget-title">Account Process</h4>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="col-xs-12 col-sm-4" style="display:none">
+                        <label for="form-field-select-3">Status:</label>
+                        <input type="text" id="IDStatus" value="@status" class="width-100" />
+                        <b for="form-field-select-2">@status.ToString()</b>
+                        <br />
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <b for="form-field-select-1">Account Name:</b>
+                        <b class="blue" for="form-field-select-2">@account</b><br />
+                        <b for="form-field-select-2">Project:</b>
+                        <b class="blue" for="form-field-select-2">@project</b><br />
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <b for="form-field-select-2">Unit No:</b>
+                        <b class="blue" for="form-field-select-2">@unit_no</b><br />
+                        <b for="form-field-select-3">Company Name:</b>
+                        <b class="blue" for="form-field-select-2">@company_name</b><br />
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <b for="form-field-select-3">BIR Location:</b>
+                        <b class="blue" for="form-field-select-2">@location</b><br />
+                        <b for="form-field-select-3">RD Location:</b>
+                        <b class="blue" for="form-field-select-2">@rd_location</b><br />
+                        <br />
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <b for="form-field-select-3">Assessor Location:</b>
+                        <b class="blue" for="form-field-select-2">@ass_location</b><br />
+                        <b for="form-field-select-3">Financing:</b>
+                        <b class="blue" for="form-field-select-2" id="financingpagibig">@financing</b><br />
+                        <br />
+                    </div>
+                    <div class="col-xs-12 col-sm-2" style="display:none">
+                        <label for="form-field-select-3">Genecode:</label>
+                        <b for="form-field-select-2">@generatedcode</b>
+                        <br />
+                    </div>
+                    <div class="col-xs-12 col-sm-4" style="display:none">
+                        <label for="form-field-select-3">ID:</label>
+                        <b for="form-field-select-2">@id</b>
+                        <input type="text" id="id" value="@id" class="width-100" />
+                        <br />
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--PRE-BIR-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="widget-box widget-color-blue3">
+                    <div class="widget-header">
+                        <div class="widget-title">
+                            PRE-BIR
+                        </div>
+                    </div>
+                    <div>
+                        <table id="document" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Customer Name</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Blk Lot/Unit No</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Full Payment Date</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">TCP</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Title No</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Tax Dec No</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">DOAS Date</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">DST Request Date</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Notarized DOAS Date</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Transfer Tax Check Request Date</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">EWT Date</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">CTS Date</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Date Receipt Received</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var preBIR in ViewBag.prebir)
+                                    {
+                                        if (preBIR.generatedcode == generatedcode)
+                                        {
+                                            <tr>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @account
+                                                    </label>
+                                                </td>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @Block
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Fullpay
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Tcp
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Titleno
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Taxdecno
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Doas
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Dst
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Notarizeddoas
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Transfertax
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Ewt
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Cts
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Receipts
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--BIR-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="widget-box widget-color-blue3">
+                    <div class="widget-header">
+                        <div class="widget-title">
+                            BIR
+                        </div>
+                    </div>
+                    <div>
+                        <table id="document" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Customer Name</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Date Submission</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Date Released</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">ECAR No</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">ECAR Expiry Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var BIR in ViewBag.bir)
+                                    {
+                                        if (BIR.generatedcode == generatedcode)
+                                        {
+                                            <tr>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @account
+                                                    </label>
+                                                </td>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @Submission
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Datereleased
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Ecarno
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Ecarexpirrydate
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Pre-ROD-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="widget-box widget-color-blue3">
+                    <div class="widget-header">
+                        <div class="widget-title">
+                            Pre-ROD
+                        </div>
+                    </div>
+                    <div>
+                        <table id="document" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Customer Name</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Title Request Date</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Title Availability Date</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Date Completed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var preROD in ViewBag.prerod)
+                                    {
+                                        if (preROD.generatedcode == generatedcode)
+                                        {
+                                            <tr>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @account
+                                                    </label>
+                                                </td>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @Titlerequestate
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Titleavailabilitydate
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Datecompleted
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--ROD-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="widget-box widget-color-blue3">
+                    <div class="widget-header">
+                        <div class="widget-title">
+                            ROD
+                        </div>
+                    </div>
+                    <div>
+                        <table id="document" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Customer Name</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">EPEB No</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Title No</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Date Submitted</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Date Released</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Mortgage Date Submitted</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Mortgage Date Released</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var ROD in ViewBag.prerod)
+                                    {
+                                        if (ROD.generatedcode == generatedcode)
+                                        {
+                                            <tr>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @account
+                                                    </label>
+                                                </td>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @Epebno
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @TitlenoROD
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Datesubmitted
+                                                    </label>
+                                                </td>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @Datereleased
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Mortgagesub
+                                                    </label>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <label>
+                                                        @Mortgagerel
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--PRE ASSESSOR-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="widget-box widget-color-blue3">
+                    <div class="widget-header">
+                        <div class="widget-title">
+                            PRE ASSESSOR
+                        </div>
+                    </div>
+                    <div>
+                        <table id="document" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Customer Name</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Date Submitted</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var preAss in ViewBag.preass)
+                                    {
+                                        if (preAss.generatedcode == generatedcode)
+                                        {
+                                            <tr>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @account
+                                                    </label>
+                                                </td>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @Datecompletedpreass
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--ASSESSOR-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="widget-box widget-color-blue3">
+                    <div class="widget-header">
+                        <div class="widget-title">
+                            ASSESSOR
+                        </div>
+                    </div>
+                    <div>
+                        <table id="document" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Customer Name</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Converted Tax Dec: Land/Unit</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Converted Tax Dec: Bldg/Parking</th>
+                                    <th class="center" style="color: black; background-color: cornflowerblue">Date Released</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var Ass in ViewBag.ass)
+                                    {
+                                        if (Ass.generatedcode == generatedcode)
+                                        {
+                                            <tr>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @account
+                                                    </label>
+                                                </td>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @TaxdecnoAss
+                                                    </label>
+                                                </td>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @Landunitno
+                                                    </label>
+                                                </td>
+                                                <td style="text-align: center ">
+                                                    <label>
+                                                        @DatereleasedAss
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--UploadFile-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="widget-box widget-color-blue3">
+            <div class="widget-header">
+                <div class="widget-title">
+                    File Data                    
+                </div>
+            </div>
+            <table id="documentfile" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="center" style="color: black; background-color: cornflowerblue">Account Name</th>
+                        <th class="center" style="color: black; background-color: cornflowerblue">Document Name</th>
+                        <th class="center" style="color: black; background-color: cornflowerblue">Project</th>
+                        <th class="center" style="color: black; background-color: cornflowerblue">Unit No</th>
+                        <th class="center" style="color: black; background-color: cornflowerblue">Remarks</th>
+                        <th class="center" style="color: black; background-color: cornflowerblue">Document</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var cis in ViewBag.docs)
+                        {
+                            if (cis.accountname == account)
+                            {
+                                <tr>
+                                    <td style="text-align:center">
+                                        <label>
+                                            @cis.accountname
+                                        </label>
+                                    </td>
+                                    <td style="text-align:center">
+                                        <label>
+                                            @cis.documentname
+                                        </label>
+                                    </td>
+                                    <td style="text-align:center">
+                                        <label>
+                                            @cis.project
+                                        </label>
+                                    </td>
+                                    <td style="text-align:center">
+                                        <label>
+                                            @cis.unitno
+                                        </label>
+                                    </td>
+                                    <td style="text-align:center">
+                                        <label>
+                                            @cis.remarks
+                                        </label>
+                                    </td>
+                                    <td style="text-align:center">
+                                        <label>
+                                            <a href="@cis.doc_path"><img src="~/Images/pdf(1).jpg" /></a>
+                                        </label>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

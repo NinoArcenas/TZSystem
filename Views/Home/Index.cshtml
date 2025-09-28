@@ -1,0 +1,2507 @@
+﻿@model List<TADTitleConversion.Models.AgingTable>
+@{
+    ViewBag.Title = "Home Page";
+
+    int status = 0;
+    foreach (var cis in ViewBag.Birlocation)
+    {
+        status = cis.status;
+    }
+
+    int clientcount = TADTitleConversion.Controllers.HomeController.ClientCount();
+    int turnovercount = TADTitleConversion.Controllers.HomeController.TurnoverCount();
+    int pulloutcount = TADTitleConversion.Controllers.HomeController.PullOutCount();
+    int cancelledcount = TADTitleConversion.Controllers.HomeController.CancelledCount();
+
+    int prebircount = TADTitleConversion.Controllers.HomeController.PreBIRCount();
+    int bircount = TADTitleConversion.Controllers.HomeController.BIRCount();
+    int prerodcount = TADTitleConversion.Controllers.HomeController.PreRODCount();
+    int rodcount = TADTitleConversion.Controllers.HomeController.RODCount();
+    int preassessorcount = TADTitleConversion.Controllers.HomeController.PreAssessorCount();
+    int assessorcount = TADTitleConversion.Controllers.HomeController.AssessorCount();
+    int completedcount = TADTitleConversion.Controllers.HomeController.CompletedCount();
+
+    int bankcount = TADTitleConversion.Controllers.HomeController.BankCount();
+    int hdmfcount = TADTitleConversion.Controllers.HomeController.HDMFCount();
+    int ihffcount = TADTitleConversion.Controllers.HomeController.IHFCount();
+    int totalfinancing = bankcount + hdmfcount + ihffcount;
+
+    //BREAKDOWN WITH BIR
+    int BWBBoholcount = TADTitleConversion.Controllers.HomeController.BWBBohol();
+    int BWBNorthcount = TADTitleConversion.Controllers.HomeController.BWBNorth();
+    int BWBSouthcount = TADTitleConversion.Controllers.HomeController.BWBSouth();
+    int BWBMandauecount = TADTitleConversion.Controllers.HomeController.BWBMandaue();
+    int BWBTalisaycount = TADTitleConversion.Controllers.HomeController.BWBTalisay();
+    int totolcount = BWBBoholcount + BWBNorthcount + BWBSouthcount + BWBMandauecount + BWBTalisaycount;
+
+    //BREAKDOWN WITH ROD
+    int BWRBoholcount = TADTitleConversion.Controllers.HomeController.BWRBohol();
+    int BWRCebuCitycount = TADTitleConversion.Controllers.HomeController.BWRCebuCity();
+    int BWRCebuProvincecount = TADTitleConversion.Controllers.HomeController.BWRCebuProvince();
+    int BWRMandauecount = TADTitleConversion.Controllers.HomeController.BWRMandaue();
+    int BWRLapulapucount = TADTitleConversion.Controllers.HomeController.BWRLapulapu();
+    int BWRtotolcount = BWRBoholcount + BWRCebuCitycount + BWRCebuProvincecount + BWRMandauecount + BWRLapulapucount;
+
+    //BREAKDOWN WITH ASSESSOR
+    int BWAMandauecount = TADTitleConversion.Controllers.HomeController.BWAMandaue();
+    int BWACebuCitycount = TADTitleConversion.Controllers.HomeController.BWACebuCity();
+    int BWALapulapucount = TADTitleConversion.Controllers.HomeController.BWALapulapu();
+    int BWABoholcount = TADTitleConversion.Controllers.HomeController.BWABohol();
+    int BWACebuProvincecount = TADTitleConversion.Controllers.HomeController.BWACebuProvince();
+    int BWAtotolcount = BWAMandauecount + BWACebuCitycount + BWALapulapucount + BWABoholcount + BWACebuProvincecount;
+
+
+    var GetAccessType_usingUsername = TADTitleConversion.Controllers.MastersController.GetAccessType_usingUsername(User.Identity.Name);
+}
+
+@{
+    if (GetAccessType_usingUsername != "4")//Admistrator
+    {
+        <body class="background-White" style="background-color:white">
+            <div class="row col-xs-12">
+                <div class="col-xs-3 infobox-container">
+                    <div class="infobox infobox-green">
+                        <div class="infobox-icon">
+                            <i class="ace-icon fa fa-users"></i>
+                        </div>
+                        <div class="infobox-data">
+                            <span class="infobox-data-number">@clientcount</span>
+                            <div class="pull-center">
+                                <a class="infobox-content" href="/Masters/DocumentStatus" style="color:black; font-size:larger">Total Accounts</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 infobox-container">
+                    <div class="infobox infobox-blue">
+                        <div class="infobox-icon">
+                            <i class="ace-icon fa fa-inbox"></i>
+                        </div>
+                        <div class="infobox-data">
+                            <span class="infobox-data-number">@turnovercount</span>
+                            <div class="pull-center">
+                                <a class="infobox-content" href="/Masters/TurnOverViewHistory" style="color: black; font-size: larger">Turn-Over</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 infobox-container">
+                    <div class="infobox infobox-pink">
+                        <div class="infobox-icon">
+                            <i class="ace-icon fa fa-briefcase"></i>
+                        </div>
+                        <div class="infobox-data">
+                            <span class="infobox-data-number">@pulloutcount</span>
+                            <div class="pull-center">
+                                <a class="infobox-content" href="/Masters/Archive#home4" style="color: black; font-size: larger">Pull Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3 infobox-container">
+                    <div class="infobox infobox-red">
+                        <div class="infobox-icon">
+                            <i class="ace-icon glyphicon glyphicon-remove"></i>
+                        </div>
+                        <div class="infobox-data">
+                            <span class="infobox-data-number">@cancelledcount</span>
+                            <div class="pull-center">
+                                <a class="infobox-content" href="/Masters/Archive#profile4" style="color: black; font-size: larger">Cancelled</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-xs-12">
+                <div class="col-xs-12 widget-container-col">
+                    <div class="widget-box widget-color-blue">
+                        <div class="widget-header" style="background-color:burlywood">
+                            <h5 class="widget-title bigger lighter">
+                                Financing
+                            </h5>
+                        </div>
+                        <table id="developer" class="table table-striped table-bordered table-hover">
+                            @{
+                                <tr>
+                                    <th class="center" style="background-color: bisque; color: black">
+                                        <div class="pull-center">
+                                            <label style="color:black">BANK</label>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: bisque; color: black"><span class="label label-warning arrowed arrowed-right">@bankcount</span></th>
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: bisque; color: black">
+                                        <div class="pull-center">
+                                            <label style="color:black">HDMF</label>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: bisque; color: black"><span class="label label-warning arrowed arrowed-right">@hdmfcount</span></th>
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: bisque; color: black">
+                                        <div class="pull-center">
+                                            <label style="color:black">IHF</label>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: bisque; color: black"><span class="label label-warning arrowed arrowed-right">@ihffcount</span></th>
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: bisque; color: black">
+                                        <div class="pull-center">
+                                            <label style="color:black">TOTAL</label>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: bisque; color: black"><span class="label label-warning arrowed arrowed-right">@totalfinancing</span></th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-xs-12">
+                <div class="col-xs-6">
+                    <div class="widget-box widget-color-blue">
+                        <div class="table-header">
+                            Document Status
+                        </div>
+                        <table id="developer" class="table table-striped table-bordered table-hover">
+                            @{
+                                <tr>
+                                    <th class="center" style="background-color: lightskyblue">
+                                        <div class="pull-center">
+                                            <a class="center" href="/Masters/DocumentStatus" style="color:black">PRE-BIR</a>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: lightskyblue; color: black"><span class="label label-primary arrowed arrowed-right">@prebircount</span></th>
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightskyblue">
+                                        <div class="pull-center">
+                                            <a class="center" href="/Masters/DocumentStatus" style="color:black">BIR</a>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: lightskyblue; color: black"><span class="label label-primary arrowed arrowed-right">@bircount</span></th>
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightskyblue">
+                                        <div class="pull-center">
+                                            <a class="center" href="/Masters/DocumentStatus" style="color:black">PRE-ROD</a>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: lightskyblue; color:black"><span class="label label-primary arrowed arrowed-right">@prerodcount</span></th>
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightskyblue">
+                                        <div class="pull-center">
+                                            <a class="center" href="/Masters/DocumentStatus" style="color:black">ROD</a>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: lightskyblue; color:black"><span class="label label-primary arrowed arrowed-right">@rodcount</span></th>
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightskyblue">
+                                        <div class="pull-center">
+                                            <a class="center" href="/Masters/DocumentStatus" style="color:black">PRE-ASSESSOR</a>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: lightskyblue; color: black"><span class="label label-primary arrowed arrowed-right">@preassessorcount</span></th>
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightskyblue">
+                                        <div class="pull-center">
+                                            <a class="center" href="/Masters/DocumentStatus" style="color:black">ASSESSOR</a>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: lightskyblue; color: black"><span class="label label-primary arrowed arrowed-right">@assessorcount</span></th>
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightskyblue">
+                                        <div class="pull-center">
+                                            <a class="center" href="/Masters/DocumentStatus" style="color:black">COMPLETED</a>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: lightskyblue; color: black"><span class="label label-primary arrowed arrowed-right">@completedcount</span></th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="widget-box widget-color-blue">
+                        <div class="table-header" style="background-color:lightslategrey">
+                            Aging Analysis
+                        </div>
+                        <table id="developer" class="table table-striped table-bordered table-hover">
+                            @{
+                                int totaltodayscount = 0;
+                                foreach (var Days in ViewBag.TotalDaysCount)
+                                {
+                                    totaltodayscount = Days.ninetydays + Days.oneeighty + Days.treesixfive + Days.sevintreeziro + Days.sevintreeone;
+                                    <tr>
+                                        <th class="center" style="background-color: lightgrey; color: black">
+                                            <div class="pull-center">
+                                                <a style="color:black">1-90 days</a>
+                                            </div>
+                                        </th>
+                                        <th class="center" style="background-color: lightgrey; color: black"><span class="label label-grey arrowed arrowed-right">@Days.ninetydays</span></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="center" style="background-color: lightgrey; color: black">
+                                            <div class="pull-center">
+                                                <a style="color:black">91- 180 days</a>
+                                            </div>
+                                        </th>
+                                        <th class="center" style="background-color: lightgrey; color: black"><span class="label label-grey arrowed arrowed-right">@Days.oneeighty</span></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="center" style="background-color: lightgrey; color: black">
+                                            <div class="pull-center">
+                                                <a style="color:black">181-365 days</a>
+                                            </div>
+                                        </th>
+                                        <th class="center" style="background-color: lightgrey; color: black"><span class="label label-grey arrowed arrowed-right">@Days.treesixfive</span></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="center" style="background-color: lightgrey; color: black">
+                                            <div class="pull-center">
+                                                <a style="color:black">366-730 days</a>
+                                            </div>
+                                        </th>
+                                        <th class="center" style="background-color: lightgrey; color: black"><span class="label label-grey arrowed arrowed-right">@Days.sevintreeziro</span></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="center" style="background-color: lightgrey; color: black">
+                                            <div class="pull-center">
+                                                <a style="color:black">> 731 days</a>
+                                            </div>
+                                        </th>
+                                        <th class="center" style="background-color: lightgrey; color: black"><span class="label label-grey arrowed arrowed-right">@Days.sevintreeone</span></th>
+                                    </tr>
+                                }
+                                <tr>
+                                    <th class="center" style="background-color: lightgrey; color: black">
+                                        <div class="pull-center">
+                                            <a style="color:black">TOTAL</a>
+                                        </div>
+                                    </th>
+                                    <th class="center" style="background-color: lightgrey; color: black"><span class="label label-grey arrowed arrowed-right">@totaltodayscount</span></th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-xs-12">
+                <div class="col-xs-6">
+                    <div class="widget-box widget-color-blue">
+                        <div class="table-header">
+                            BREAKDOWN WITH PRE-BIR
+                        </div>
+                        <table id="developer" class="table table-striped table-bordered table-hover">
+                            @{
+                                //BOHOL
+                                int counterboholPreBir = 0;
+                                int counterBOHOLBANKPreBir = 0;
+                                int counterBOHOLIHFPreBir = 0;
+                                int counterBOHOLHDMFPreBir = 0;
+                                //MANDAUE
+                                int counterMANDAUEPreBir = 0;
+                                int counterMANDAUEBANKPreBir = 0;
+                                int counterMANDAUEIHFPreBir = 0;
+                                int counterMANDAUEHDMFPreBir = 0;
+                                //NORTH
+                                int counterNORTHPreBir = 0;
+                                int counterNORTHBANKPreBir = 0;
+                                int counterNORTHIHFPreBir = 0;
+                                int counterNORTHDMFPreBir = 0;
+                                //SOUTH
+                                int counterSOUTHPreBir = 0;
+                                int counterSOUTHBANKPreBir = 0;
+                                int counterSOUTHIHFPreBir = 0;
+                                int counterSOUTHHDMFPreBir = 0;
+                                //TALISAY
+                                int counterTALISAYPreBIR = 0;
+                                int counterTALISAYBANKPreBIR = 0;
+                                int counterTALISAYIHFPreBIR = 0;
+                                int counterTALISAYHDMFPreBIR = 0;
+                                //DUMAGUETE
+                                int counteDUMAGUETEcountPreBIR = 0;
+                                int counterDUMAGUETEBANKPreBIR = 0;
+                                int counterDUMAGUETEIHFPreBIR = 0;
+                                int counterDUMAGUETEHDMFPreBIR = 0;
+
+                                int totalbirPreBIR = 0;
+                                int totalbankPreBIR = 0;
+                                int totalihfPreBIR = 0;
+                                int totalhdmfPreBIR = 0;
+                                foreach (var BIR in ViewBag.Account)
+                                {
+                                    //BOHOL
+                                    if (BIR.location == "BOHOL" && BIR.status == 1)
+                                    {
+                                        counterboholPreBir++;
+                                    }
+                                    if (BIR.location == "BOHOL" && BIR.financing == "BANK" && BIR.status == 1)
+                                    {
+                                        counterBOHOLBANKPreBir++;
+                                    }
+                                    if (BIR.location == "BOHOL" && BIR.financing == "IHF" && BIR.status == 1)
+                                    {
+                                        counterBOHOLIHFPreBir++;
+                                    }
+                                    if (BIR.location == "BOHOL" && BIR.financing == "HDMF" && BIR.status == 1)
+                                    {
+                                        counterBOHOLHDMFPreBir++;
+                                    }
+                                    //MANDAUE
+                                    else if (BIR.location == "MANDAUE" && BIR.status == 1)
+                                    {
+                                        counterMANDAUEPreBir++;
+                                    }
+                                    if (BIR.location == "MANDAUE" && BIR.financing == "BANK" && BIR.status == 1)
+                                    {
+                                        counterMANDAUEBANKPreBir++;
+                                    }
+                                    if (BIR.location == "MANDAUE" && BIR.financing == "IHF" && BIR.status == 1)
+                                    {
+                                        counterMANDAUEIHFPreBir++;
+                                    }
+                                    if (BIR.location == "MANDAUE" && BIR.financing == "HDMF" && BIR.status == 1)
+                                    {
+                                        counterMANDAUEHDMFPreBir++;
+                                    }
+                                    //NORTH
+                                    else if (BIR.location == "NORTH" && BIR.status == 1)
+                                    {
+                                        counterNORTHPreBir++;
+                                    }
+                                    if (BIR.location == "NORTH" && BIR.financing == "BANK" && BIR.status == 1)
+                                    {
+                                        counterNORTHBANKPreBir++;
+                                    }
+                                    if (BIR.location == "NORTH" && BIR.financing == "IHF" && BIR.status == 1)
+                                    {
+                                        counterNORTHIHFPreBir++;
+                                    }
+                                    if (BIR.location == "NORTH" && BIR.financing == "HDMF" && BIR.status == 1)
+                                    {
+                                        counterNORTHDMFPreBir++;
+                                    }
+                                    //SOUTH
+                                    else if (BIR.location == "SOUTH" && BIR.status == 1)
+                                    {
+                                        counterSOUTHPreBir++;
+                                    }
+                                    if (BIR.location == "SOUTH" && BIR.financing == "BANK" && BIR.status == 1)
+                                    {
+                                        counterSOUTHBANKPreBir++;
+                                    }
+                                    if (BIR.location == "SOUTH" && BIR.financing == "IHF" && BIR.status == 1)
+                                    {
+                                        counterSOUTHIHFPreBir++;
+                                    }
+                                    if (BIR.location == "SOUTH" && BIR.financing == "HDMF" && BIR.status == 1)
+                                    {
+                                        counterSOUTHHDMFPreBir++;
+                                    }
+
+                                    //TALISAY
+                                    else if (BIR.location == "TALISAY" && BIR.status == 1)
+                                    {
+                                        counterTALISAYPreBIR++;
+                                    }
+                                    if (BIR.location == "TALISAY" && BIR.financing == "BANK" && BIR.status == 1)
+                                    {
+
+                                        counterTALISAYBANKPreBIR++;
+                                    }
+                                    if (BIR.location == "TALISAY" && BIR.financing == "IHF" && BIR.status == 1)
+                                    {
+                                        counterTALISAYIHFPreBIR++;
+                                    }
+                                    if (BIR.location == "TALISAY" && BIR.financing == "HDMF" && BIR.status == 1)
+                                    {
+                                        counterTALISAYHDMFPreBIR++;
+                                    }
+                                    //DUMAGUETE
+                                    else if (BIR.location == "DUMAGUETE" && BIR.status == 1)
+                                    {
+                                        counteDUMAGUETEcountPreBIR++;
+                                    }
+                                    if (BIR.location == "DUMAGUETE" && BIR.financing == "BANK" && BIR.status == 1)
+                                    {
+                                        counterDUMAGUETEBANKPreBIR++;
+                                    }
+                                    if (BIR.location == "DUMAGUETE" && BIR.financing == "IHF" && BIR.status == 1)
+                                    {
+                                        counterDUMAGUETEIHFPreBIR++;
+                                    }
+                                    if (BIR.location == "DUMAGUETE" && BIR.financing == "HDMF" && BIR.status == 1)
+                                    {
+                                        counterDUMAGUETEHDMFPreBIR++;
+                                    }
+                                }
+                                <tr>
+                                    <th class="center" style="background-color: yellowgreen"><b>LOCATION</b></th>
+                                    <th class="center" style="background-color: yellowgreen">TOTAL</th>
+                                    <th class="center" style="background-color: yellowgreen">BANK</th>
+                                    <th class="center" style="background-color: yellowgreen">IHF</th>
+                                    <th class="center" style="background-color: yellowgreen">HDMF</th>
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Birlocation)
+                                    {
+                                        totalbirPreBIR = counterboholPreBir + counterMANDAUEPreBir + counterNORTHPreBir + counterSOUTHPreBir + counterTALISAYPreBIR + counteDUMAGUETEcountPreBIR;
+                                        totalbankPreBIR = counterBOHOLBANKPreBir + counterMANDAUEBANKPreBir + counterNORTHBANKPreBir + counterSOUTHBANKPreBir + counterTALISAYBANKPreBIR + counterDUMAGUETEBANKPreBIR;
+                                        totalihfPreBIR = counterBOHOLIHFPreBir + counterMANDAUEIHFPreBir + counterNORTHIHFPreBir + counterSOUTHIHFPreBir + counterTALISAYIHFPreBIR + counterDUMAGUETEIHFPreBIR;
+                                        totalhdmfPreBIR = counterBOHOLHDMFPreBir + counterMANDAUEHDMFPreBir + counterNORTHDMFPreBir + counterSOUTHHDMFPreBir + counterTALISAYHDMFPreBIR + counterDUMAGUETEHDMFPreBIR;
+                                        if (BIRLocation.location == "BOHOL")
+                                        {
+                                            <th class="center" style="background-color: lightgreen">Bohol</th>
+                                            <th class="center" style="background-color: lightgreen">@counterboholPreBir</th>
+                                            <th class="center" style="background-color: lightgreen">@counterBOHOLBANKPreBir</th>
+                                            <th class="center" style="background-color: lightgreen">@counterBOHOLIHFPreBir</th>
+                                            <th class="center" style="background-color: lightgreen">@counterBOHOLHDMFPreBir</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @{
+                                        foreach (var BIRLocation in ViewBag.Birlocation)
+                                        {
+                                            if (BIRLocation.location == "MANDAUE")
+                                            {
+                                                <th class="center" style="background-color: lightgreen">Mandaue</th>
+                                                <th class="center" style="background-color: lightgreen">@counterMANDAUEPreBir</th>
+                                                <th class="center" style="background-color: lightgreen">@counterMANDAUEBANKPreBir</th>
+                                                <th class="center" style="background-color: lightgreen">@counterMANDAUEIHFPreBir</th>
+                                                <th class="center" style="background-color: lightgreen">@counterMANDAUEHDMFPreBir</th>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Birlocation)
+                                    {
+                                        if (BIRLocation.location == "TALISAY")
+                                        {
+                                            <th class="center" style="background-color: lightgreen">Talisay</th>
+                                            <th class="center" style="background-color: lightgreen">@counterTALISAYPreBIR</th>
+                                            <th class="center" style="background-color: lightgreen">@counterTALISAYBANKPreBIR</th>
+                                            <th class="center" style="background-color: lightgreen">@counterTALISAYIHFPreBIR</th>
+                                            <th class="center" style="background-color: lightgreen">@counterTALISAYHDMFPreBIR</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Birlocation)
+                                    {
+                                        if (BIRLocation.location == "SOUTH")
+                                        {
+                                            <th class="center" style="background-color: lightgreen">South</th>
+                                            <th class="center" style="background-color: lightgreen">@counterSOUTHPreBir</th>
+                                            <th class="center" style="background-color: lightgreen">@counterSOUTHBANKPreBir</th>
+                                            <th class="center" style="background-color: lightgreen">@counterSOUTHIHFPreBir</th>
+                                            <th class="center" style="background-color: lightgreen">@counterSOUTHHDMFPreBir</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Birlocation)
+                                    {
+                                        if (BIRLocation.location == "NORTH")
+                                        {
+                                            <th class="center" style="background-color: lightgreen">North</th>
+                                            <th class="center" style="background-color: lightgreen">@counterNORTHPreBir</th>
+                                            <th class="center" style="background-color: lightgreen">@counterNORTHBANKPreBir</th>
+                                            <th class="center" style="background-color: lightgreen">@counterNORTHIHFPreBir</th>
+                                            <th class="center" style="background-color: lightgreen">@counterNORTHDMFPreBir</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Birlocation)
+                                    {
+                                        if (BIRLocation.location == "DUMAGUETE")
+                                        {
+                                            <th class="center" style="background-color: lightgreen">Dumaguete</th>
+                                            <th class="center" style="background-color: lightgreen">@counteDUMAGUETEcountPreBIR</th>
+                                            <th class="center" style="background-color: lightgreen">@counterDUMAGUETEBANKPreBIR</th>
+                                            <th class="center" style="background-color: lightgreen">@counterDUMAGUETEIHFPreBIR</th>
+                                            <th class="center" style="background-color: lightgreen">@counterDUMAGUETEHDMFPreBIR</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightgreen"><b>TOTAL</b></th>
+                                    <th class="center" style="background-color: lightgreen">@totalbirPreBIR</th>
+                                    <th class="center" style="background-color: lightgreen">@totalbankPreBIR</th>
+                                    <th class="center" style="background-color: lightgreen">@totalihfPreBIR</th>
+                                    <th class="center" style="background-color: lightgreen">@totalhdmfPreBIR</th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="widget-box widget-color-blue">
+                        <div class="table-header">
+                            BREAKDOWN WITH BIR
+                        </div>
+                        <table id="developer" class="table table-striped table-bordered table-hover">
+                            @{
+                                //BOHOL
+                                int counterbohol1 = 0;
+                                int counterBOHOLBANK1 = 0;
+                                int counterBOHOLIHF1 = 0;
+                                int counterBOHOLHDMF1 = 0;
+                                //MANDAUE
+                                int counterMANDAUE1 = 0;
+                                int counterMANDAUEBANK1 = 0;
+                                int counterMANDAUEIHF1 = 0;
+                                int counterMANDAUEHDMF1 = 0;
+                                //NORTH
+                                int counterNORTH1 = 0;
+                                int counterNORTHBANK1 = 0;
+                                int counterNORTHIHF1 = 0;
+                                int counterNORTHDMF1 = 0;
+                                //SOUTH
+                                int counterSOUTH1 = 0;
+                                int counterSOUTHBANK1 = 0;
+                                int counterSOUTHIHF1 = 0;
+                                int counterSOUTHHDMF1 = 0;
+                                //TALISAY
+                                int counterTALISAY1 = 0;
+                                int counterTALISAYBANK1 = 0;
+                                int counterTALISAYIHF1 = 0;
+                                int counterTALISAYHDMF1 = 0;
+                                //DUMAGUETE
+                                int counteDUMAGUETEcount = 0;
+                                int counterDUMAGUETEBANK = 0;
+                                int counterDUMAGUETEIHF = 0;
+                                int counterDUMAGUETEHDMF = 0;
+
+                                int totalbir1 = 0;
+                                int totalbank = 0;
+                                int totalihf = 0;
+                                int totalhdmf = 0;
+                                foreach (var BIR in ViewBag.Account)
+                                {
+                                    //BOHOL
+                                    if (BIR.location == "BOHOL" && BIR.status == 2)
+                                    {
+                                        counterbohol1++;
+                                    }
+                                    if (BIR.location == "BOHOL" && BIR.financing == "BANK" && BIR.status == 2)
+                                    {
+                                        counterBOHOLBANK1++;
+                                    }
+                                    if (BIR.location == "BOHOL" && BIR.financing == "IHF" && BIR.status == 2)
+                                    {
+                                        counterBOHOLIHF1++;
+                                    }
+                                    if (BIR.location == "BOHOL" && BIR.financing == "HDMF" && BIR.status == 2)
+                                    {
+                                        counterBOHOLHDMF1++;
+                                    }
+                                    //MANDAUE
+                                    else if (BIR.location == "MANDAUE" && BIR.status == 2)
+                                    {
+                                        counterMANDAUE1++;
+                                    }
+                                    if (BIR.location == "MANDAUE" && BIR.financing == "BANK" && BIR.status == 2)
+                                    {
+                                        counterMANDAUEBANK1++;
+                                    }
+                                    if (BIR.location == "MANDAUE" && BIR.financing == "IHF" && BIR.status == 2)
+                                    {
+                                        counterMANDAUEIHF1++;
+                                    }
+                                    if (BIR.location == "MANDAUE" && BIR.financing == "HDMF" && BIR.status == 2)
+                                    {
+                                        counterMANDAUEHDMF1++;
+                                    }
+                                    //NORTH
+                                    else if (BIR.location == "NORTH" && BIR.status == 2)
+                                    {
+                                        counterNORTH1++;
+                                    }
+                                    if (BIR.location == "NORTH" && BIR.financing == "BANK" && BIR.status == 2)
+                                    {
+                                        counterNORTHBANK1++;
+                                    }
+                                    if (BIR.location == "NORTH" && BIR.financing == "IHF" && BIR.status == 2)
+                                    {
+                                        counterNORTHIHF1++;
+                                    }
+                                    if (BIR.location == "NORTH" && BIR.financing == "HDMF" && BIR.status == 2)
+                                    {
+                                        counterNORTHDMF1++;
+                                    }
+                                    //SOUTH
+                                    else if (BIR.location == "SOUTH" && BIR.status == 2)
+                                    {
+                                        counterSOUTH1++;
+                                    }
+                                    if (BIR.location == "SOUTH" && BIR.financing == "BANK" && BIR.status == 2)
+                                    {
+                                        counterSOUTHBANK1++;
+                                    }
+                                    if (BIR.location == "SOUTH" && BIR.financing == "IHF" && BIR.status == 2)
+                                    {
+                                        counterSOUTHIHF1++;
+                                    }
+                                    if (BIR.location == "SOUTH" && BIR.financing == "HDMF" && BIR.status == 2)
+                                    {
+                                        counterSOUTHHDMF1++;
+                                    }
+                                    //TALISAY
+                                    else if (BIR.location == "TALISAY" && BIR.status == 2)
+                                    {
+                                        counterTALISAY1++;
+                                    }
+                                    if (BIR.location == "TALISAY" && BIR.financing == "BANK" && BIR.status == 2)
+                                    {
+                                        counterTALISAYBANK1++;
+                                    }
+                                    if (BIR.location == "TALISAY" && BIR.financing == "IHF" && BIR.status == 2)
+                                    {
+                                        counterTALISAYIHF1++;
+                                    }
+                                    if (BIR.location == "TALISAY" && BIR.financing == "HDMF" && BIR.status == 2)
+                                    {
+                                        counterTALISAYHDMF1++;
+                                    }
+                                    //DUMAGUETE
+                                    else if (BIR.location == "DUMAGUETE" && BIR.status == 2)
+                                    {
+                                        counteDUMAGUETEcount++;
+                                    }
+                                    if (BIR.location == "DUMAGUETE" && BIR.financing == "BANK" && BIR.status == 2)
+                                    {
+                                        counterDUMAGUETEBANK++;
+                                    }
+                                    if (BIR.location == "DUMAGUETE" && BIR.financing == "IHF" && BIR.status == 2)
+                                    {
+                                        counterDUMAGUETEIHF++;
+                                    }
+                                    if (BIR.location == "DUMAGUETE" && BIR.financing == "HDMF" && BIR.status == 2)
+                                    {
+                                        counterDUMAGUETEHDMF++;
+                                    }
+                                }
+                                <tr>
+                                    <th class="center" style="background-color: yellowgreen"><b>LOCATION</b></th>
+                                    <th class="center" style="background-color: yellowgreen">TOTAL</th>
+                                    <th class="center" style="background-color: yellowgreen">BANK</th>
+                                    <th class="center" style="background-color: yellowgreen">IHF</th>
+                                    <th class="center" style="background-color: yellowgreen">HDMF</th>
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Birlocation)
+                                    {
+                                        totalbir1 = counterbohol1 + counterMANDAUE1 + counterNORTH1 + counterSOUTH1 + counterTALISAY1 + counteDUMAGUETEcount;
+                                        totalbank = counterBOHOLBANK1 + counterMANDAUEBANK1 + counterNORTHBANK1 + counterSOUTHBANK1 + counterTALISAYBANK1 + counterDUMAGUETEBANK;
+                                        totalihf = counterBOHOLIHF1 + counterMANDAUEIHF1 + counterNORTHIHF1 + counterSOUTHIHF1 + counterTALISAYIHF1 + counterDUMAGUETEIHF;
+                                        totalhdmf = counterBOHOLHDMF1 + counterMANDAUEHDMF1 + counterNORTHDMF1 + counterSOUTHHDMF1 + counterTALISAYHDMF1 + counterDUMAGUETEHDMF;
+                                        if (BIRLocation.location == "BOHOL")
+                                        {
+                                            <th class="center" style="background-color: lightgreen">Bohol</th>
+                                            <th class="center" style="background-color: lightgreen">@counterbohol1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterBOHOLBANK1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterBOHOLIHF1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterBOHOLHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @{
+                                        foreach (var BIRLocation in ViewBag.Birlocation)
+                                        {
+                                            if (BIRLocation.location == "MANDAUE")
+                                            {
+                                                <th class="center" style="background-color: lightgreen">Mandaue</th>
+                                                <th class="center" style="background-color: lightgreen">@counterMANDAUE1</th>
+                                                <th class="center" style="background-color: lightgreen">@counterMANDAUEBANK1</th>
+                                                <th class="center" style="background-color: lightgreen">@counterMANDAUEIHF1</th>
+                                                <th class="center" style="background-color: lightgreen">@counterMANDAUEHDMF1</th>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Birlocation)
+                                    {
+                                        if (BIRLocation.location == "TALISAY")
+                                        {
+                                            <th class="center" style="background-color: lightgreen">Talisay</th>
+                                            <th class="center" style="background-color: lightgreen">@counterTALISAY1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterTALISAYBANK1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterTALISAYIHF1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterTALISAYHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Birlocation)
+                                    {
+                                        if (BIRLocation.location == "SOUTH")
+                                        {
+                                            <th class="center" style="background-color: lightgreen">South</th>
+                                            <th class="center" style="background-color: lightgreen">@counterSOUTH1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterSOUTHBANK1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterSOUTHIHF1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterSOUTHHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Birlocation)
+                                    {
+                                        if (BIRLocation.location == "NORTH")
+                                        {
+                                            <th class="center" style="background-color: lightgreen">North</th>
+                                            <th class="center" style="background-color: lightgreen">@counterNORTH1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterNORTHBANK1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterNORTHIHF1</th>
+                                            <th class="center" style="background-color: lightgreen">@counterNORTHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Birlocation)
+                                    {
+                                        if (BIRLocation.location == "DUMAGUETE")
+                                        {
+                                            <th class="center" style="background-color: lightgreen">Dumaguete</th>
+                                            <th class="center" style="background-color: lightgreen">@counteDUMAGUETEcount</th>
+                                            <th class="center" style="background-color: lightgreen">@counterDUMAGUETEBANK</th>
+                                            <th class="center" style="background-color: lightgreen">@counterDUMAGUETEIHF</th>
+                                            <th class="center" style="background-color: lightgreen">@counterDUMAGUETEHDMF</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightgreen"><b>TOTAL</b></th>
+                                    <th class="center" style="background-color: lightgreen">@totalbir1</th>
+                                    <th class="center" style="background-color: lightgreen">@totalbank</th>
+                                    <th class="center" style="background-color: lightgreen">@totalihf</th>
+                                    <th class="center" style="background-color: lightgreen">@totalhdmf</th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-xs-12">
+                <div class="col-xs-6">
+                    <div class="widget-box widget-color-blue">
+                        <div class="table-header">
+                            BREAKDOWN WITH PRE-ROD
+                        </div>
+                        <table id="developer" class="table table-striped table-bordered table-hover">
+                            @{
+                                //BOHOL
+                                int BwrBoholcountPreRod = 0;
+                                int counterBoholBANKPreRod = 0;
+                                int counterBoholIHFPreRod = 0;
+                                int counterBoholHDMFPreRod = 0;
+                                //CEBU
+                                int BwrCebuCitycountPreRod = 0;
+                                int counterCebuCityBANKPreRod = 0;
+                                int counterCebuCityIHFPreRod = 0;
+                                int counterCebuCityHDMFPreRod = 0;
+                                //PROVINCE
+                                int BwrCebuProvincecountPreRod = 0;
+                                int counterCebuProvinceBANKPreRod = 0;
+                                int counterCebuProvinceIHFPreRod = 0;
+                                int counterCebuProvinceHDMFPreRod = 0;
+                                //MANDAUE
+                                int BwrMandauecountPreRod = 0;
+                                int counterMandaueBANKPreRod = 0;
+                                int counterMandaueIHFPreRod = 0;
+                                int counterMandaueHDMFPreRod = 0;
+                                //LAPU-LAPU
+                                int BwrLapulapucountPreRod = 0;
+                                int counterLapulapuBANKPreRod = 0;
+                                int counterLapulapuIHFPreRod = 0;
+                                int counterLapulapuHDMFPreRod = 0;
+                                //BOGO
+                                int BwrBogocountPreRod = 0;
+                                int counterBogoBANKPreRod = 0;
+                                int counterBogoIHFPreRod = 0;
+                                int counterBogoHDMFPreRod = 0;
+                                //DUMAGUETE
+                                int BwrDumaguetecountPreRod = 0;
+                                int counterDumagueteBANKPreRod = 0;
+                                int counterDumagueteIHFPreRod = 0;
+                                int counterDumagueteHDMFPreRod = 0;
+
+                                int totalrodPreRod = 0;
+                                int totalrodbankPreRod = 0;
+                                int totalrodihfPreRod = 0;
+                                int totalrodhdmfPreRod = 0;
+                                foreach (var BIR in ViewBag.Account)
+                                {
+                                    //BOHOL
+                                    if (BIR.rd_location == "BOHOL" && BIR.status == 3)
+                                    {
+                                        BwrBoholcountPreRod++;
+                                    }
+                                    if (BIR.rd_location == "BOHOL" && BIR.financing == "BANK" && BIR.status == 3)
+                                    {
+                                        counterBoholBANKPreRod++;
+                                    }
+                                    if (BIR.rd_location == "BOHOL" && BIR.financing == "IHF" && BIR.status == 3)
+                                    {
+                                        counterBoholIHFPreRod++;
+                                    }
+                                    if (BIR.rd_location == "BOHOL" && BIR.financing == "HDMF" && BIR.status == 3)
+                                    {
+                                        counterBoholHDMFPreRod++;
+                                    }
+                                    //CEBU
+                                    else if (BIR.rd_location == "CEBU" && BIR.status == 3)
+                                    {
+                                        BwrCebuCitycountPreRod++;
+                                    }
+                                    if (BIR.rd_location == "CEBU" && BIR.financing == "BANK" && BIR.status == 3)
+                                    {
+                                        counterCebuCityBANKPreRod++;
+                                    }
+                                    if (BIR.rd_location == "CEBU" && BIR.financing == "IHF" && BIR.status == 3)
+                                    {
+                                        counterCebuCityIHFPreRod++;
+                                    }
+                                    if (BIR.rd_location == "CEBU" && BIR.financing == "HDMF" && BIR.status == 3)
+                                    {
+                                        counterCebuCityHDMFPreRod++;
+                                    }
+                                    //PROVINCE
+                                    else if (BIR.rd_location == "PROVINCE" && BIR.status == 3)
+                                    {
+                                        BwrCebuProvincecountPreRod++;
+                                    }
+                                    if (BIR.rd_location == "PROVINCE" && BIR.financing == "BANK" && BIR.status == 3)
+                                    {
+                                        counterCebuProvinceBANKPreRod++;
+                                    }
+                                    if (BIR.rd_location == "PROVINCE" && BIR.financing == "IHF" && BIR.status == 3)
+                                    {
+                                        counterCebuProvinceIHFPreRod++;
+                                    }
+                                    if (BIR.rd_location == "PROVINCE" && BIR.financing == "HDMF" && BIR.status == 3)
+                                    {
+                                        counterCebuProvinceHDMFPreRod++;
+                                    }
+                                    //MANDAUE
+                                    else if (BIR.rd_location == "MANDAUE" && BIR.status == 3)
+                                    {
+                                        BwrMandauecountPreRod++;
+                                    }
+                                    if (BIR.rd_location == "MANDAUE" && BIR.financing == "BANK" && BIR.status == 3)
+                                    {
+                                        counterMandaueBANKPreRod++;
+                                    }
+                                    if (BIR.rd_location == "MANDAUE" && BIR.financing == "IHF" && BIR.status == 3)
+                                    {
+                                        counterMandaueIHFPreRod++;
+                                    }
+                                    if (BIR.rd_location == "MANDAUE" && BIR.financing == "HDMF" && BIR.status == 3)
+                                    {
+                                        counterMandaueHDMFPreRod++;
+                                    }
+                                    //LAPU-LAPU
+                                    else if (BIR.rd_location == "LAPU-LAPU" && BIR.status == 3)
+                                    {
+                                        BwrLapulapucountPreRod++;
+                                    }
+                                    if (BIR.rd_location == "LAPU-LAPU" && BIR.financing == "BANK" && BIR.status == 3)
+                                    {
+                                        counterLapulapuBANKPreRod++;
+                                    }
+                                    if (BIR.rd_location == "LAPU-LAPU" && BIR.financing == "IHF" && BIR.status == 3)
+                                    {
+                                        counterLapulapuIHFPreRod++;
+                                    }
+                                    if (BIR.rd_location == "LAPU-LAPU" && BIR.financing == "HDMF" && BIR.status == 3)
+                                    {
+                                        counterLapulapuHDMFPreRod++;
+                                    }
+                                    //BOGO
+                                    else if (BIR.rd_location == "BOGO" && BIR.status == 3)
+                                    {
+                                        BwrBogocountPreRod++;
+                                    }
+                                    if (BIR.rd_location == "BOGO" && BIR.financing == "BANK" && BIR.status == 3)
+                                    {
+                                        counterBogoBANKPreRod++;
+                                    }
+                                    if (BIR.rd_location == "BOGO" && BIR.financing == "IHF" && BIR.status == 3)
+                                    {
+                                        counterBogoIHFPreRod++;
+                                    }
+                                    if (BIR.rd_location == "BOGO" && BIR.financing == "HDMF" && BIR.status == 3)
+                                    {
+                                        counterBogoHDMFPreRod++;
+                                    }
+                                    //DUMAGUETE
+                                    else if (BIR.rd_location == "DUMAGUETE" && BIR.status == 3)
+                                    {
+                                        BwrDumaguetecountPreRod++;
+                                    }
+                                    if (BIR.rd_location == "DUMAGUETE" && BIR.financing == "BANK" && BIR.status == 3)
+                                    {
+                                        counterDumagueteBANKPreRod++;
+                                    }
+                                    if (BIR.rd_location == "DUMAGUETE" && BIR.financing == "IHF" && BIR.status == 3)
+                                    {
+                                        counterDumagueteIHFPreRod++;
+                                    }
+                                    if (BIR.rd_location == "DUMAGUETE" && BIR.financing == "HDMF" && BIR.status == 3)
+                                    {
+                                        counterDumagueteHDMFPreRod++;
+                                    }
+                                }
+                                <tr>
+                                    <th class="center" style="background-color: lightseagreen">LOCATION</th>
+                                    <th class="center" style="background-color: lightseagreen">TOTAL</th>
+                                    <th class="center" style="background-color: lightseagreen">BANK</th>
+                                    <th class="center" style="background-color: lightseagreen">IHF</th>
+                                    <th class="center" style="background-color: lightseagreen">HDMF</th>
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        totalrodPreRod = BwrBoholcountPreRod + BwrCebuCitycountPreRod + BwrCebuProvincecountPreRod + BwrMandauecountPreRod + BwrLapulapucountPreRod + BwrBogocountPreRod + BwrDumaguetecountPreRod;
+                                        totalrodbankPreRod = counterBoholBANKPreRod + counterCebuCityBANKPreRod + counterCebuProvinceBANKPreRod + counterMandaueBANKPreRod + counterLapulapuBANKPreRod + counterBogoBANKPreRod + counterDumagueteBANKPreRod;
+                                        totalrodihfPreRod = counterBoholIHFPreRod + counterCebuCityIHFPreRod + counterCebuProvinceIHFPreRod + counterMandaueIHFPreRod + counterLapulapuIHFPreRod + counterBogoIHFPreRod + counterDumagueteIHFPreRod;
+                                        totalrodhdmfPreRod = counterBoholHDMFPreRod + counterCebuCityHDMFPreRod + counterCebuProvinceHDMFPreRod + counterMandaueHDMFPreRod + counterLapulapuHDMFPreRod + counterBogoHDMFPreRod + counterDumagueteHDMFPreRod;
+                                        if (BIRLocation.rd_location == "BOHOL")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Bohol</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrBoholcountPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBoholBANKPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBoholIHFPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBoholHDMFPreRod</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        if (BIRLocation.rd_location == "CEBU")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Cebu</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrCebuCitycountPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuCityBANKPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuCityIHFPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuCityHDMFPreRod</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        if (BIRLocation.rd_location == "PROVINCE")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Province</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrCebuProvincecountPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuProvinceBANKPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuProvinceIHFPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuProvinceHDMFPreRod</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @{
+                                        foreach (var BIRLocation in ViewBag.Rodlocation)
+                                        {
+                                            if (BIRLocation.rd_location == "MANDAUE")
+                                            {
+                                                <th class="center" style="background-color: lightyellow">Mandaue</th>
+                                                <th class="center" style="background-color: lightyellow">@BwrMandauecountPreRod</th>
+                                                <th class="center" style="background-color: lightyellow">@counterMandaueBANKPreRod</th>
+                                                <th class="center" style="background-color: lightyellow">@counterMandaueIHFPreRod</th>
+                                                <th class="center" style="background-color: lightyellow">@counterMandaueHDMFPreRod</th>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        if (BIRLocation.rd_location == "LAPU-LAPU")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Lapu-lapu</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrLapulapucountPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterLapulapuBANKPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterLapulapuIHFPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterLapulapuHDMFPreRod</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        if (BIRLocation.rd_location == "BOGO")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Bogo</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrBogocountPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBogoBANKPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBogoIHFPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBogoHDMFPreRod</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        if (BIRLocation.rd_location == "DUMAGUETE")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Dumaguete</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrDumaguetecountPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterDumagueteBANKPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterDumagueteIHFPreRod</th>
+                                            <th class="center" style="background-color: lightyellow">@counterDumagueteHDMFPreRod</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightyellow"><b>TOTAL</b></th>
+                                    <th class="center" style="background-color: lightyellow">@totalrodPreRod</th>
+                                    <th class="center" style="background-color: lightyellow">@totalrodbankPreRod</th>
+                                    <th class="center" style="background-color: lightyellow">@totalrodihfPreRod</th>
+                                    <th class="center" style="background-color: lightyellow">@totalrodhdmfPreRod</th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="widget-box widget-color-blue">
+                        <div class="table-header">
+                            BREAKDOWN WITH ROD
+                        </div>
+                        <table id="developer" class="table table-striped table-bordered table-hover">
+                            @{
+                                //BOHOL
+                                int BwrBoholcount = 0;
+                                int counterBoholBANK1 = 0;
+                                int counterBoholIHF1 = 0;
+                                int counterBoholHDMF1 = 0;
+                                //CEBU
+                                int BwrCebuCitycount = 0;
+                                int counterCebuCityBANK1 = 0;
+                                int counterCebuCityIHF1 = 0;
+                                int counterCebuCityHDMF1 = 0;
+                                //PROVINCE
+                                int BwrCebuProvincecount = 0;
+                                int counterCebuProvinceBANK = 0;
+                                int counterCebuProvinceIHF = 0;
+                                int counterCebuProvinceHDMF = 0;
+                                //MANDAUE
+                                int BwrMandauecount = 0;
+                                int counterMandaueBANK1 = 0;
+                                int counterMandaueIHF1 = 0;
+                                int counterMandaueHDMF1 = 0;
+                                //LAPU-LAPU
+                                int BwrLapulapucount = 0;
+                                int counterLapulapuBANK = 0;
+                                int counterLapulapuIHF = 0;
+                                int counterLapulapuHDMF = 0;
+                                //BOGO
+                                int BwrBogocount = 0;
+                                int counterBogoBANK = 0;
+                                int counterBogoIHF = 0;
+                                int counterBogoHDMF = 0;
+                                //DUMAGUETE
+                                int BwrDumaguetecount = 0;
+                                int counterDumagueteBANK = 0;
+                                int counterDumagueteIHF = 0;
+                                int counterDumagueteHDMF = 0;
+
+                                int totalrod = 0;
+                                int totalrodbank = 0;
+                                int totalrodihf = 0;
+                                int totalrodhdmf = 0;
+                                foreach (var BIR in ViewBag.Account)
+                                {
+                                    //BOHOL
+                                    if (BIR.rd_location == "BOHOL" && BIR.status == 4)
+                                    {
+                                        BwrBoholcount++;
+                                    }
+                                    if (BIR.rd_location == "BOHOL" && BIR.financing == "BANK" && BIR.status == 4)
+                                    {
+                                        counterBoholBANK1++;
+                                    }
+                                    if (BIR.rd_location == "BOHOL" && BIR.financing == "IHF" && BIR.status == 4)
+                                    {
+                                        counterBoholIHF1++;
+                                    }
+                                    if (BIR.rd_location == "BOHOL" && BIR.financing == "HDMF" && BIR.status == 4)
+                                    {
+                                        counterBoholHDMF1++;
+                                    }
+                                    //CEBU
+                                    else if (BIR.rd_location == "CEBU" && BIR.status == 4)
+                                    {
+                                        BwrCebuCitycount++;
+                                    }
+                                    if (BIR.rd_location == "CEBU" && BIR.financing == "BANK" && BIR.status == 4)
+                                    {
+                                        counterCebuCityBANK1++;
+                                    }
+                                    if (BIR.rd_location == "CEBU" && BIR.financing == "IHF" && BIR.status == 4)
+                                    {
+                                        counterCebuCityIHF1++;
+                                    }
+                                    if (BIR.rd_location == "CEBU" && BIR.financing == "HDMF" && BIR.status == 4)
+                                    {
+                                        counterCebuCityHDMF1++;
+                                    }
+                                    //PROVINCE
+                                    else if (BIR.rd_location == "PROVINCE" && BIR.status == 4)
+                                    {
+                                        BwrCebuProvincecount++;
+                                    }
+                                    if (BIR.rd_location == "PROVINCE" && BIR.financing == "BANK" && BIR.status == 4)
+                                    {
+                                        counterCebuProvinceBANK++;
+                                    }
+                                    if (BIR.rd_location == "PROVINCE" && BIR.financing == "IHF" && BIR.status == 4)
+                                    {
+                                        counterCebuProvinceIHF++;
+                                    }
+                                    if (BIR.rd_location == "PROVINCE" && BIR.financing == "HDMF" && BIR.status == 4)
+                                    {
+                                        counterCebuProvinceHDMF++;
+                                    }
+                                    //MANDAUE
+                                    else if (BIR.rd_location == "MANDAUE" && BIR.status == 4)
+                                    {
+                                        BwrMandauecount++;
+                                    }
+                                    if (BIR.rd_location == "MANDAUE" && BIR.financing == "BANK" && BIR.status == 4)
+                                    {
+                                        counterMandaueBANK1++;
+                                    }
+                                    if (BIR.rd_location == "MANDAUE" && BIR.financing == "IHF" && BIR.status == 4)
+                                    {
+                                        counterMandaueIHF1++;
+                                    }
+                                    if (BIR.rd_location == "MANDAUE" && BIR.financing == "HDMF" && BIR.status == 4)
+                                    {
+                                        counterMandaueHDMF1++;
+                                    }
+                                    //LAPU-LAPU
+                                    else if (BIR.rd_location == "LAPU-LAPU" && BIR.status == 4)
+                                    {
+                                        BwrLapulapucount++;
+                                    }
+                                    if (BIR.rd_location == "LAPU-LAPU" && BIR.financing == "BANK" && BIR.status == 4)
+                                    {
+                                        counterLapulapuBANK++;
+                                    }
+                                    if (BIR.rd_location == "LAPU-LAPU" && BIR.financing == "IHF" && BIR.status == 4)
+                                    {
+                                        counterLapulapuIHF++;
+                                    }
+                                    if (BIR.rd_location == "LAPU-LAPU" && BIR.financing == "HDMF" && BIR.status == 4)
+                                    {
+                                        counterLapulapuHDMF++;
+                                    }
+                                    //BOGO
+                                    else if (BIR.rd_location == "BOGO" && BIR.status == 4)
+                                    {
+                                        BwrBogocount++;
+                                    }
+                                    if (BIR.rd_location == "BOGO" && BIR.financing == "BANK" && BIR.status == 4)
+                                    {
+                                        counterBogoBANK++;
+                                    }
+                                    if (BIR.rd_location == "BOGO" && BIR.financing == "IHF" && BIR.status == 4)
+                                    {
+                                        counterBogoIHF++;
+                                    }
+                                    if (BIR.rd_location == "BOGO" && BIR.financing == "HDMF" && BIR.status == 4)
+                                    {
+                                        counterBogoHDMF++;
+                                    }
+                                    //DUMAGUETE
+                                    else if (BIR.rd_location == "DUMAGUETE" && BIR.status == 4)
+                                    {
+                                        BwrDumaguetecount++;
+                                    }
+                                    if (BIR.rd_location == "DUMAGUETE" && BIR.financing == "BANK" && BIR.status == 4)
+                                    {
+                                        counterDumagueteBANK++;
+                                    }
+                                    if (BIR.rd_location == "DUMAGUETE" && BIR.financing == "IHF" && BIR.status == 4)
+                                    {
+                                        counterDumagueteIHF++;
+                                    }
+                                    if (BIR.rd_location == "DUMAGUETE" && BIR.financing == "HDMF" && BIR.status == 4)
+                                    {
+                                        counterDumagueteHDMF++;
+                                    }
+                                }
+                                <tr>
+                                    <th class="center" style="background-color: lightseagreen">LOCATION</th>
+                                    <th class="center" style="background-color: lightseagreen">TOTAL</th>
+                                    <th class="center" style="background-color: lightseagreen">BANK</th>
+                                    <th class="center" style="background-color: lightseagreen">IHF</th>
+                                    <th class="center" style="background-color: lightseagreen">HDMF</th>
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        totalrod = BwrBoholcount + BwrCebuCitycount + BwrCebuProvincecount + BwrMandauecount + BwrLapulapucount + BwrBogocount + BwrDumaguetecount;
+                                        totalrodbank = counterBoholBANK1 + counterCebuCityBANK1 + counterCebuProvinceBANK + counterMandaueBANK1 + counterLapulapuBANK + counterBogoBANK + counterDumagueteBANK;
+                                        totalrodihf = counterBoholIHF1 + counterCebuCityIHF1 + counterCebuProvinceIHF + counterMandaueIHF1 + counterLapulapuIHF + counterBogoIHF + counterDumagueteIHF;
+                                        totalrodhdmf = counterBoholHDMF1 + counterCebuCityHDMF1 + counterCebuProvinceHDMF + counterMandaueHDMF1 + counterLapulapuHDMF + counterBogoHDMF + counterDumagueteHDMF;
+                                        if (BIRLocation.rd_location == "BOHOL")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Bohol</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrBoholcount</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBoholBANK1</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBoholIHF1</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBoholHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        if (BIRLocation.rd_location == "CEBU")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Cebu</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrCebuCitycount</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuCityBANK1</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuCityIHF1</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuCityHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        if (BIRLocation.rd_location == "PROVINCE")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Province</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrCebuProvincecount</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuProvinceBANK</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuProvinceIHF</th>
+                                            <th class="center" style="background-color: lightyellow">@counterCebuProvinceHDMF</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @{
+                                        foreach (var BIRLocation in ViewBag.Rodlocation)
+                                        {
+                                            if (BIRLocation.rd_location == "MANDAUE")
+                                            {
+                                                <th class="center" style="background-color: lightyellow">Mandaue</th>
+                                                <th class="center" style="background-color: lightyellow">@BwrMandauecount</th>
+                                                <th class="center" style="background-color: lightyellow">@counterMandaueBANK1</th>
+                                                <th class="center" style="background-color: lightyellow">@counterMandaueIHF1</th>
+                                                <th class="center" style="background-color: lightyellow">@counterMandaueHDMF1</th>
+                                            }
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        if (BIRLocation.rd_location == "LAPU-LAPU")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Lapu-lapu</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrLapulapucount</th>
+                                            <th class="center" style="background-color: lightyellow">@counterLapulapuBANK</th>
+                                            <th class="center" style="background-color: lightyellow">@counterLapulapuIHF</th>
+                                            <th class="center" style="background-color: lightyellow">@counterLapulapuHDMF</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        if (BIRLocation.rd_location == "BOGO")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Bogo</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrBogocount</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBogoBANK</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBogoIHF</th>
+                                            <th class="center" style="background-color: lightyellow">@counterBogoHDMF</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Rodlocation)
+                                    {
+                                        if (BIRLocation.rd_location == "DUMAGUETE")
+                                        {
+                                            <th class="center" style="background-color: lightyellow">Dumaguete</th>
+                                            <th class="center" style="background-color: lightyellow">@BwrDumaguetecount</th>
+                                            <th class="center" style="background-color: lightyellow">@counterDumagueteBANK</th>
+                                            <th class="center" style="background-color: lightyellow">@counterDumagueteIHF</th>
+                                            <th class="center" style="background-color: lightyellow">@counterDumagueteHDMF</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightyellow"><b>TOTAL</b></th>
+                                    <th class="center" style="background-color: lightyellow">@totalrod</th>
+                                    <th class="center" style="background-color: lightyellow">@totalrodbank</th>
+                                    <th class="center" style="background-color: lightyellow">@totalrodihf</th>
+                                    <th class="center" style="background-color: lightyellow">@totalrodhdmf</th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-xs-12">
+                <div class="col-xs-6">
+                    <div class="widget-box widget-color-blue">
+                        <div class="table-header">
+                            BREAKDOWN WITH PRE-ASSESSOR
+                        </div>
+                        <table id="developer" class="table table-striped table-bordered table-hover">
+                            @{
+                                //MANDAUE
+                                int BwaMandauecountPreAss = 0;
+                                int counterMandaueBANKPreAss = 0;
+                                int counterMandaueIHFPreAss = 0;
+                                int counterMandaueHDMFPreAss = 0;
+                                //LAPU-LAPU
+                                int BwaLapulapucountPreAss = 0;
+                                int counterLapulapuBANKPreAss = 0;
+                                int counterLapulapuIHFPreAss = 0;
+                                int counterLapulapuHDMFPreAss = 0;
+                                //BOHOL
+                                int BwaBoholcountPreAss = 0;
+                                int counterBOHOLBANKPreAss = 0;
+                                int counterBOHOLIHFPreAss = 0;
+                                int counterBOHOLHDMFPreAss = 0;
+                                //PROVINCE
+                                int BwaCebuProvincecountPreAss = 0;
+                                int counterCebuProvinceBANKPreAss = 0;
+                                int counterCebuProvinceIHFPreAss = 0;
+                                int counterCebuProvinceHDMFPreAss = 0;
+                                //DUMAGUETE
+                                int BwaDumaguetecountPreAss = 0;
+                                int counterDumagueteBANKPreAss = 0;
+                                int counterDumagueteIHFPreAss = 0;
+                                int counterDumagueteHDMFPreAss = 0;
+                                //BOGO
+                                int BwaBogocountPreAss = 0;
+                                int counterBogoBANKPreAss = 0;
+                                int counterBogoLIHFPreAss = 0;
+                                int counterBogoHDMFPreAss = 0;
+                                //TALISAY
+                                int BwaTalisaycountPreAss = 0;
+                                int counterTalisayBANKPreAss = 0;
+                                int counterTalisayIHFPreAss = 0;
+                                int counterTalisayHDMFPreAss = 0;
+                                //CEBU
+                                int BwaCebucountPreAss = 0;
+                                int counterCebuBANKPreAss = 0;
+                                int counterCebuIHFPreAss = 0;
+                                int counterCebuHDMFPreAss = 0;
+
+                                int totalassPreAss = 0;
+                                int totalassbankPreAss = 0;
+                                int totalassihfPreAss = 0;
+                                int totalasshdmfPreAss = 0;
+                                foreach (var PreAss in ViewBag.Account)
+                                {
+                                    //MANDAUE
+                                    if (PreAss.ass_location == "MANDAUE" && PreAss.status == 5)
+                                    {
+                                        BwaMandauecountPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "MANDAUE" && PreAss.financing == "BANK" && PreAss.status == 5)
+                                    {
+                                        counterMandaueBANKPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "MANDAUE" && PreAss.financing == "IHF" && PreAss.status == 5)
+                                    {
+                                        counterMandaueIHFPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "MANDAUE" && PreAss.financing == "HDMF" && PreAss.status == 5)
+                                    {
+                                        counterMandaueHDMFPreAss++;
+                                    }
+                                    //LAPU-LAPU
+                                    else if (PreAss.ass_location == "LAPU-LAPU" && PreAss.status == 5)
+                                    {
+                                        BwaLapulapucountPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "LAPU-LAPU" && PreAss.financing == "BANK" && PreAss.status == 5)
+                                    {
+                                        counterLapulapuBANKPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "LAPU-LAPU" && PreAss.financing == "IHF" && PreAss.status == 5)
+                                    {
+                                        counterLapulapuIHFPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "LAPU-LAPU" && PreAss.financing == "HDMF" && PreAss.status == 5)
+                                    {
+                                        counterLapulapuHDMFPreAss++;
+                                    }
+                                    //BOHOL
+                                    else if (PreAss.ass_location == "BOHOL" && PreAss.status == 5)
+                                    {
+                                        BwaBoholcountPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "BOHOL" && PreAss.financing == "BANK" && PreAss.status == 5)
+                                    {
+                                        counterBOHOLBANKPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "BOHOL" && PreAss.financing == "IHF" && PreAss.status == 5)
+                                    {
+                                        counterBOHOLIHFPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "BOHOL" && PreAss.financing == "HDMF" && PreAss.status == 5)
+                                    {
+                                        counterBOHOLHDMFPreAss++;
+                                    }
+                                    //PROVINCE
+                                    else if (PreAss.ass_location == "PROVINCE" && PreAss.status == 5)
+                                    {
+                                        BwaCebuProvincecountPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "PROVINCE" && PreAss.financing == "BANK" && PreAss.status == 5)
+                                    {
+                                        counterCebuProvinceBANKPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "PROVINCE" && PreAss.financing == "IHF" && PreAss.status == 5)
+                                    {
+                                        counterCebuProvinceIHFPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "PROVINCE" && PreAss.financing == "HDMF" && PreAss.status == 5)
+                                    {
+                                        counterCebuProvinceHDMFPreAss++;
+                                    }
+                                    //DUMAGUETE
+                                    else if (PreAss.rd_location == "DUMAGUETE" && PreAss.status == 5)
+                                    {
+                                        BwaDumaguetecountPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "DUMAGUETE" && PreAss.financing == "BANK" && PreAss.status == 5)
+                                    {
+                                        counterDumagueteBANKPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "DUMAGUETE" && PreAss.financing == "IHF" && PreAss.status == 5)
+                                    {
+                                        counterDumagueteIHFPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "DUMAGUETE" && PreAss.financing == "HDMF" && PreAss.status == 5)
+                                    {
+                                        counterDumagueteHDMFPreAss++;
+                                    }
+                                    //BOGO
+                                    else if (PreAss.rd_location == "BOGO" && PreAss.status == 5)
+                                    {
+                                        BwaBogocountPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "BOGO" && PreAss.financing == "BANK" && PreAss.status == 5)
+                                    {
+                                        counterBogoBANKPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "BOGO" && PreAss.financing == "IHF" && PreAss.status == 5)
+                                    {
+                                        counterBogoLIHFPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "BOGO" && PreAss.financing == "HDMF" && PreAss.status == 5)
+                                    {
+                                        counterBogoHDMFPreAss++;
+                                    }
+                                    //TALISAY
+                                    else if (PreAss.rd_location == "TALISAY" && PreAss.status == 5)
+                                    {
+                                        BwaTalisaycountPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "TALISAY" && PreAss.financing == "BANK" && PreAss.status == 5)
+                                    {
+                                        counterTalisayBANKPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "TALISAY" && PreAss.financing == "IHF" && PreAss.status == 5)
+                                    {
+                                        counterTalisayIHFPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "TALISAY" && PreAss.financing == "HDMF" && PreAss.status == 5)
+                                    {
+                                        counterTalisayHDMFPreAss++;
+                                    }
+                                    //CEBU
+                                    else if (PreAss.rd_location == "CEBU" && PreAss.status == 5)
+                                    {
+                                        BwaCebucountPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "CEBU" && PreAss.financing == "BANK" && PreAss.status == 5)
+                                    {
+                                        counterCebuBANKPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "CEBU" && PreAss.financing == "IHF" && PreAss.status == 5)
+                                    {
+                                        counterCebuIHFPreAss++;
+                                    }
+                                    if (PreAss.ass_location == "CEBU" && PreAss.financing == "HDMF" && PreAss.status == 5)
+                                    {
+                                        counterCebuHDMFPreAss++;
+                                    }
+                                }
+                                <tr>
+                                    <th class="center" style="background-color: hotpink">LOCATION</th>
+                                    <th class="center" style="background-color: hotpink">TOTAL</th>
+                                    <th class="center" style="background-color: hotpink">BANK</th>
+                                    <th class="center" style="background-color: hotpink">IHF</th>
+                                    <th class="center" style="background-color: hotpink">HDMF</th>
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        totalassPreAss = BwaMandauecountPreAss + BwaLapulapucountPreAss + BwaBoholcountPreAss + BwaCebuProvincecountPreAss + BwaDumaguetecountPreAss + BwaBogocountPreAss + BwaTalisaycountPreAss + BwaCebucountPreAss;
+                                        totalassbankPreAss = counterMandaueBANKPreAss + counterLapulapuBANKPreAss + counterBOHOLBANKPreAss + counterCebuProvinceBANKPreAss + counterDumagueteBANKPreAss + counterBogoBANKPreAss + counterTalisayBANKPreAss + counterCebuBANKPreAss;
+                                        totalassihfPreAss = counterMandaueIHFPreAss + counterLapulapuIHFPreAss + counterBOHOLIHFPreAss + counterCebuProvinceIHFPreAss + counterDumagueteIHFPreAss + counterBogoLIHFPreAss + counterTalisayIHFPreAss + counterCebuIHFPreAss;
+                                        totalasshdmfPreAss = counterMandaueHDMFPreAss + counterLapulapuHDMFPreAss + counterBOHOLHDMFPreAss + counterCebuProvinceHDMFPreAss + counterDumagueteHDMFPreAss + counterBogoHDMFPreAss + counterTalisayHDMFPreAss + counterCebuHDMFPreAss;
+                                        if (BIRLocation.assessor_location == "MANDAUE")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Mandaue</th>
+                                            <th class="center" style="background-color: lightpink">@BwaMandauecountPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterMandaueBANKPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterMandaueIHFPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterMandaueHDMFPreAss</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "LAPU-LAPU")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Lapu-lapu</th>
+                                            <th class="center" style="background-color: lightpink">@BwaLapulapucountPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterLapulapuBANKPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterLapulapuIHFPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterLapulapuHDMFPreAss</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "BOHOL")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Bohol</th>
+                                            <th class="center" style="background-color: lightpink">@BwaBoholcountPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterBOHOLBANKPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterBOHOLIHFPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterBOHOLHDMFPreAss</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "PROVINCE")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Province</th>
+                                            <th class="center" style="background-color: lightpink">@BwaCebuProvincecountPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuProvinceBANKPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuProvinceIHFPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuProvinceHDMFPreAss</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "DUMAGUETE")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Dumaguete</th>
+                                            <th class="center" style="background-color: lightpink">@BwaDumaguetecountPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterDumagueteBANKPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterDumagueteIHFPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterDumagueteHDMFPreAss</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "BOGO")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Bogo</th>
+                                            <th class="center" style="background-color: lightpink">@BwaBogocountPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterBogoBANKPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterBogoLIHFPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterBogoHDMFPreAss</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "TALISAY")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Talisay</th>
+                                            <th class="center" style="background-color: lightpink">@BwaTalisaycountPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterTalisayBANKPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterTalisayIHFPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterTalisayHDMFPreAss</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "CEBU")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Cebu</th>
+                                            <th class="center" style="background-color: lightpink">@BwaCebucountPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuBANKPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuIHFPreAss</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuHDMFPreAss</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightpink"><b>TOTAL</b></th>
+                                    <th class="center" style="background-color: lightpink">@totalassPreAss</th>
+                                    <th class="center" style="background-color: lightpink">@totalassbankPreAss</th>
+                                    <th class="center" style="background-color: lightpink">@totalassihfPreAss</th>
+                                    <th class="center" style="background-color: lightpink ">@totalasshdmfPreAss</th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="widget-box widget-color-blue">
+                        <div class="table-header">
+                            BREAKDOWN WITH ASSESSOR
+                        </div>
+                        <table id="developer" class="table table-striped table-bordered table-hover">
+                            @{
+                                //MANDAUE
+                                int BwaMandauecount = 0;
+                                int counterMandaueBANK = 0;
+                                int counterMandaueIHF = 0;
+                                int counterMandaueHDMF = 0;
+                                //LAPU-LAPU
+                                int BwaLapulapucount = 0;
+                                int counterLapulapuBANK1 = 0;
+                                int counterLapulapuIHF1 = 0;
+                                int counterLapulapuHDMF1 = 0;
+                                //BOHOL
+                                int BwaBoholcount = 0;
+                                int counterBOHOLBANK = 0;
+                                int counterBOHOLIHF = 0;
+                                int counterBOHOLHDMF = 0;
+                                //PROVINCE
+                                int BwaCebuProvincecount = 0;
+                                int counterCebuProvinceBANK1 = 0;
+                                int counterCebuProvinceIHF1 = 0;
+                                int counterCebuProvinceHDMF1 = 0;
+                                //DUMAGUETE
+                                int BwaDumaguetecount = 0;
+                                int counterDumagueteBANK1 = 0;
+                                int counterDumagueteIHF1 = 0;
+                                int counterDumagueteHDMF1 = 0;
+                                //BOGO
+                                int BwaBogocount = 0;
+                                int counterBogoBANK1 = 0;
+                                int counterBogoLIHF1 = 0;
+                                int counterBogoHDMF1 = 0;
+                                //TALISAY
+                                int BwaTalisaycount = 0;
+                                int counterTalisayBANK1 = 0;
+                                int counterTalisayIHF1 = 0;
+                                int counterTalisayHDMF1 = 0;
+                                //CEBU
+                                int BwaCebucount = 0;
+                                int counterCebuBANK1 = 0;
+                                int counterCebuIHF1 = 0;
+                                int counterCebuHDMF1 = 0;
+
+                                int totalass = 0;
+                                int totalassbank = 0;
+                                int totalassihf = 0;
+                                int totalasshdmf = 0;
+                                foreach (var BIR in ViewBag.Account)
+                                {
+                                    //MANDAUE
+                                    if (BIR.ass_location == "MANDAUE" && BIR.status == 6)
+                                    {
+                                        BwaMandauecount++;
+                                    }
+                                    if (BIR.ass_location == "MANDAUE" && BIR.financing == "BANK" && BIR.status == 6)
+                                    {
+                                        counterMandaueBANK++;
+                                    }
+                                    if (BIR.ass_location == "MANDAUE" && BIR.financing == "IHF" && BIR.status == 6)
+                                    {
+                                        counterMandaueIHF++;
+                                    }
+                                    if (BIR.ass_location == "MANDAUE" && BIR.financing == "HDMF" && BIR.status == 6)
+                                    {
+                                        counterMandaueHDMF++;
+                                    }
+                                    //LAPU-LAPU
+                                    else if (BIR.ass_location == "LAPU-LAPU" && BIR.status == 6)
+                                    {
+                                        BwaLapulapucount++;
+                                    }
+                                    if (BIR.ass_location == "LAPU-LAPU" && BIR.financing == "BANK" && BIR.status == 6)
+                                    {
+                                        counterLapulapuBANK1++;
+                                    }
+                                    if (BIR.ass_location == "LAPU-LAPU" && BIR.financing == "IHF" && BIR.status == 6)
+                                    {
+                                        counterLapulapuIHF1++;
+                                    }
+                                    if (BIR.ass_location == "LAPU-LAPU" && BIR.financing == "HDMF" && BIR.status == 6)
+                                    {
+                                        counterLapulapuHDMF1++;
+                                    }
+                                    //BOHOL
+                                    else if (BIR.ass_location == "BOHOL" && BIR.status == 6)
+                                    {
+                                        BwaBoholcount++;
+                                    }
+                                    if (BIR.ass_location == "BOHOL" && BIR.financing == "BANK" && BIR.status == 6)
+                                    {
+                                        counterBOHOLBANK++;
+                                    }
+                                    if (BIR.ass_location == "BOHOL" && BIR.financing == "IHF" && BIR.status == 6)
+                                    {
+                                        counterBOHOLIHF++;
+                                    }
+                                    if (BIR.ass_location == "BOHOL" && BIR.financing == "HDMF" && BIR.status == 6)
+                                    {
+                                        counterBOHOLHDMF++;
+                                    }
+                                    //PROVINCE
+                                    else if (BIR.ass_location == "PROVINCE" && BIR.status == 6)
+                                    {
+                                        BwaCebuProvincecount++;
+                                    }
+                                    if (BIR.ass_location == "PROVINCE" && BIR.financing == "BANK" && BIR.status == 6)
+                                    {
+                                        counterCebuProvinceBANK1++;
+                                    }
+                                    if (BIR.ass_location == "PROVINCE" && BIR.financing == "IHF" && BIR.status == 6)
+                                    {
+                                        counterCebuProvinceIHF1++;
+                                    }
+                                    if (BIR.ass_location == "PROVINCE" && BIR.financing == "HDMF" && BIR.status == 6)
+                                    {
+                                        counterCebuProvinceHDMF1++;
+                                    }
+                                    //DUMAGUETE
+                                    else if (BIR.rd_location == "DUMAGUETE" && BIR.status == 6)
+                                    {
+                                        BwaDumaguetecount++;
+                                    }
+                                    if (BIR.ass_location == "DUMAGUETE" && BIR.financing == "BANK" && BIR.status == 6)
+                                    {
+                                        counterDumagueteBANK1++;
+                                    }
+                                    if (BIR.ass_location == "DUMAGUETE" && BIR.financing == "IHF" && BIR.status == 6)
+                                    {
+                                        counterDumagueteIHF1++;
+                                    }
+                                    if (BIR.ass_location == "DUMAGUETE" && BIR.financing == "HDMF" && BIR.status == 6)
+                                    {
+                                        counterDumagueteHDMF1++;
+                                    }
+                                    //BOGO
+                                    else if (BIR.rd_location == "BOGO" && BIR.status == 6)
+                                    {
+                                        BwaBogocount++;
+                                    }
+                                    if (BIR.ass_location == "BOGO" && BIR.financing == "BANK" && BIR.status == 6)
+                                    {
+                                        counterBogoBANK1++;
+                                    }
+                                    if (BIR.ass_location == "BOGO" && BIR.financing == "IHF" && BIR.status == 6)
+                                    {
+                                        counterBogoLIHF1++;
+                                    }
+                                    if (BIR.ass_location == "BOGO" && BIR.financing == "HDMF" && BIR.status == 6)
+                                    {
+                                        counterBogoHDMF1++;
+                                    }
+                                    //TALISAY
+                                    else if (BIR.rd_location == "TALISAY" && BIR.status == 6)
+                                    {
+                                        BwaTalisaycount++;
+                                    }
+                                    if (BIR.ass_location == "TALISAY" && BIR.financing == "BANK" && BIR.status == 6)
+                                    {
+                                        counterTalisayBANK1++;
+                                    }
+                                    if (BIR.ass_location == "TALISAY" && BIR.financing == "IHF" && BIR.status == 6)
+                                    {
+                                        counterTalisayIHF1++;
+                                    }
+                                    if (BIR.ass_location == "TALISAY" && BIR.financing == "HDMF" && BIR.status == 6)
+                                    {
+                                        counterTalisayHDMF1++;
+                                    }
+                                    //CEBU
+                                    else if (BIR.rd_location == "CEBU" && BIR.status == 6)
+                                    {
+                                        BwaCebucount++;
+                                    }
+                                    if (BIR.ass_location == "CEBU" && BIR.financing == "BANK" && BIR.status == 6)
+                                    {
+                                        counterCebuBANK1++;
+                                    }
+                                    if (BIR.ass_location == "CEBU" && BIR.financing == "IHF" && BIR.status == 6)
+                                    {
+                                        counterCebuIHF1++;
+                                    }
+                                    if (BIR.ass_location == "CEBU" && BIR.financing == "HDMF" && BIR.status == 6)
+                                    {
+                                        counterCebuHDMF1++;
+                                    }
+                                }
+                                <tr>
+                                    <th class="center" style="background-color: hotpink">LOCATION</th>
+                                    <th class="center" style="background-color: hotpink">TOTAL</th>
+                                    <th class="center" style="background-color: hotpink">BANK</th>
+                                    <th class="center" style="background-color: hotpink">IHF</th>
+                                    <th class="center" style="background-color: hotpink">HDMF</th>
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        totalass = BwaMandauecount + BwaLapulapucount + BwaBoholcount + BwaCebuProvincecount + BwaDumaguetecount + BwaBogocount + BwaTalisaycount + BwaCebucount;
+                                        totalassbank = counterMandaueBANK + counterLapulapuBANK1 + counterBOHOLBANK + counterCebuProvinceBANK1 + counterDumagueteBANK1 + counterBogoBANK1 + counterTalisayBANK1 + counterCebuBANK1;
+                                        totalassihf = counterMandaueIHF + counterLapulapuIHF1 + counterBOHOLIHF + counterCebuProvinceIHF1 + counterDumagueteIHF1 + counterBogoLIHF1 + counterTalisayIHF1 + counterCebuIHF1;
+                                        totalasshdmf = counterMandaueHDMF + counterLapulapuHDMF1 + counterBOHOLHDMF + counterCebuProvinceHDMF1 + counterDumagueteHDMF1 + counterBogoHDMF1 + counterTalisayHDMF1 + counterCebuHDMF1;
+                                        if (BIRLocation.assessor_location == "MANDAUE")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Mandaue</th>
+                                            <th class="center" style="background-color: lightpink">@BwaMandauecount</th>
+                                            <th class="center" style="background-color: lightpink">@counterMandaueBANK</th>
+                                            <th class="center" style="background-color: lightpink">@counterMandaueIHF</th>
+                                            <th class="center" style="background-color: lightpink">@counterMandaueHDMF</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "LAPU-LAPU")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Lapu-lapu</th>
+                                            <th class="center" style="background-color: lightpink">@BwaLapulapucount</th>
+                                            <th class="center" style="background-color: lightpink">@counterLapulapuBANK1</th>
+                                            <th class="center" style="background-color: lightpink">@counterLapulapuIHF1</th>
+                                            <th class="center" style="background-color: lightpink">@counterLapulapuHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "BOHOL")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Bohol</th>
+                                            <th class="center" style="background-color: lightpink">@BwaBoholcount</th>
+                                            <th class="center" style="background-color: lightpink">@counterBOHOLBANK</th>
+                                            <th class="center" style="background-color: lightpink">@counterBOHOLIHF</th>
+                                            <th class="center" style="background-color: lightpink">@counterBOHOLHDMF</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "PROVINCE")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Province</th>
+                                            <th class="center" style="background-color: lightpink">@BwaCebuProvincecount</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuProvinceBANK1</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuProvinceIHF1</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuProvinceHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "DUMAGUETE")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Dumaguete</th>
+                                            <th class="center" style="background-color: lightpink">@BwaDumaguetecount</th>
+                                            <th class="center" style="background-color: lightpink">@counterDumagueteBANK1</th>
+                                            <th class="center" style="background-color: lightpink">@counterDumagueteIHF1</th>
+                                            <th class="center" style="background-color: lightpink">@counterDumagueteHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "BOGO")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Bogo</th>
+                                            <th class="center" style="background-color: lightpink">@BwaBogocount</th>
+                                            <th class="center" style="background-color: lightpink">@counterBogoBANK1</th>
+                                            <th class="center" style="background-color: lightpink">@counterBogoLIHF1</th>
+                                            <th class="center" style="background-color: lightpink">@counterBogoHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "TALISAY")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Talisay</th>
+                                            <th class="center" style="background-color: lightpink">@BwaTalisaycount</th>
+                                            <th class="center" style="background-color: lightpink">@counterTalisayBANK1</th>
+                                            <th class="center" style="background-color: lightpink">@counterTalisayIHF1</th>
+                                            <th class="center" style="background-color: lightpink">@counterTalisayHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    @foreach (var BIRLocation in ViewBag.Asslocation)
+                                    {
+                                        if (BIRLocation.assessor_location == "CEBU")
+                                        {
+                                            <th class="center" style="background-color: lightpink">Cebu</th>
+                                            <th class="center" style="background-color: lightpink">@BwaCebucount</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuBANK1</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuIHF1</th>
+                                            <th class="center" style="background-color: lightpink">@counterCebuHDMF1</th>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <th class="center" style="background-color: lightpink"><b>TOTAL</b></th>
+                                    <th class="center" style="background-color: lightpink">@totalass</th>
+                                    <th class="center" style="background-color: lightpink">@totalassbank</th>
+                                    <th class="center" style="background-color: lightpink">@totalassihf</th>
+                                    <th class="center" style="background-color: lightpink ">@totalasshdmf</th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat widget-header-small">
+                            <h5 class="text-center" style="color:black;">
+                                <b>
+                                    PRE-BIR
+                                </b>
+                            </h5>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div>
+                                    <canvas id="myPieChartprebir" width="300" height="300"></canvas>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.widget-box -->
+                </div><!-- /.col -->
+
+                <div class="col-sm-3">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat widget-header-small">
+                            <h5 class="text-center" style="color:black;">
+                                <b>
+                                    BIR SUBMISSION
+                                </b>
+                            </h5>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div>
+                                    <canvas id="myPieChartbirsubmission" width="300" height="300"></canvas>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.widget-box -->
+                </div><!-- /.col -->
+
+                <div class="col-sm-3">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat widget-header-small">
+                            <h5 class="text-center" style="color:black;">
+                                <b>
+                                    BIR RELEASED
+                                </b>
+                            </h5>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div>
+                                    <canvas id="myPieChartvbirreleased" width="300" height="300"></canvas>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.widget-box -->
+                </div><!-- /.col -->
+
+                <div class="col-sm-3">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat widget-header-small">
+                            <h5 class="text-center" style="color:black;">
+                                <b>
+                                    PRE-ROD SUBMISSION
+                                </b>
+                            </h5>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div>
+                                    <canvas id="myPieChartvprerodsub" width="300" height="300"></canvas>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.widget-box -->
+                </div><!-- /.col -->
+
+                <div class="col-sm-3">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat widget-header-small">
+                            <h5 class="text-center" style="color:black;">
+                                <b>
+                                    ROD RELEASED
+                                </b>
+                            </h5>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div>
+                                    <canvas id="myPieChartrodrealed" width="300" height="300"></canvas>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.widget-box -->
+                </div><!-- /.col -->
+
+                <div class="col-sm-3">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat widget-header-small">
+                            <h5 class="text-center" style="color:black;">
+                                <b>
+                                    PRE- ASSESSOR SUBMISSION
+                                </b>
+                            </h5>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div>
+                                    <canvas id="myPieChartpreassessorsub" width="300" height="300"></canvas>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.widget-box -->
+                </div><!-- /.col -->
+
+                <div class="col-sm-3">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat widget-header-small">
+                            <h5 class="text-center" style="color:black;">
+                                <b>
+                                    ASSESSOR RELEASED
+                                </b>
+                            </h5>
+                        </div>
+
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div>
+                                    <canvas id="myPieChartassessorreleased" width="300" height="300"></canvas>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div><!-- /.widget-box -->
+                </div><!-- /.col -->
+
+            </div>
+        </body>
+    }
+}
+
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            //format date to table summary
+            function formatDate(dateString) {
+                if (!dateString) return ''; // Return empty string if dateString is undefined or null
+
+                var dateString1 = dateString.substr(6); // Assuming dateString format is "/Date(1720627200000)/"
+                var currentTime = new Date(parseInt(dateString1));
+                var monthNames = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                var month = monthNames[currentTime.getMonth()];
+                var day = currentTime.getDate();
+                var year = currentTime.getFullYear();
+
+                return month + ' ' + day + ', ' + year;
+            }
+
+            //after click add or edit in turnover checklist.. dapat naka view ra japon sa kana nga tab
+            if (location.hash) {
+                $("a[href='" + location.hash + "']").tab("show");
+            }
+            $(document.body).on("click", "a[data-toggle='tab']", function (event) {
+                location.hash = this.getAttribute("href");
+            });
+
+        }); //end from document.ready
+
+        TableManageButtons.init();
+
+        //kani sumpay sa open tab after load sa page.
+        $(window).on("popstate", function () {
+            var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
+            $("a[href='" + anchor + "']").tab("show");
+        });
+    </script>
+
+    <script>
+    // JavaScript to render the donut chart
+        document.addEventListener("DOMContentLoaded", function () {
+
+        // Prepare data for the chart PRE-BIR
+        var statusesprebir = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.PRE_BIR_STATUS)));
+        var statusCountsprebir = {
+            ongoing: statusesprebir.filter(status => status === "ongoing").length,
+            doneOnTime: statusesprebir.filter(status => status === "done on time").length,
+            doneDelay: statusesprebir.filter(status => status === "done delay").length,
+            delay: statusesprebir.filter(status => status === "delay").length
+        };
+        var dataValuesprebir = [
+            statusCountsprebir.ongoing,
+            statusCountsprebir.doneOnTime,
+            statusCountsprebir.doneDelay,
+            statusCountsprebir.delay
+        ];
+        var totalprebir = dataValuesprebir.reduce((acc, val) => acc + val, 0); // Total number of statuses
+        // Create the donut chart
+        var ctx = document.getElementById('myPieChartprebir').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Ongoing', 'Done On Time', 'Done Delayed', 'Delayed'],
+                datasets: [{
+                    data: dataValuesprebir,
+                    backgroundColor: ['#acc3e8', '#b9ebda', '#d9e6b3', '#e8acac'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const value = dataValuesprebir[tooltipItem.dataIndex]; // Get the value of the current status
+                                const percentage = totalprebir ? ((value / totalprebir) * 100).toFixed() : 0; // Calculate percentage
+                                return `${percentage}%`; // Return percentage in the tooltip
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Prepare data for the chart BIR SUBMISSION
+        var statusesbirsub = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.BIR_SUBMISSION_STATUS)));
+        var statusCountsbirsub = {
+            ongoing: statusesbirsub.filter(status => status === "ongoing").length,
+            doneDelay: statusesbirsub.filter(status => status === "done delay").length,
+            doneOnTime: statusesbirsub.filter(status => status === "done on time").length,
+            delay: statusesbirsub.filter(status => status === "delay").length
+        };
+        var dataValuesbirsub = [
+            statusCountsbirsub.ongoing,
+            statusCountsbirsub.doneOnTime,
+            statusCountsbirsub.doneDelay,
+            statusCountsbirsub.delay
+        ];
+        var totalbirsub = dataValuesbirsub.reduce((acc, val) => acc + val, 0); // Total number of statuses
+        // Create the donut chart
+        var ctx = document.getElementById('myPieChartbirsubmission').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Ongoing', 'Done On Time', 'Done Delayed', 'Delayed'],
+                datasets: [{
+                    data: dataValuesbirsub,
+                    backgroundColor: ['#acc3e8', '#b9ebda', '#d9e6b3', '#e8acac'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const value = dataValuesbirsub[tooltipItem.dataIndex]; // Get the value of the current status
+                                const percentage = totalbirsub ? ((value / totalbirsub) * 100).toFixed() : 0; // Calculate percentage
+                                return `${percentage}%`; // Return percentage in the tooltip
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Prepare data for the chart BIR RELEASED
+        var statusesbirrel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.BIR_RELEASE_STATUS)));
+        var statusCountsbirrel = {
+            ongoing: statusesbirrel.filter(status => status === "ongoing").length,
+            doneDelay: statusesbirrel.filter(status => status === "done delay").length,
+            doneOnTime: statusesbirrel.filter(status => status === "done on time").length,
+            delay: statusesbirrel.filter(status => status === "delay").length
+        };
+        var dataValuesbirrel = [
+            statusCountsbirrel.ongoing,
+            statusCountsbirrel.doneOnTime,
+            statusCountsbirrel.doneDelay,
+            statusCountsbirrel.delay
+        ];
+        var totalbirrel = dataValuesbirrel.reduce((acc, val) => acc + val, 0); // Total number of statuses
+        // Create the donut chart
+        var ctx = document.getElementById('myPieChartvbirreleased').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Ongoing', 'Done On Time', 'Done Delayed', 'Delayed'],
+                datasets: [{
+                    data: dataValuesbirrel,
+                    backgroundColor: ['#acc3e8', '#b9ebda', '#d9e6b3', '#e8acac'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const value = dataValuesbirrel[tooltipItem.dataIndex]; // Get the value of the current status
+                                const percentage = totalbirrel ? ((value / totalbirrel) * 100).toFixed() : 0; // Calculate percentage
+                                return `${percentage}%`; // Return percentage in the tooltip
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Prepare data for the chart PRE-ROD SUBMISSION
+        var statusesprerodsub = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.PRE_ROD_SUBMISSION_STATUS)));
+        var statusCountsprerodsub = {
+            ongoing: statusesprerodsub.filter(status => status === "ongoing").length,
+            doneDelay: statusesprerodsub.filter(status => status === "done delay").length,
+            doneOnTime: statusesprerodsub.filter(status => status === "done on time").length,
+            delay: statusesprerodsub.filter(status => status === "delay").length
+        };
+        var dataValuesprerodsub = [
+            statusCountsprerodsub.ongoing,
+            statusCountsprerodsub.doneOnTime,
+            statusCountsprerodsub.doneDelay,
+            statusCountsprerodsub.delay
+        ];
+        var totalprerodsub = dataValuesprerodsub.reduce((acc, val) => acc + val, 0); // Total number of statuses
+        // Create the donut chart
+        var ctx = document.getElementById('myPieChartvprerodsub').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Ongoing', 'Done On Time', 'Done Delayed', 'Delayed'],
+                datasets: [{
+                    data: dataValuesprerodsub,
+                    backgroundColor: ['#acc3e8', '#b9ebda', '#d9e6b3', '#e8acac'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const value = dataValuesprerodsub[tooltipItem.dataIndex]; // Get the value of the current status
+                                const percentage = totalprerodsub ? ((value / totalprerodsub) * 100).toFixed() : 0; // Calculate percentage
+                                return `${percentage}%`; // Return percentage in the tooltip
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Prepare data for the chart ROD RELEASED
+        var statusesrodrel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.ROD_RELEASE_STATUS)));
+        var statusCountsrodrel = {
+            ongoing: statusesrodrel.filter(status => status === "ongoing").length,
+            doneDelay: statusesrodrel.filter(status => status === "done delay").length,
+            doneOnTime: statusesrodrel.filter(status => status === "done on time").length,
+            delay: statusesrodrel.filter(status => status === "delay").length
+        };
+        var dataValuesrodrel = [
+            statusCountsrodrel.ongoing,
+            statusCountsrodrel.doneOnTime,
+            statusCountsrodrel.doneDelay,
+            statusCountsrodrel.delay
+        ];
+        var totalrodrel = dataValuesrodrel.reduce((acc, val) => acc + val, 0); // Total number of statuses
+        // Create the donut chart
+        var ctx = document.getElementById('myPieChartrodrealed').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Ongoing', 'Done On Time', 'Done Delayed', 'Delayed'],
+                datasets: [{
+                    data: dataValuesrodrel,
+                    backgroundColor: ['#acc3e8', '#b9ebda', '#d9e6b3', '#e8acac'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const value = dataValuesrodrel[tooltipItem.dataIndex]; // Get the value of the current status
+                                const percentage = totalrodrel ? ((value / totalrodrel) * 100).toFixed() : 0; // Calculate percentage
+                                return `${percentage}%`; // Return percentage in the tooltip
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+            // Prepare data for the chart PRE- ASSESSOR SUBMISSION
+        var statusespreasssub = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.PRE_ASSESSOR_SUBMISSION_STATUS)));
+            var statusCountspreasssub = {
+            ongoing: statusespreasssub.filter(status => status === "ongoing").length,
+            doneOnTime: statusespreasssub.filter(status => status === "done on time").length,
+            doneDelay: statusespreasssub.filter(status => status === "done delay").length,
+            delay: statusespreasssub.filter(status => status === "delay").length
+        };
+            var dataValuespreasssub = [
+            statusCountspreasssub.ongoing,
+            statusCountspreasssub.doneOnTime,
+            statusCountspreasssub.doneDelay,
+            statusCountspreasssub.delay
+        ];
+            var totalpreasssub = dataValuespreasssub.reduce((acc, val) => acc + val, 0); // Total number of statuses
+        // Create the donut chart
+            var ctx = document.getElementById('myPieChartpreassessorsub').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Ongoing', 'Done On Time', 'Done Delayed', 'Delayed'],
+                datasets: [{
+                    data: dataValuespreasssub,
+                    backgroundColor: ['#acc3e8', '#b9ebda', '#d9e6b3', '#e8acac'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const value = dataValuespreasssub[tooltipItem.dataIndex]; // Get the value of the current status
+                                const percentage = totalpreasssub ? ((value / totalpreasssub) * 100).toFixed() : 0; // Calculate percentage
+                                return `${percentage}%`; // Return percentage in the tooltip
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+            // Prepare data for the chart ASSESSOR RELEASED
+        var statusesassrel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(m => m.ASSESSOR_RELEASE_STATUS)));
+            var statusCountsassrel = {
+            ongoing: statusesassrel.filter(status => status === "ongoing").length,
+            doneDelay: statusesassrel.filter(status => status === "done delay").length,
+            doneOnTime: statusesassrel.filter(status => status === "done on time").length,
+            delay: statusesassrel.filter(status => status === "delay").length
+        };
+            var dataValuesassrel = [
+            statusCountsassrel.ongoing,
+            statusCountsassrel.doneOnTime,
+            statusCountsassrel.doneDelay,
+            statusCountsassrel.delay
+        ];
+            var totalassrel = dataValuesassrel.reduce((acc, val) => acc + val, 0); // Total number of statuses
+        // Create the donut chart
+            var ctx = document.getElementById('myPieChartassessorreleased').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Ongoing', 'Done On Time', 'Done Delayed', 'Delayed'],
+                datasets: [{
+                    data: dataValuesassrel,
+                    backgroundColor: ['#acc3e8', '#b9ebda', '#d9e6b3', '#e8acac'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const value = dataValuesassrel[tooltipItem.dataIndex]; // Get the value of the current status
+                                const percentage = totalassrel ? ((value / totalassrel) * 100).toFixed() : 0; // Calculate percentage
+                                return `${percentage}%`; // Return percentage in the tooltip
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+    </script>
+
+}

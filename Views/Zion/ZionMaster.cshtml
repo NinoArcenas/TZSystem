@@ -1,0 +1,1564 @@
+﻿@model TADTitleConversion.Models.ClientInfoStatus
+@{
+    ViewBag.Title = "ZionMaster";
+
+    var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+    var stringChars = new char[20];
+    var random = new Random();
+
+    for (int i = 0; i < stringChars.Length; i++)
+    {
+        stringChars[i] = chars[random.Next(chars.Length)];
+    }
+    var finalString = new String(stringChars);
+}
+
+<br />
+<body class="background-White" style="background-color:white">
+    <input type="text" value="@finalString" id="controlnumbergenerated" style="display:none">
+    <div class="widget-body" style="background-color:white">
+
+        <div class="col-sm-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                    <li class="active">
+                        <a data-toggle="tab" href="#members" style="color: black">
+                            <i class="blue ace-icon fa fa-users bigger-110"></i>
+                            MEMBERS
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#positionholder" style="color: black">
+                            <i class="blue ace-icon fa fa-users bigger-110"></i>
+                            POSITION HOLDER
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#grouname" style="color: black">
+                            <i class="blue ace-icon fa fa-users bigger-110"></i>
+                            GROUP NAME
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#majoractivity" style="color: black">
+                            <i class="blue ace-icon fa fa-users bigger-110"></i>
+                            MAJOR ACTIVITY
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#dailyactivity" style="color: black">
+                            <i class="blue ace-icon fa fa-users bigger-110"></i>
+                            DAILY ACTIVITY
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#weeklygoal" style="color:black">
+                            <i class="blue ace-icon fa fa-tachometer bigger-110"></i>
+                            WEEKLY GOAL
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#monthlygoal" style="color: black">
+                            <i class="blue ace-icon fa fa-rocket bigger-110"></i>
+                            MONTHLY GOAL
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="positionholder" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            POSITION HOLDER LIST
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddPositionHolderModal">
+                                                        <span class="bigger-110">Add Position Holder</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="mastersPositionHolderTable" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" style="color: black; background-color: cornflowerblue" hidden>Ref No.</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Full Name</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Life Number</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Position</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="mastersPositionHolderTableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="grouname" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            GROUP NAME LIST
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddGroupNameModal">
+                                                        <span class="bigger-110">Add Group Name</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="mastersGroupNameTable" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" style="color: black; background-color: cornflowerblue" hidden>Ref No.</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Group Name</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Leader Name</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Total Member</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list">
+                                            @{
+                                                var GetListOfGroupName = TADTitleConversion.Controllers.ZionController.GetListOfGroupName();
+                                                foreach (var groupname in GetListOfGroupName)
+                                                {
+                                                    var GetFullnameUsingIDno = TADTitleConversion.Controllers.ZionController.GetFullnameUsingGencode(groupname.leader_gencode);
+                                                    <tr class="position-static">
+                                                        <td style="text-align: center" hidden>@groupname.id</td>
+                                                        <td style="text-align: center">@groupname.group_name</td>
+                                                        <td style="text-align: center">@GetFullnameUsingIDno</td>
+                                                        <td style="text-align: center">@groupname.total_members</td>
+                                                        <td class="align-middle white-space-nowrap text-end pe-0 ps-4 btn-reveal-trigger sticky-action-column" style="z-index: 10;">
+                                                            <div class="font-sans-serif btn-reveal-trigger position-static">
+                                                                <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs--2"></span></button>
+                                                                <div class="dropdown-menu dropdown-menu-end py-2">
+                                                                    <a class="dropdown-item text-info" href="../MaterialOrder/Parcel?qrcode=@groupname.id" target="_blank">VIEW</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="majoractivity" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            MAJOR ACTIVITY
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddMajorActivityModal">
+                                                        <span class="bigger-110">Add Major Activity</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="mastersMajorActivityTable" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" style="color: black; background-color: cornflowerblue" hidden>Ref No.</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Activity Code</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Activity Title</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Activity Purpose</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="mastersMajorActivityTableBody">
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Add MAJOR ACTIVITY-->
+                                    <div class="modal fade" id="AddMajorActivityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Goal</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="FormMojorActivity" method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Activity Code <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="ActivityCode" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Activity Title <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="ActivityTitle" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Activity Purpose <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="ActivityPurpose" autocomplete="off" />
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="SaveMojorActivity">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal View MAJOR ACTIVITY-->
+                                    <div class="modal fade" id="ViewDailyGoalModalGoal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">VIEW MAJOR ACTIVITY</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="EditFormGoal" method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Activity Code :</label>
+                                                            <input type="text" class="form-control" id="ViewActivityCode" readonly="readonly" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Activity Title :</label>
+                                                            <input type="text" class="form-control" id="ViewActivityTitle" readonly="readonly" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Activity Purpose :</label>
+                                                            <input type="text" class="form-control" id="ViewActivityPurpose" readonly="readonly" />
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal Edit MAJOR ACTIVITY-->
+                                    <div class="modal fade" id="EditDailyGoalModalGoal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">EDIT MAJOR ACTIVITY</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="EditFormGoal" method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">ID :</label>
+                                                            <input type="text" class="form-control" id="EditMajorActivityId" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Activity Code :</label>
+                                                            <input type="text" class="form-control" id="EditMajorActivityCode" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Activity Title :</label>
+                                                            <input type="text" class="form-control" id="EditMajorActivityTitle" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Activity Purpose :</label>
+                                                            <input type="text" class="form-control" id="EditMajorActivityPurpose" autocomplete="off" />
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="saveChangesMajorActivity">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="members" class="tab-pane in active">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            MEMBER LIST
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddMemberModal">
+                                                        <span class="bigger-110">Add Members</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="mastersBrotherTable" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" hidden></th>
+                                                <th class="center" style="color: black; background-color:cornflowerblue">Full Name</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Life Number.</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list">
+                                            @{
+                                                var ParcelListFromWarehouse = TADTitleConversion.Controllers.ZionController.GetListOfMembers();
+                                                foreach (var par in ParcelListFromWarehouse)
+                                                {
+                                                    //var GetFullnameUsingIDno = PGBWarehouse.Models.warehouseHelper.GetFullnameUsingIDno(par.generatedcode);
+                                                    <tr class="position-static">        
+                                                                                                    <td style="text-align: center" hidden>@par.id</td>
+                                                        <td style="text-align: center">@par.full_name</td>
+                                                        <td style="text-align: center">@par.life_number</td>
+                                                        <td class="align-middle white-space-nowrap text-end pe-0 ps-4 btn-reveal-trigger sticky-action-column" style="z-index: 10;">
+                                                            <div class="font-sans-serif btn-reveal-trigger position-static">
+                                                                <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs--2" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs--2"></span></button>
+                                                                <div class="dropdown-menu dropdown-menu-end py-2">
+                                                                    <a class="dropdown-item text-info" href="../MaterialOrder/Parcel?qrcode=@par.id" target="_blank">VIEW</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Add Member-->
+                                    <div class="modal fade" id="AddMemberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Member</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="FormBrothers" method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Full Name <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="AddFirstName" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Life Number <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="AddNumber" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Gender <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="AddGender" autocomplete="off" />
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="SaveBrother">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Modal Edit Brother-->
+                                    <div class="modal fade" id="EditBrotherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Member</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="FormBrothers" method="post">
+                                                        <div class="form-group" style="display:none">
+                                                            <label for="recipient-name" class="col-form-label">ID <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="EditBrotherId" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">First Name <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="EditFirstName" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Life Number <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="EditNumber" autocomplete="off" />
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="saveChangesBrother">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="dailyactivity" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            DAILY ACTIVITY
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddDailyActivityModal">
+                                                        <span class="bigger-110">Add Daily Activity</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="mastersDailyActivityTable" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" style="color: black; background-color: cornflowerblue" hidden>Ref No.</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Date Activity</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Activity Type</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Activity Purpose</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="mastersDailyActivityTableBody">
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Add Daily Activity-->
+                                    <div class="modal fade" id="AddDailyActivityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Daily Activity</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="FormDailyActivity" method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Date Activity <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="AddDateActivity" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="form-field-select-3">Activity Type <label style="color: red">*</label>:</label>
+
+                                                            <br />
+                                                            @Html.DropDownListFor(model => model.location, new SelectList(ViewBag.majoractivity, "Value", "Text"), "", new { @class = "chosen-select form-control", id = "AddActivityType", style = "color: black; width:100%" })
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Activity Purpose <label style="color: red">*</label>:</label>
+                                                            <select class="form-control" id="AddActivityPurpose">
+                                                                <option value=""> </option>
+                                                            </select>
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="SaveGoal">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal View Goal-->
+                                    <div class="modal fade" id="ViewDailyGoalModalGoal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">VIEW GOAL</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="EditFormGoal" method="post">
+                                                        <div class="form-group" hidden>
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" class="form-control" id="ViewGoalId" readonly />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">1X ATTENDANS:</label>
+                                                            <input type="text" class="form-control" id="ViewOneTimeAttendance" readonly />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">4X ATTENDANS</label>
+                                                            <input type="text" class="form-control" id="ViewFourTimeAttendance" readonly />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">TITHES</label>
+                                                            <input type="text" class="form-control" id="ViewTithes" readonly />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">BAPTISM</label>
+                                                            <input type="text" class="form-control" id="ViewBaptism" readonly />
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="weeklygoal" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            WEEKLY GOAL
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#ModalSaveDeveloper">
+                                                        <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                        <span class="bigger-110">Add Developer</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="mastersWeeklyGoalTable" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" hidden></th>
+                                                <th class="center" style="color: black; background-color:cornflowerblue">Company Name</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Date Added</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Save-->
+                                    <div class="modal fade" id="ModalSaveDeveloper" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add DEVELOPER</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>Developer:</label>
+                                                            <input type="text" placeholder="Enter Company Name" class="form-control" id="Developer" autocomplete="off" />
+                                                            <label id="warningfielddeveloper" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="SaveDeveloper">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal Edit-->
+                                    <div class="modal fade" id="ModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Company Name</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Developer:</label>
+                                                            <input type="text" placeholder="Enter Company Name" class="form-control" id="EditDeveloper">
+                                                        </div>
+                                                        <div class="form-group" style="display:none">
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" placeholder="Enter Financing" class="form-control" id="EditIDdeveloper">
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="UpdateDeveloper">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="monthlygoal" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            MONTHLY GOAL
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddGoalModal">
+                                                        <span class="bigger-110">Add Goal</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="mastersMonthlyGoalTable" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" style="color: black; background-color: cornflowerblue" hidden>Ref No.</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">1X ATTENDANS</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">4X ATTENDANS</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">TITHES</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">BAPTISM</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">MONTH</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                foreach (var goal in ViewBag.Goal)
+                                                {
+                                                    <tr>
+                                                        <td style="text-align:center" hidden>
+                                                            <label>
+                                                                @goal.id
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @goal.onex_attendace
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @goal.fourx_attendace
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @goal.tithes
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @goal.baptism
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @String.Format("{0:MMMM}", goal.date_created)
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <div class="pull-center">
+                                                                <a class="btn btn-white btn-info btn-round btn-xs no-hover getgoal" data-toggle="modal" data-target="#ViewModalGoal" id="@goal.onex_attendace*@goal.fourx_attendace*@goal.tithes*@goal.baptism*@goal.id">
+                                                                    View
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div class="modal fade" id="AddGoalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Goal</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="FormGoal" method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">1X ATTENDANS <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="OneTimeAttendance" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">4X ATTENDANS <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="FourTimeAttendance" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">TITHES <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="Tithes" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">BAPTISM <label style="color: red">*</label>:</label>
+                                                            <input type="text" class="form-control" id="Baptism" autocomplete="off" />
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="SaveGoal">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal View Goal-->
+                                    <div class="modal fade" id="ViewModalGoal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">VIEW GOAL</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="EditFormGoal" method="post">
+                                                        <div class="form-group" hidden>
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" class="form-control" id="ViewGoalId" readonly />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">1X ATTENDANS:</label>
+                                                            <input type="text" class="form-control" id="ViewOneTimeAttendance" readonly />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">4X ATTENDANS</label>
+                                                            <input type="text" class="form-control" id="ViewFourTimeAttendance" readonly />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">TITHES</label>
+                                                            <input type="text" class="form-control" id="ViewTithes" readonly />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">BAPTISM</label>
+                                                            <input type="text" class="form-control" id="ViewBaptism" readonly />
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Modal Add POSITION HOLDER-->
+                <div class="modal fade" id="AddPositionHolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="modal-title" id="exampleModalLabel">Add Position Holder</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form id="FormPositionHolder" method="post">
+                                    <div class="form-group" style="display:none">
+                                        <label for="recipient-name" class="col-form-label">ID <label style="color: red">*</label>:</label>
+                                        <input type="text" class="form-control" id="AddPositionHolderID" autocomplete="off" />
+                                    </div>
+                                    <div class="form-group" style="display:none">
+                                        <label for="recipient-name" class="col-form-label">Full Name <label style="color: red">*</label>:</label>
+                                        <input type="text" class="form-control" id="AddPositionHolderFullName" autocomplete="off" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="form-field-select-3">Name <label style="color: red">*</label>:</label>
+                                        <br>
+                                        @Html.DropDownListFor(model => model.company_name, new SelectList(ViewBag.members, "Value", "Text"), "---Select Members---", new { @class = "form-control chosen-select", id = "AddMemberfullname", style = "color: black; width:100%" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Life Number <label style="color: red">*</label>:</label>
+                                        <input type="text" class="form-control" id="AddPositionLifeNumber" readonly="readonly" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Position <label style="color: red">*</label>:</label>
+                                        <input type="text" class="form-control" id="AddPosition" autocomplete="off" />
+                                    </div>
+
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary no-hover" id="SavePositionHolder">SAVE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Modal Edit POSITION HOLDER-->
+                <div class="modal fade" id="EditPositionHolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="modal-title" id="exampleModalLabel">EDIT POSITION</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form id="EditFormGoal" method="post">
+                                    <div class="form-group" style="display:none">
+                                        <label for="recipient-name" class="col-form-label">ID :</label>
+                                        <input type="text" class="form-control" id="EditPositionHolderId" autocomplete="off" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Position :</label>
+                                        <input type="text" class="form-control" id="EditPosition" autocomplete="off" />
+                                    </div>
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary no-hover" id="saveChangesPositionHolder">SAVE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Modal Create GROUP NAME-->
+                <div class="modal fade" id="AddGroupNameModal" tabindex="-1" role="dialog" aria-labelledby="AddGroupNameLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="modal-title" id="AddGroupNameLabel">Add Group Name</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Left side: Form -->
+                                    <div class="col-md-4">
+                                        <form id="AddGroupNameForm" method="post">
+                                            <div class="form-group">
+                                                <label for="AddGroupName" class="col-form-label">Group Name <span style="color:red">*</span>:</label>
+                                                <input type="text" class="form-control" id="AddGroupName" autocomplete="off" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="AddLeaderfullname">Leader <span style="color: red">*</span>:</label>
+                                                <br>
+                                                @Html.DropDownListFor(
+                                                  model => model.company_name,
+                                                  new SelectList(ViewBag.leader, "Value", "Text"),
+                                                  "---Select Members---",
+                                                  new { @class = "form-control chosen-select", id = "AddLeaderfullname", style = "color: black; width:100%" }
+                                                )
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="AddLeaderID" class="col-form-label">Life Number :</label>
+                                                <input type="text" class="form-control" id="AddLifeNumber" readonly="readonly" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="AddLeaderID" class="col-form-label">Total Members :</label>
+                                                <input type="text" class="form-control" id="AddTotalNumber" readonly="readonly" />
+                                            </div>
+                                            <div class="form-group" style="display:none">
+                                                <label for="AddLeaderID" class="col-form-label">Generated Code :</label>
+                                                <input type="text" class="form-control" id="AddLeaderGencode" autocomplete="off" />
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- Right side: Table of members -->
+                                    <div class="col-md-8">
+                                        <div class="table-responsive scrollable-table" style="max-height: 600px; overflow-y: auto;">
+                                            LIST OF MEMBER
+                                            <table class="table fs--1 mb-0" id="CheckMembersTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Check</th>
+                                                        <th class="text-center">Name</th>
+                                                        <th class="text-center">Life Number</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        var GetListOfMembers = TADTitleConversion.Controllers.ZionController.GetListOfMembers();
+                                                        foreach (var parc in GetListOfMembers)
+                                                        {
+                                                            <tr class="position-static">
+                                                                <td class="text-center">
+                                                                    <input class="form-check-input createmembers" type="checkbox" value="@parc.generatedcode" id="@parc.generatedcode" name="@parc.generatedcode"/>
+                                                                </td>
+                                                                <td class="text-center">@parc.full_name</td>
+                                                                <td class="text-center">@parc.life_number</td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div> <!-- end .row -->
+                            </div> <!-- end .modal-body -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary no-hover" id="saveBtnGroupName">SAVE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Modal Edit GROUP NAME-->
+                <div class="modal fade" id="EditGroupNameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="modal-title" id="exampleModalLabel">EDIT GROUP NAME</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form id="EditFormGroupName" method="post">
+                                    <div class="form-group" style="display:none">
+                                        <label for="recipient-name" class="col-form-label">ID :</label>
+                                        <input type="text" class="form-control" id="EditGroupNameId" autocomplete="off" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Group Name :</label>
+                                        <input type="text" class="form-control" id="EditGroupName" autocomplete="off" />
+                                    </div>
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary no-hover" id="saveChangesGroupName">SAVE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>        
+
+        $(document).ready(function () {            
+
+            $('#AddMemberfullname').on('change', function () {
+                var selectedValue = $(this).val(); // e.g. "123*LN45678"
+
+                if (selectedValue) {
+                    var parts = selectedValue.split('*');
+                    $('#AddPositionHolderID').val(parts[0]);        // id
+                    $('#AddPositionLifeNumber').val(parts[1]);      // life number
+                    $('#AddPositionHolderFullName').val(parts[2]);      // Full Name
+                } else {
+                    $('#AddPositionHolderID').val('');
+                    $('#AddPositionLifeNumber').val('');
+                    $('#AddPositionHolderFullName').val('');
+                }
+            });
+
+            $('#AddLeaderfullname').on('change', function () {
+                var selectedValue = $(this).val(); // e.g. "123*LN45678"
+
+                if (selectedValue) {
+                    var parts = selectedValue.split('*');
+                    $('#AddLeaderGencode').val(parts[0]);
+                    $('#AddLifeNumber').val(parts[1]);
+                } else {
+                    $('#AddLeaderGencode').val('');
+                    $('#AddLifeNumber').val('');
+                }
+            });
+
+            // Initialize DataTables
+            $("#mastersBrotherTable").DataTable();
+            //DataTable Display
+            $("#mastersActivityTable").DataTable();
+            $("#mastersWeeklyGoalTable").DataTable();
+            $("#mastersMonthlyGoalTable").DataTable();
+            // Initialize DataTables
+            $("#mastersGroupNameTable").DataTable();
+
+            $("#DateActivity").datetimepicker().next().on(ace.click_event, function () {
+                $(this).prev().focus();
+            });
+
+            //Save Mojor Activity
+            $("#SaveMojorActivity").click(function () {
+                var activityCode = $("#ActivityCode").val();
+                var activityTitle = $("#ActivityTitle").val();
+                var activityPurpose = $("#ActivityPurpose").val();
+                if (activityCode != "" && activityTitle != "" && activityPurpose != "") {
+                    var url = "/Zion/Save_MajorActivity";
+                    $.post(url, {
+                        ActivityCode: activityCode,
+                        ActivityTitle: activityTitle,
+                        ActivityPurpose: activityPurpose
+                    }, function (data) {
+                        // Check if success is true or false
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Major Activity Successfully Saved!',
+                                text: data.message
+                            }).then(function () {
+                                // Optional: Reload the page or reset the form after success
+                                location.reload();
+                                $("#FormMojorActivity")[0].reset();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message
+                            });
+                        }
+                    }, "json"); // Ensure the response is treated as JSON
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Requred all details.'
+                    });
+                }
+            });
+
+            //Save Goal
+            $("#SaveGoal").click(function () {
+                var oneatt = $("#OneTimeAttendance").val();
+                var fouratt = $("#FourTimeAttendance").val();
+                var tithes = $("#Tithes").val();
+                var baptism = $("#Baptism").val();
+                if (oneatt != "" && fouratt != "" && tithes != "" && baptism != "") {
+                    var url = "/Zion/Save_Goal";
+                    $.post(url, {
+                        Oneatt: oneatt,
+                        Fouratt: fouratt,
+                        Tithes: tithes,
+                        Baptism: baptism
+                    }, function (data) {
+                        // Check if success is true or false
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Goal Successfully Saved!',
+                                text: data.message
+                            }).then(function () {
+                                // Optional: Reload the page or reset the form after success
+                                location.reload();
+                                $("#FormGoal")[0].reset();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message
+                            });
+                        }
+                    }, "json"); // Ensure the response is treated as JSON
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Requred all details.'
+                    });
+                }
+            });
+
+            //View Goal
+            $(".getgoal").click(function () {
+                var id = this.id;
+                var splits = id.split('*');
+                var ViewOneT = splits[0];
+                var ViewFourT = splits[1];
+                var ViewTithes = splits[2];
+                var ViewBaptism = splits[3];
+                var ViewId = splits[4];
+                $("#ViewOneTimeAttendance").val(ViewOneT);
+                $("#ViewFourTimeAttendance").val(ViewFourT);
+                $("#ViewTithes").val(ViewTithes);
+                $("#ViewBaptism").val(ViewBaptism);
+                $("#ViewGoalId").val(ViewId);
+            });
+
+            ////View Brothers
+            //$(".getbrother").click(function () {
+            //    var id = this.id;
+            //    var splits = id.split('*');
+            //    var ViewFN = splits[0];
+            //    var ViewMN = splits[1];
+            //    var ViewLN = splits[2];
+            //    var ViewBroId = splits[3];
+            //    $("#ViewFirstName").val(ViewFN);
+            //    $("#ViewMiddleName").val(ViewMN);
+            //    $("#ViewLastName").val(ViewLN);
+            //    $("#ViewBrtherId").val(ViewBroId);
+            //});
+
+            //Save Brothers 
+            $("#SaveBrother").click(function () {
+                var addF = $("#AddFirstName").val();
+                var addNo = $("#AddNumber").val();
+                var AddGender = $("#AddGender").val();
+                var addGencode = $("#controlnumbergenerated").val();
+                if (addF != "" && addNo != "") {
+                    var url = "/Zion/Save_Brothers";
+                    $.post(url, {
+                        AddF: addF,
+                        AddNo: addNo,
+                        gender: AddGender,
+                        AddGencode: addGencode
+                    }, function (data) {
+                        // Check if success is true or false
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Brother Successfully Saved!',
+                                text: data.message
+                            }).then(function () {
+                                // Optional: Reload the page or reset the form after success
+                                location.reload();
+                                $("#FormBrothers")[0].reset();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message
+                            });
+                        }
+                    }, "json"); // Ensure the response is treated as JSON
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Requred all details.'
+                    });
+                }
+            });
+
+            //Save Position Holder 
+            $("#SavePositionHolder").click(function () {
+                var AddPositionHolderID = $("#AddPositionHolderID").val();
+                var AddMemberfullname = $("#AddPositionHolderFullName").val();
+                var AddPositionLifeNumber = $("#AddPositionLifeNumber").val();
+                var AddPosition = $("#AddPosition").val();
+                var AddGeneratedCode = $("#controlnumbergenerated").val();
+                if (AddMemberfullname != "" && AddPosition != "") {
+                    var url = "/Zion/Save_PositionHolder";
+                    $.post(url, {
+                        addPositionHolderID: AddPositionHolderID,
+                        addMemberfullname: AddMemberfullname,
+                        addPositionLifeNumber: AddPositionLifeNumber,
+                        addPosition: AddPosition,
+                        addGeneratedCode: AddGeneratedCode
+                    }, function (data) {
+                        // Check if success is true or false
+                        if (data.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Position Holder Successfully Saved!',
+                                text: data.message
+                            }).then(function () {
+                                // Optional: Reload the page or reset the form after success
+                                location.reload();
+                                $("#FormPositionHolder")[0].reset();
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message
+                            });
+                        }
+                    }, "json"); // Ensure the response is treated as JSON
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Requred all details.'
+                    });
+                }
+            });
+
+            let selectedProducts = new Set();
+            // DataTable
+            const table = $('#CheckMembersTable').DataTable({
+                language: { paginate: { previous: '', next: '' } },
+                paging: true,
+                pageLength: 5,
+                info: false,
+                lengthChange: true
+            });
+            // Track checkbox changes
+            $('#CheckMembersTable').on('change', '.createmembers', function () {
+                const memberCode = $(this).val(); // use value instead of id
+                if ($(this).is(':checked')) {
+                    selectedProducts.add(memberCode);
+                } else {
+                    selectedProducts.delete(memberCode);
+                }
+                $("#AddTotalNumber").val(selectedProducts.size);
+            });
+
+            // Save button
+            $("#saveBtnGroupName").click(async function () {
+                const members = Array.from(selectedProducts);
+
+                if (members.length === 0) {
+                    Swal.fire({ icon: 'error', title: 'Oops...', text: 'Please select at least 1 member.' });
+                    return;
+                }
+
+                const generatedcode = $("#controlnumbergenerated").val()?.trim();
+                const AddGroupName = $("#AddGroupName").val()?.trim();
+                const AddLeaderGencode = $("#AddLeaderGencode").val()?.trim();
+                const AddTotalNumber = $("#AddTotalNumber").val()?.trim();
+
+                if (!AddGroupName || !AddLeaderGencode) {
+                    Swal.fire({ icon: 'error', title: 'Oops...', text: 'Please fill in all required fields.' });
+                    return;
+                }
+
+                try {
+                    // Save Group Name first
+                    const data1 = await $.ajax({
+                        type: 'POST',
+                        url: '/Zion/Save_GroupName',
+                        data: {
+                            addGeneratedCode: generatedcode,
+                            addGroupName: AddGroupName,
+                            addLeaderID: AddLeaderGencode,
+                            addTotalNumber: AddTotalNumber
+                        },
+                        dataType: 'json'
+                    });
+
+                    if (data1?.success !== true) {
+                        Swal.fire({ icon: 'error', title: 'Failed', text: data1?.message || 'Group save failed.' });
+                        return;
+                    }
+
+                    // Save each selected member
+                    for (const memberCode of members) {
+                        await $.post('/Zion/SaveGroup', {
+                            groupgeneratedcode: generatedcode,
+                            groupgencode: memberCode
+                        });
+                    }
+
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Group successfully saved!',
+                        text: 'Click OK to reload the page.',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        confirmButtonText: 'OK'
+                    });
+
+                    location.reload();
+
+                } catch (err) {
+                    console.error('An error occurred:', err);
+                    Swal.fire({ icon: 'error', title: 'Error', text: 'Something went wrong while saving. Please try again.' });
+                }
+            });
+
+
+
+            
+
+            // Call the API to get Position Holder
+            $.ajax({
+                url: "/Zion/GetPositionHolder", // URL to your controller action
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    // Example: Loop through the data and append it to the table
+                    var table = $("#mastersPositionHolderTable tbody");
+                    table.empty(); // Clear existing data
+
+                    $.each(data, function (index, position) {
+                        // Convert the date_hired field
+                        table.append(
+                            "<tr>" +
+                            "<td hidden>" + position.id + "</td>" +
+                            "<td class='center'>" + position.full_name + "</td>" +
+                            "<td class='center'>" + position.life_number + "</td>" +
+                            "<td class='center'>" + position.position + "</td>" +
+                            // Add Edit button to open modal
+                            "<td class='center'><button class='editPositionHolderBtn btn btn-info' data-id='" + position.id + "'><i class='fa fa-edit'></i> Edit</button></td>" +
+                            "</tr>"
+                        );
+                    });
+
+                    // Initialize DataTables
+                    $("#mastersPositionHolderTable").DataTable();
+
+                    // Add click event for Edit button to open the modal
+                    $(".mastersPositionHolderTableBody").on("click", ".editPositionHolderBtn", function () {
+                        var positionHolderId = $(this).data("id");
+                        // Find the selected employee data (you can fetch the data again or use the existing data)
+                        var selectedpositionholder = data.find(emp => emp.id === positionHolderId);
+                        // Populate the modal fields with employee data
+                        $("#EditPositionHolderId").val(selectedpositionholder.id);
+                        $("#EditPosition").val(selectedpositionholder.position);
+                        // Open the modal
+                        $("#EditPositionHolderModal").modal('show');
+                    });
+
+                    //Save changes button in the modal
+                    $("#saveChangesPositionHolder").click(function () {
+                        var updatedpositionholder = {
+                            id: $("#EditPositionHolderId").val(),
+                            position: $("#EditPosition").val(),
+                        };
+                        // Make an API call to save the changes (you'll need to implement this in your backend)
+                        $.ajax({
+                            url: "/Zion/UpdatePositionHolder", // Change this to your actual update endpoint
+                            method: "POST",
+                            data: updatedpositionholder,
+                            success: function (response) {
+                                Swal.fire(
+                                    'Position updated successfully!',
+                                    'Please clicked the button!',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Error updating position:", error);
+                            }
+                        });
+                    });
+
+                    // Add click event for View button to open the view modal
+                    $(".mastersMajorActivityTableBody").on("click", ".viewBtn", function () {
+                        var MJActivityId = $(this).data("id");
+                        // Find the selected employee data
+                        var SelectedMJA = data.find(emp => emp.id === MJActivityId);
+                        // Format the date_hired before displaying it in the modal
+                        // Populate the view modal fields with employee data
+                        $("#ViewActivityCode").val(SelectedMJA.activity_code);
+                        $("#ViewActivityTitle").val(SelectedMJA.activity_title);
+                        $("#ViewActivityPurpose").val(SelectedMJA.activity_purpose);
+
+                        // Open the view modal
+                        $("#ViewDailyGoalModalGoal").modal('show');
+                    });
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                }
+            });
+
+            // Call the API to get Major Activity
+            $.ajax({
+                url: "/Zion/GetMajorActivity", // URL to your controller action
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    // Example: Loop through the data and append it to the table
+                    var table = $("#mastersMajorActivityTable tbody");
+                    table.empty(); // Clear existing data
+
+                    $.each(data, function (index, mjactivity) {
+                        // Convert the date_hired field
+                        table.append(
+                            "<tr>" +
+                            "<td hidden>" + mjactivity.id + "</td>" +
+                            "<td class='center'>" + mjactivity.activity_code + "</td>" +
+                            "<td class='center'>" + mjactivity.activity_title + "</td>" +
+                            "<td class='center'>" + mjactivity.activity_purpose + "</td>" +
+                            // Add Edit button to open modal
+                            "<td class='center'><button class='editBtn btn btn-info' data-id='" + mjactivity.id + "'><i class='fa fa-edit'></i> Edit</button><button class='viewBtn btn btn-warning' data-id='" + mjactivity.id + "'><i class='fa fa-eye'></i> View</button></td>" +
+                            "</tr>"
+                        );
+                    });
+
+                    // Initialize DataTables
+                    $("#mastersMajorActivityTable").DataTable();
+
+                    // Add click event for Edit button to open the modal
+                    $(".mastersMajorActivityTableBody").on("click", ".editBtn", function () {
+                        var mjactivityId = $(this).data("id");
+                        // Find the selected employee data (you can fetch the data again or use the existing data)
+                        var selectedmajoractivity = data.find(emp => emp.id === mjactivityId);
+                        // Populate the modal fields with employee data
+                        $("#EditMajorActivityId").val(selectedmajoractivity.id);
+                        $("#EditMajorActivityCode").val(selectedmajoractivity.activity_code);
+                        $("#EditMajorActivityTitle").val(selectedmajoractivity.activity_title);
+                        $("#EditMajorActivityPurpose").val(selectedmajoractivity.activity_purpose);
+                        // Open the modal
+                        $("#EditDailyGoalModalGoal").modal('show');
+                    });
+
+                    //Save changes button in the modal
+                    $("#saveChangesMajorActivity").click(function () {
+                        var updatedMajorActivity = {
+                            id: $("#EditMajorActivityId").val(),
+                            activity_code: $("#EditMajorActivityCode").val(),
+                            activity_title: $("#EditMajorActivityTitle").val(),
+                            activity_purpose: $("#EditMajorActivityPurpose").val()
+                        };
+                        // Make an API call to save the changes (you'll need to implement this in your backend)
+                        $.ajax({
+                            url: "/Zion/UpdateMajorActivity", // Change this to your actual update endpoint
+                            method: "POST",
+                            data: updatedMajorActivity,
+                            success: function (response) {
+                                Swal.fire(
+                                    'Major Activity updated successfully!',
+                                    'Please clicked the button!',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Error updating major activity:", error);
+                            }
+                        });
+                    });
+
+                    // Add click event for View button to open the view modal
+                    $(".mastersMajorActivityTableBody").on("click", ".viewBtn", function () {
+                        var MJActivityId = $(this).data("id");
+                        // Find the selected employee data
+                        var SelectedMJA = data.find(emp => emp.id === MJActivityId);
+                        // Format the date_hired before displaying it in the modal
+                        // Populate the view modal fields with employee data
+                        $("#ViewActivityCode").val(SelectedMJA.activity_code);
+                        $("#ViewActivityTitle").val(SelectedMJA.activity_title);
+                        $("#ViewActivityPurpose").val(SelectedMJA.activity_purpose);
+
+                        // Open the view modal
+                        $("#ViewDailyGoalModalGoal").modal('show');
+                    });
+                     
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                }
+            });
+
+
+            //// Call the API to Get Brothes
+            //$.ajax({
+            //    url: "/Zion/GetBrothes", // URL to your controller action
+            //    method: "GET",
+            //    dataType: "json",
+            //    success: function (data) {
+            //        // Example: Loop through the data and append it to the table
+            //        var table = $("#mastersBrotherTable tbody");
+            //        table.empty(); // Clear existing data
+
+            //        $.each(data, function (index, bro) {
+            //            // Convert the date_hired field
+            //            table.append(
+            //                "<tr>" +
+            //                "<td hidden>" + bro.id + "</td>" +
+            //                "<td class='center'>" + bro.full_name + "</td>" +
+            //                "<td class='center'>" + bro.life_number + "</td>" +
+            //                // Add Edit button to open modal
+            //                "<td class='center'><button class='editBrotherBtn btn btn-info' data-id='" + bro.id + "'><i class='fa fa-edit'></i> Edit</button></td>" +
+            //                "</tr>"
+            //            );
+            //        });
+
+            //        // Initialize DataTables
+            //        $("#mastersBrotherTable").DataTable();
+
+            //        // Add click event for Edit button to open the modal
+            //        $(".mastersBrotherTableBody").on("click", ".editBrotherBtn", function () {
+            //            var brotherId = $(this).data("id");
+            //            // Find the selected employee data (you can fetch the data again or use the existing data)
+            //            var selectedBrother = data.find(brb => brb.id === brotherId);
+            //            // Populate the modal fields with employee data
+            //            $("#EditBrotherId").val(selectedBrother.id);
+            //            $("#EditFirstName").val(selectedBrother.full_name);
+            //            $("#EditNumber").val(selectedBrother.life_number);
+            //            // Open the modal
+            //            $("#EditBrotherModal").modal('show');
+            //        });
+
+            //        //Save changes button in the modal
+            //        $("#saveChangesBrother").click(function () {
+            //            var updatedBrother = {
+            //                id: $("#EditBrotherId").val(),
+            //                full_name: $("#EditFirstName").val(),
+            //                life_number: $("#EditNumber").val()
+            //            };
+            //            // Make an API call to save the changes (you'll need to implement this in your backend)
+            //            $.ajax({
+            //                url: "/Zion/UpdateBrother", // Change this to your actual update endpoint
+            //                method: "POST",
+            //                data: updatedBrother,
+            //                success: function (response) {
+            //                    Swal.fire(
+            //                        'Brother updated successfully!',
+            //                        'Please clicked the button!',
+            //                        'success'
+            //                    ).then(function () {
+            //                        location.reload();
+            //                    });
+            //                },
+            //                error: function (xhr, status, error) {
+            //                    console.error("Error updating brother:", error);
+            //                }
+            //            });
+            //        });
+
+            //    },
+            //    error: function (xhr, status, error) {
+            //        console.error("Error fetching data:", error);
+            //    }
+            //});
+
+
+            //Select ni sya sa Type of Licenses Limited To All
+            $("#AddActivityType").change(function () {
+                var AddActivityType = $("#AddActivityType").val();
+                var split = AddActivityType.split("*");
+                $("#AddActivityType").empty();
+                $("#AddActivityType").append('<option value="">-- Select Activity Type--</option>');
+                $("#AddActivityPurpose").val(split[1]);
+                if (split.length > 1 && split[1] !== "") {
+                    $("#AddActivityPurpose").append('<option value="' + split[2] + '">' + split[2] + '</option>');
+                }
+            });
+
+            //after click add or edit in turnover checklist.. dapat naka view ra japon sa kana nga tab
+            if (location.hash) {
+                $("a[href='" + location.hash + "']").tab("show");
+            }
+            $(document.body).on("click", "a[data-toggle='tab']", function (event) {
+                location.hash = this.getAttribute("href");
+            });
+        }); //end from document.ready
+
+        //kani sumpay sa open tab after load sa page.
+        $(window).on("popstate", function () {
+            var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
+            $("a[href='" + anchor + "']").tab("show");
+        });
+
+    </script>
+}

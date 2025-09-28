@@ -1,0 +1,2024 @@
+﻿@{
+    ViewBag.Title = "MasterInput";
+}
+<body class="background-White" style="background-color:white">
+    <div class="widget-body" style="background-color:white">
+
+        <div class="col-sm-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                    <li class="active">
+                        <a data-toggle="tab" href="#accountnametest" style="color: black">
+                            <i class="blue ace-icon fa fa-users bigger-110"></i>
+                            ACCOUNT NAME
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#Developerstest" style="color:black">
+                            <i class="blue ace-icon fa fa-tachometer bigger-110"></i>
+                            DEVELOPER
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#projecttest" style="color: black">
+                            <i class="blue ace-icon fa fa-rocket bigger-110"></i>
+                            PROJECT
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#financingstest" style="color: black">
+                            <i class="blue ace-icon fa fa-credit-card bigger-110"></i>
+                            FINANCING
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#birlocationtest" style="color: black">
+                            <i class="blue ace-icon glyphicon glyphicon-road bigger-110"></i>
+                            BIR LOCATION
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#rodlocationtest" style="color: black">
+                            <i class="blue ace-icon glyphicon glyphicon-road bigger-110"></i>
+                            ROD LOCATION
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#assessorlocationtest" style="color: black">
+                            <i class="blue ace-icon glyphicon glyphicon-road bigger-110"></i>
+                            ASSESSOR LOCATION
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#documentlocationtest" style="color: black">
+                            <i class="blue ace-icon fa fa-folder-open bigger-110"></i>
+                            DOCUMENT
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="accountnametest" class="tab-pane  in active">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            ACCOUNT NAME
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddAccountModal">
+                                                        <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                        <span class="bigger-110">Add Account</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="account" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" hidden>Select to Delete</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Account Name</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Unit No.</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Date Added</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                foreach (var cis in ViewBag.Account)
+                                                {
+                                                    var fullname = cis.lastname + ", " + cis.firstname + " " + cis.middlename;
+
+                                                    var idAndFullname = cis.id + "~" + fullname;
+
+                                                    <tr>
+                                                        <td style="text-align:center" hidden>
+                                                            <label>
+                                                                @fullname
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @fullname
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @cis.unit_no
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @String.Format("{0:MMMM dd, yyyy}", cis.dateadded)
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <div class="pull-center">
+                                                                <a class="btn btn-white btn-info btn-round btn-xs no-hover getaclient" data-toggle="modal" data-target="#ModalUpdateAccount" id="@cis.firstname*@cis.middlename*@cis.lastname*@cis.unit_no*@cis.id">
+                                                                    <i class="ace-icon fa fa-eye"></i>
+                                                                    View
+                                                                </a>
+                                                                <a class="btn btn-white btn-danger btn-round btn-xs no-hover toDeleteAccountName" id="@idAndFullname">
+                                                                    <i class="ace-icon glyphicon glyphicon-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Save Account-->
+                                    <div class="modal fade" id="AddAccountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Account Name</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>Last Name:</label>
+                                                            <input type="text" placeholder="Enter Last Name" class="form-control" id="Lastname" autocomplete="off" />
+                                                            <label id="warningfieldlastname" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>First Name:</label>
+                                                            <input type="text" placeholder="Enter Account Name" class="form-control" id="Firstname" autocomplete="off" />
+                                                            <label id="warningfieldfirstname" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Middle Name:</label>
+                                                            <input type="text" placeholder="Enter Middle Name" class="form-control" id="Middlename" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>Unit No:</label>
+                                                            <input type="text" placeholder="Enter Unit No." class="form-control" id="Unitno" autocomplete="off" />
+                                                            <label id="warningfieldunitno" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="SaveClient_name">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal Edit-->
+                                    <div class="modal fade" id="ModalUpdateAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">View Account Name</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">First Name:</label>
+                                                            <input type="text" class="form-control" id="EditFirstName" readonly/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Middle Name:</label>
+                                                            <input type="text" class="form-control" id="EditMiddleName" readonly/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Last Name:</label>
+                                                            <input type="text" class="form-control" id="EditLastName" readonly/>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Unit No:</label>
+                                                            <input type="text" class="form-control" id="EditUnitNo" readonly/>
+                                                        </div>
+                                                        <div class="form-group" style="display:none">
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" placeholder="Enter Financing" class="form-control" id="EditIDAccount">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- PAGE CONTENT ENDS -->
+
+                    <div id="Developerstest" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            DEVELOPER
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#ModalSaveDeveloper">
+                                                        <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                        <span class="bigger-110">Add Developer</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="developer" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" hidden></th>
+                                                <th class="center" style="color: black; background-color:cornflowerblue">Company Name</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Date Added</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        @{
+                                            foreach (var cis in ViewBag.CISS)
+                                            {
+                                                <tr>
+                                                    <td class="center" hidden>
+                                                        <label>
+                                                            @cis.id
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align:center">
+                                                        <label>
+                                                            @cis.developer
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align:center">
+                                                        <label>
+                                                            @String.Format("{0:MMMM dd, yyyy}", cis.date_created)
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align:center">
+                                                        <div class="pull-center">
+                                                            <a class="btn btn-white btn-info btn-round btn-xs no-hover getdocs" data-toggle="modal" data-target="#ModalUpdate" id="@cis.developer*@cis.id">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-110"></i>
+                                                                Edit
+                                                            </a>
+                                                            @*<a class="btn btn-white btn-danger btn-round btn-xs no-hover toDeleteDeveloper" id="@cis.id">
+                                                                <i class="ace-icon glyphicon glyphicon-trash"></i>
+                                                                Delete
+                                                            </a>*@
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                    <!--Modal Save-->
+                                    <div class="modal fade" id="ModalSaveDeveloper" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add DEVELOPER</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>Developer:</label>
+                                                            <input type="text" placeholder="Enter Company Name" class="form-control" id="Developer" autocomplete="off" />
+                                                            <label id="warningfielddeveloper" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="SaveDeveloper">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal Edit-->
+                                    <div class="modal fade" id="ModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Company Name</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Developer:</label>
+                                                            <input type="text" placeholder="Enter Company Name" class="form-control" id="EditDeveloper">
+                                                        </div>
+                                                        <div class="form-group" style="display:none">
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" placeholder="Enter Financing" class="form-control" id="EditIDdeveloper">
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="UpdateDeveloper">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="projecttest" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            PROJECT
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddProjectModal">
+                                                        <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                        <span class="bigger-110">Add Project</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="project" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" hidden></th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Project Code</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Date Added</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                foreach (var cis in ViewBag.PRO)
+                                                {
+                                                    var idAndProject = cis.id + "~" + cis.project;
+                                                    <tr>
+                                                        <td class="center" hidden>
+                                                            <label>
+                                                                @cis.id
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @cis.project
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @String.Format("{0:MMMM dd, yyyy}", cis.dateadded)
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <div class="pull-center">
+                                                                <a class="btn btn-white btn-info btn-round btn-xs no-hover getproject" data-toggle="modal" data-target="#ModalUpdateProject" id="@cis.project*@cis.id">
+                                                                    <i class="ace-icon fa fa-pencil-square-o bigger-110"></i>
+                                                                    Edit
+                                                                </a>
+                                                                <a class="btn btn-white btn-danger btn-round btn-xs no-hover toDeleteProject" id="@idAndProject">
+                                                                    <i class="ace-icon glyphicon glyphicon-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Save Project-->
+                                    <div class="modal fade" id="AddProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Project</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>Project:</label>
+                                                            <input type="text" placeholder="Enter Project Code" class="form-control" id="Project" autocomplete="off" />
+                                                            <label id="warningfieldproject" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="saveProject">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal Edit-->
+                                    <div class="modal fade" id="ModalUpdateProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Project</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Project Code:</label>
+                                                            <input type="text" placeholder="Enter Project Code" class="form-control" id="EditProject">
+                                                        </div>
+                                                        <div class="form-group" style="display:none">
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" placeholder="Enter Financing" class="form-control" id="EditIDProject">
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="updateproject">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="financingstest" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            FINANCING
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddAFinancingModal">
+                                                        <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                        <span class="bigger-110">Add Financing</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="financing" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" hidden></th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Financing</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Date Added</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                foreach (var cis in ViewBag.Finan)
+                                                {
+                                                    var idAndFinancing = cis.id + "~" + cis.financing;
+                                                    <tr>
+                                                        <td class="center" hidden>
+                                                            <label>
+                                                                @cis.id
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @cis.financing
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @String.Format("{0:MMMM dd, yyyy}", cis.dateadded)
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <div class="pull-center">
+                                                                <a class="btn btn-white btn-info btn-round btn-xs no-hover getfinancing" data-toggle="modal" data-target="#ModalUpdateFinancing" id="@cis.financing*@cis.id">
+                                                                    <i class="ace-icon fa fa-pencil-square-o bigger-110"></i>
+                                                                    Edit
+                                                                </a>
+                                                                <a class="btn btn-white btn-danger btn-round btn-xs no-hover toDeleteFinancing" id="@idAndFinancing">
+                                                                    <i class="ace-icon glyphicon glyphicon-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Save Financing-->
+                                    <div class="modal fade" id="AddAFinancingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Financing</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>Financing:</label>
+                                                            <input type="text" placeholder="Enter Financing" class="form-control" id="Financing" autocomplete="off" />
+                                                            <label id="warningfieldfinancing" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="saveFinancing">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal Edit Financing-->
+                                    <div class="modal fade" id="ModalUpdateFinancing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit FINANCING</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Financing:</label>
+                                                            <input type="text" placeholder="Enter Company Name" class="form-control" id="EditFinancing">
+                                                        </div>
+                                                        <div class="form-group" style="display:none">
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" placeholder="Enter Financing" class="form-control" id="EditIDFinancing">
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="updatefinancing">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="birlocationtest" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            BIR LOCATION
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddLocationModal">
+                                                        <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                        <span class="bigger-110">Add BIR Location</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="location" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" hidden></th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">BIR Location</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Date Added</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                foreach (var cis in ViewBag.LOC)
+                                                {
+                                                    var idAndBIRlocation = cis.id + "~" + cis.location;
+                                                    <tr>
+                                                        <td class="center" hidden>
+                                                            <label>
+                                                                @cis.id
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @cis.location
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @String.Format("{0:MMMM dd, yyyy}", cis.dateadded)
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <div class="pull-center">
+                                                                <a class="btn btn-white btn-info btn-round btn-xs no-hover getlocation" data-toggle="modal" data-target="#ModalUpdateLocation" id="@cis.location*@cis.id">
+                                                                    <i class="ace-icon fa fa-pencil-square-o bigger-110"></i>
+                                                                    Edit
+                                                                </a>
+                                                                <a class="btn btn-white btn-danger btn-round btn-xs no-hover toDeleteBIRLocation" id="@idAndBIRlocation">
+                                                                    <i class="ace-icon glyphicon glyphicon-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Save Location-->
+                                    <div class="modal fade" id="AddLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add BIR LOCATION</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>Location:</label>
+                                                            <input type="text" placeholder="Enter BIR Location" class="form-control" id="LOC" autocomplete="off" />
+                                                            <label id="warningfieldbirlocation" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="saveLocation">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal Edit-->
+                                    <div class="modal fade" id="ModalUpdateLocation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit BIR LOCATION</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Location:</label>
+                                                            <input type="text" class="form-control" id="EditBIRLocation">
+                                                        </div>
+                                                        <div class="form-group" style="display:none">
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" class="form-control" id="EditIDLocation">
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="updatelocation">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="rodlocationtest" class="tab-pane">
+                        <div class="row">
+                            <!--RD Location-->
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            ROD LOCATION
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddRDLocationModal">
+                                                        <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                        <span class="bigger-110">Add ROD Location</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="rdlocation" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" hidden></th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ROD Location</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Date Added</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                foreach (var cis in ViewBag.RDlocation)
+                                                {
+                                                    var idAndRODlocation = cis.id + "~" + cis.rd_location;
+                                                    <tr>
+                                                        <td class="center" hidden>
+                                                            <label>
+                                                                @cis.id
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @cis.rd_location
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @String.Format("{0:MMMM dd, yyyy}", cis.dateadded)
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <div class="pull-center">
+                                                                <a class="btn btn-white btn-info btn-round btn-xs no-hover getRDlocation" data-toggle="modal" data-target="#ModalUpdateRDLocation" id="@cis.rd_location*@cis.id">
+                                                                    <i class="ace-icon fa fa-pencil-square-o bigger-110"></i>
+                                                                    Edit
+                                                                </a>
+                                                                <a class="btn btn-white btn-danger btn-round btn-xs no-hover toDeleteRODlocation" id="@idAndRODlocation">
+                                                                    <i class="ace-icon glyphicon glyphicon-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Save RDLocation-->
+                                    <div class="modal fade" id="AddRDLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add ROD Location</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>Location:</label>
+                                                            <input type="text" placeholder="Enter ROD Location" class="form-control" id="RDLOC" autocomplete="off" />
+                                                            <label id="warningfieldrodlocation" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="saverdLocation">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal Edit-->
+                                    <div class="modal fade" id="ModalUpdateRDLocation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit ROD Location</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Location:</label>
+                                                            <input type="text" class="form-control" id="EditRDLocation" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group" style="display:none">
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" class="form-control" id="EditIDRDLocation">
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="updaterdlocation">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="assessorlocationtest" class="tab-pane">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            ASSESSOR LOCATION
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddAssessLocationModal">
+                                                        <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                        <span class="bigger-110">Add Assessor Location</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="assesslocation" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" hidden></th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Assessor Location</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Date Added</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                foreach (var cis in ViewBag.Assesslocation)
+                                                {
+                                                    var idAndAssesslocation = cis.id + "~" + cis.assessor_location;
+                                                    <tr>
+                                                        <td class="center" hidden>
+                                                            <label>
+                                                                @cis.id
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @cis.assessor_location
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @String.Format("{0:MMMM dd, yyyy}", cis.dateadded)
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <div class="pull-center">
+                                                                <a class="btn btn-white btn-info btn-round btn-xs no-hover getAssesslocation" data-toggle="modal" data-target="#ModalUpdateAssessLocation" id="@cis.assessor_location*@cis.id">
+                                                                    <i class="ace-icon fa fa-pencil-square-o bigger-110"></i>
+                                                                    Edit
+                                                                </a>
+                                                                <a class="btn btn-white btn-danger btn-round btn-xs no-hover toDeleteAssesslocation" id="@idAndAssesslocation">
+                                                                    <i class="ace-icon glyphicon glyphicon-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Save Assessor Location-->
+                                    <div class="modal fade" id="AddAssessLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Assessor Location</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>Location:</label>
+                                                            <input type="text" placeholder="Enter Assessor Location" class="form-control" id="AssessLOC" autocomplete="off" />
+                                                            <label id="warningfieldassessorlocation" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="saveAssessLocation">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal Edit-->
+                                    <div class="modal fade" id="ModalUpdateAssessLocation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Assessor Location</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Location:</label>
+                                                            <input type="text" class="form-control" id="EditAssessLocation" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group" style="display:none">
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" class="form-control" id="EditIDAssessLocation">
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="updateAssesslocation">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="documentlocationtest" class="tab-pane">
+                        <div class="row">
+                            <!--Add Docs-->
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="widget-box widget-color-blue3">
+                                    <div class="widget-header">
+                                        <div class="widget-title">
+                                            DOCUMENT
+                                            <div class="widget-toolbar">
+                                                <div class="pull-center">
+                                                    <a class="btn btn-xs btn-primary no-hover" data-toggle="modal" data-target="#AddDocumentModal">
+                                                        <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                        <span class="bigger-110">Add Document</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table id="adddocument" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="center" style="color: black; background-color:cornflowerblue" hidden>Project</th>
+                                                <th class="center" style="color: black; background-color:cornflowerblue">Project</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Documents</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">Date Added</th>
+                                                <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                foreach (var cis in ViewBag.Document)
+                                                {
+                                                    <tr>
+                                                        <td style="text-align:center" hidden>
+                                                            <label>
+                                                                @cis.id
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @cis.project
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @cis.documents
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <label>
+                                                                @String.Format("{0:MMMM dd, yyyy}", cis.dateadded)
+                                                            </label>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <div class="pull-center">
+                                                                <a class="btn btn-white btn-info btn-round btn-xs no-hover getDocuments" data-toggle="modal" data-target="#ModalUpdateDocuments" id="@cis.project*@cis.documents*@cis.id">
+                                                                    <i class="ace-icon fa fa-pencil-square-o bigger-110"></i>
+                                                                    Edit
+                                                                </a>
+                                                                @*<a class="btn btn-white btn-danger btn-round btn-xs no-hover toDeleteDocument" id="@cis.id">
+                                                                    <i class="ace-icon glyphicon glyphicon-trash"></i>
+                                                                    Delete
+                                                                </a>*@
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <!--Modal Save Documents Location-->
+                                    <div class="modal fade" id="AddDocumentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Document</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <label class="lbl col-sm-12"><label style="color: red">*</label>Project</label>
+                                                        <select id="projects" name="projects" class="select2" data-placeholder="Client" style="width: 100%">
+                                                            <option value="">--Please select Project Name--</option>
+                                                            <option id="bir" value="BIR">BIR</option>
+                                                            <option id="prerod" value="PRE-ROD">PRE-ROD</option>
+                                                            <option id="rod" value="ROD">ROD</option>
+                                                            <option id="assessor" value="ASSESSOR">ASSESSOR</option>
+                                                        </select>
+                                                        <label id="warningfieldselectproject" style="color:red; display:none">Please select this field!</label>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label"><label style="color: red">*</label>Document Name:</label>
+                                                            <input type="text" class="form-control" id="documentname" autocomplete="off" />
+                                                            <label id="warningfielddocument" style="color:red; display:none">Please input this field!</label>
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="savedocument">SAVE</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Modal EditeDocuments-->
+                                    <div class="modal fade" id="ModalUpdateDocuments" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Assessor Location</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post">
+                                                        <label class="lbl col-sm-12">Project</label>
+                                                        <select id="Editprojects" name="Editprojects" class="select2" data-placeholder="Client" style="width: 100%">
+                                                            <option id="bir" value="BIR">BIR</option>
+                                                            <option id="prerod" value="PRE-ROD">PRE-ROD</option>
+                                                            <option id="rod" value="ROD">ROD</option>
+                                                            <option id="assessor" value="ASSESSOR">ASSESSOR</option>
+                                                        </select>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Document Name:</label>
+                                                            <input type="text" class="form-control" id="Editdocumentname" name="Editdocumentname" autocomplete="off" />
+                                                        </div>
+                                                        <div class="form-group" style="display:none">
+                                                            <label for="recipient-name" class="col-form-label">ID:</label>
+                                                            <input type="text" class="form-control" id="EditIDDocLocation">
+                                                        </div>
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary no-hover" id="updatedocument">Update</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(document).ready(function () {
+
+            //Save Developer
+            $("#SaveDeveloper").click(function () {
+                var developer = $("#Developer").val();
+                if (developer != "") {
+                    var url = "/Masters/Save_Docs"
+                    $.post(url, { Dev: developer }, function (data) {
+                        if (data == "savedeveloper") {
+                            Swal.fire(
+                                'Company Name successfully Saved!',
+                                '',
+                                'success'
+                            ).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            Swal.fire(
+                                'This developer was already exist.',
+                                '',
+                                'error'
+                            );
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!',
+                    }).then(function () {
+                        if ($("#Developer").val() == "") {
+                            document.getElementById("warningfielddeveloper").style.display = "block";
+                        }
+                    })
+                }
+            });
+            $(".getdocs").click(function () {
+                var id = this.id;
+                var splits = id.split('*');
+                var EditDeveloper = splits[0];
+                var EditIDdeveloper = splits[1];
+                $("#EditDeveloper").val(EditDeveloper);
+                $("#EditIDdeveloper").val(EditIDdeveloper);
+            });
+            //Update Developer
+            $("#UpdateDeveloper").click(function () {
+                var developer = $("#EditDeveloper").val();
+                var id = $("#EditIDdeveloper").val();
+                var url = "/Masters/UpdateDocs"
+                Swal.fire({
+                    title: 'Do you really want to Update this Developer?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post(url, { id: id, developer: developer }, function (data) {
+                            if (data == "updated") {
+                                Swal.fire(
+                                    'Developer successfully Update!',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This Developer was not updated', '', 'info').then(function () {
+                            location.reload();
+                        })
+                    }
+                })
+
+            });
+            //Delete Client
+            //$(".toDeleteDeveloper").click(function () {
+            //    var id = this.id;
+            //    Swal.fire({
+            //        title: 'Do you really want to Delete this company name?',
+            //        showDenyButton: true,
+            //        confirmButtonText: 'Yes',
+            //        denyButtonText: `No`,
+            //    }).then((result) => {
+            //        if (result.isConfirmed) {
+            //            var url = "/Masters/DeleteDeveloper"
+            //            $.post(url, { id: id }, function (data) {
+            //                if (data == "deletedeveloper") {
+            //                    Swal.fire(
+            //                        'Record was successfully deleted.',
+            //                        '',
+            //                        'success'
+            //                    ).then(function () {
+            //                        location.reload();
+            //                    });
+            //                }
+            //            });
+            //        } else if (result.isDenied) {
+            //            Swal.fire('This company was not Deleted', '', 'info').then(function () {
+            //                location.reload();
+            //            });
+            //        }
+            //    })
+            //});
+
+            //Save Client
+            $("#SaveClient_name").click(function () {
+                var FirstName = $("#Firstname").val();
+                var MiddleName = $("#Middlename").val();
+                var LastName = $("#Lastname").val();
+                var Unitno = $("#Unitno").val();
+                if (FirstName != "" && LastName != "" && Unitno != "") {
+                    var url = "/Masters/Save_Client"
+                    $.post(url, { First: FirstName, Middle: MiddleName, Last: LastName, Unit: Unitno }, function (data) {
+                        if (data == "saveclient_name") {
+                            Swal.fire(
+                                'Account Name successfully Saved!',
+                                '',
+                                'success'
+                            ).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            alert(data);
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!',
+                    }).then(function () {
+                        if ($("#Firstname").val() == "") {
+                            document.getElementById("warningfieldfirstname").style.display = "block";
+                        }
+                        if ($("#Lastname").val() == "") {
+                            document.getElementById("warningfieldlastname").style.display = "block";
+                        }
+                        if ($("#Unitno").val() == "") {
+                            document.getElementById("warningfieldunitno").style.display = "block";
+                        }
+                    })
+                }
+            });
+            $(".getaclient").click(function () {
+                var id = this.id;
+                var splits = id.split('*');
+                var EditFirstName = splits[0];
+                var EditMiddleName = splits[1];
+                var EditLastName = splits[2];
+                var EditUnitNo = splits[3];
+                var EditIDAccount = splits[4];
+                $("#EditFirstName").val(EditFirstName);
+                $("#EditMiddleName").val(EditMiddleName);
+                $("#EditLastName").val(EditLastName);
+                $("#EditUnitNo").val(EditUnitNo);
+                $("#EditIDAccount").val(EditIDAccount);
+            });
+            //Delete Client
+            $(".toDeleteAccountName").click(function () {
+                var name = this.id;
+                var splitter = name.split('~');
+                var idz = splitter[0];
+                var fulname = splitter[1];
+                Swal.fire({
+                    title: 'Do you really want to Delete this account?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var url = "/Masters/GetNameFromMasterInput"
+                        $.post(url, { id:idz, name: fulname }, function (data) {
+                            if (data == "updatedclientstatus") {
+                                Swal.fire(
+                                    'Record was successfully deleted.',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                Swal.fire(
+                                    'This account already exists.',
+                                    '',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This Account was not Deleted', '', 'info').then(function () {
+                            location.reload();
+                        });
+                    }
+                })
+            });
+            //Save Project
+            $("#saveProject").click(function () {
+                var Project = $("#Project").val();
+                if (Project != "") {
+                    var url = "/Masters/Save_Project"
+                    $.post(url, { pro: Project }, function (data) {
+                        if (data == "save") {
+                            Swal.fire(
+                                'Project successfully Saved!',
+                                '',
+                                'success'
+                            ).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            Swal.fire(
+                                'This project was already exist.',
+                                '',
+                                'error'
+                            );
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!',
+                    }).then(function () {
+                        if ($("#Project").val() == "") {
+                            document.getElementById("warningfieldproject").style.display = "block";
+                        }
+                    })
+                }
+            });
+            $(".getproject").click(function () {
+                var id = this.id;
+                var splits = id.split('*');
+                var EditProject = splits[0];
+                var EditIDProject = splits[1];
+                $("#EditProject").val(EditProject);
+                $("#EditIDProject").val(EditIDProject);
+            });
+            //Update Project
+            $("#updateproject").click(function () {
+                var project = $("#EditProject").val();
+                var id = $("#EditIDProject").val();
+                var url = "/Masters/UpdateProjectCode"
+                Swal.fire({
+                    title: 'Do you really want to update this Project?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post(url, { id: id, project: project }, function (data) {
+                            if (data == "updatedproject") {
+                                Swal.fire(
+                                    'Project successfully Update!',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This Project was not updated', '', 'info').then(function () {
+                            location.reload();
+                        })
+                    }
+                })
+            });
+            //Delete Project
+            $(".toDeleteProject").click(function () {
+                var idproject = this.id;
+                var splitter = idproject.split('~');
+                var idz = splitter[0];
+                var project = splitter[1];
+                Swal.fire({
+                    title: 'Do you really want to Delete this project?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var url = "/Masters/DeleteProject"
+                        $.post(url, { id: idz, project: project }, function (data) {
+                            if (data == "deleteprojects") {
+                                Swal.fire(
+                                    'Record was successfully deleted.',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                Swal.fire(
+                                    'This project already exists.',
+                                    '',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This project was not Deleted', '', 'info').then(function () {
+                            location.reload();
+                        });
+                    }
+                })
+            });
+            //Save BIRLocation
+            $("#saveLocation").click(function () {
+                var LOC = $("#LOC").val();
+                if (LOC != "") {
+                    var url = "/Masters/Save_Location"
+                    $.post(url, { loc: LOC }, function (data) {
+                        if (data == "savelocation") {
+                            Swal.fire(
+                                'Bir Location successfully Saved!',
+                                '',
+                                'success'
+                            ).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            Swal.fire(
+                                'This bir location was already exist.',
+                                '',
+                                'error'
+                            );
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!',
+                    }).then(function () {
+                        if ($("#LOC").val() == "") {
+                            document.getElementById("warningfieldbirlocation").style.display = "block";
+                        }
+                    })
+                }
+            });
+            $(".getlocation").click(function () {
+                var id = this.id;
+                var splits = id.split('*');
+                var EditBIRLocation = splits[0];
+                var EditIDLocation = splits[1];
+                $("#EditBIRLocation").val(EditBIRLocation);
+                $("#EditIDLocation").val(EditIDLocation);
+            });
+            //Update BIRLocation
+            $("#updatelocation").click(function () {
+                var Bir = $("#EditBIRLocation").val();
+                var id = $("#EditIDLocation").val();
+                var url = "/Masters/UpdateLocation"
+                Swal.fire({
+                    title: 'Do you really want to update this BIR Location?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post(url, { id: id, bir: Bir }, function (data) {
+                            if (data == "updatedlocation") {
+                                Swal.fire(
+                                    'BIR Location successfully Update!',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This BIR Location was not updated', '', 'info').then(function () {
+                            location.reload();
+                        })
+                    }
+                })
+            });
+            //Delete BIRLocation
+            $(".toDeleteBIRLocation").click(function () {
+                var idbirlocation = this.id;
+                var splitter = idbirlocation.split('~');
+                var idz = splitter[0];
+                var birlocation = splitter[1];
+                Swal.fire({
+                    title: 'Do you really want to Delete this BIR location?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var url = "/Masters/DeleteBIRLocation"
+                        $.post(url, { id: idz, birlocation: birlocation }, function (data) {
+                            if (data == "deleteBIRLocation") {
+                                Swal.fire(
+                                    'Record was successfully deleted.',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                Swal.fire(
+                                    'This BIR location already exists.',
+                                    '',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This BIR location was not Deleted', '', 'info').then(function () {
+                            location.reload();
+                        });
+                    }
+                })
+            });
+            //Save Assessor Location
+            $("#saveAssessLocation").click(function () {
+                var ass = $("#AssessLOC").val();
+                if (ass != "") {
+                    var url = "/Masters/Save_Assesslocation"
+                    $.post(url, { Ass: ass }, function (data) {
+                        if (data == "saveasselocation") {
+                            Swal.fire(
+                                'Assessor Location successfully Saved!',
+                                '',
+                                'success'
+                            ).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            Swal.fire(
+                                'This assessor location was already exist.',
+                                '',
+                                'error'
+                            );
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!',
+                    }).then(function () {
+                        if ($("#AssessLOC").val() == "") {
+                            document.getElementById("warningfieldassessorlocation").style.display = "block";
+                        }
+                    })
+                }
+            });
+            //Get Assessor
+            $(".getAssesslocation").click(function () {
+                var id = this.id;
+                var splits = id.split('*');
+                var EditAssessLocation = splits[0];
+                var EditIDAssessLocation = splits[1];
+                $("#EditAssessLocation").val(EditAssessLocation);
+                $("#EditIDAssessLocation").val(EditIDAssessLocation);
+            });
+            //Update Assessor Location
+            $("#updateAssesslocation").click(function () {
+                var Asses = $("#EditAssessLocation").val();
+                var id = $("#EditIDAssessLocation").val();
+                var url = "/Masters/UpdateAssessLocation".
+                    Swal.fire({
+                        title: 'Do you really want to update this Assessor Location?',
+                        showDenyButton: true,
+                        confirmButtonText: 'Yes',
+                        denyButtonText: `No`,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.post(url, { id: id, ass: Asses }, function (data) {
+                                if (data == "updatedAsslocation") {
+                                    Swal.fire(
+                                        'Assessor Location successfully Update!',
+                                        '',
+                                        'success'
+                                    ).then(function () {
+                                        location.reload();
+                                    });
+                                }
+                                else {
+                                    alert(data);
+                                }
+                            });
+                        } else if (result.isDenied) {
+                            Swal.fire('This Assessor Location was not updated', '', 'info').then(function () {
+                                location.reload();
+                            })
+                        }
+                    })
+            });
+            //Delete Assessor Location
+            $(".toDeleteAssesslocation").click(function () {
+                var idassesslocation = this.id;
+                var splitter = idassesslocation.split('~');
+                var idz = splitter[0];
+                var assesslocation = splitter[1];
+                Swal.fire({
+                    title: 'Do you really want to Delete this Assessor location?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var url = "/Masters/DeleteAssessorLocation"
+                        $.post(url, { id: idz, assesslocation: assesslocation }, function (data) {
+                            if (data == "deleteassessorlocation") {
+                                Swal.fire(
+                                    'Record was successfully deleted.',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                Swal.fire(
+                                    'This Assessor location already exists.',
+                                    '',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This Assessor location was not Deleted', '', 'info').then(function () {
+                            location.reload();
+                        });
+                    }
+                })
+            });
+            //Save RDLocation
+            $("#saverdLocation").click(function () {
+                var RD = $("#RDLOC").val();
+                if (RD != "") {
+                    var url = "/Masters/Save_RDlocation"
+                    $.post(url, { rdloc: RD }, function (data) {
+                        if (data == "saverdlocation") {
+                            Swal.fire(
+                                'RD Location successfully Saved!',
+                                '',
+                                'success'
+                            ).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            Swal.fire(
+                                'This rod location was already exist.',
+                                '',
+                                'error'
+                            );
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!',
+                    }).then(function () {
+                        if ($("#RDLOC").val() == "") {
+                            document.getElementById("warningfieldrodlocation").style.display = "block";
+                        }
+                    })
+                }
+            });
+            //Get RD Location
+            $(".getRDlocation").click(function () {
+                var id = this.id;
+                var splits = id.split('*');
+                var EditRDLocation = splits[0];
+                var EditIDRDLocation = splits[1];
+                $("#EditRDLocation").val(EditRDLocation);
+                $("#EditIDRDLocation").val(EditIDRDLocation);
+            });
+            //Update RDLocation
+            $("#updaterdlocation").click(function () {
+                var RD = $("#EditRDLocation").val();
+                var id = $("#EditIDRDLocation").val();
+                var url = "/Masters/UpdateRDLocation"
+                Swal.fire({
+                    title: 'Do you really want to update this RD Location?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post(url, { id: id, rd: RD }, function (data) {
+                            if (data == "updatedRDlocation") {
+                                Swal.fire(
+                                    'RD Location successfully Update!',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This RD Location was not updated', '', 'info').then(function () {
+                            location.reload();
+                        })
+                    }
+                })
+            });
+            //Delete RDLocation
+            $(".toDeleteRODlocation").click(function () {
+                var idrodlocation = this.id;
+                var splitter = idrodlocation.split('~');
+                var idz = splitter[0];
+                var rodlocation = splitter[1];
+                Swal.fire({
+                    title: 'Do you really want to Delete this ROD location?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var url = "/Masters/DeleteRDLocation"
+                        $.post(url, { id: idz, rodlocation: rodlocation }, function (data) {
+                            if (data == "deleteRDLocation") {
+                                Swal.fire(
+                                    'Record was successfully deleted.',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                Swal.fire(
+                                    'This ROD location already exists.',
+                                    '',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This ROD location was not Deleted', '', 'info').then(function () {
+                            location.reload();
+                        });
+                    }
+                })
+            });
+            //Save Documents Location
+            $("#savedocument").click(function () {
+                var Proje = $("#projects").val();
+                var Docs = $("#documentname").val();
+                if (Proje != "" && Docs != "") {
+                    var url = "/Masters/Save_DocumentsLocation"
+                    $.post(url, { project: Proje, docs: Docs }, function (data) {
+                        if (data == "savedocuments") {
+                            Swal.fire(
+                                'Document successfully Saved!',
+                                '',
+                                'success'
+                            ).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            alert(data);
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!',
+                    }).then(function () {
+                        if ($("#projects").val() == "") {
+                            document.getElementById("warningfieldselectproject").style.display = "block";
+                        }
+                        if ($("#documentname").val() == "") {
+                            document.getElementById("warningfielddocument").style.display = "block";
+                        }
+                    })
+                }
+            });
+            //Get Documents Location
+            $(".getDocuments").click(function () {
+                var id = this.id;
+                var splits = id.split('*');
+                var Editprojects = splits[0];
+                var Editdocumentname = splits[1];
+                var EditIDDocLocation = splits[2];
+                $("#Editprojects").val(Editprojects);
+                $("#Editdocumentname").val(Editdocumentname);
+                $("#EditIDDocLocation").val(EditIDDocLocation);
+            });
+            //Update Documents Location
+            $("#updatedocument").click(function () {
+                var Pro = $("#Editprojects").val();
+                var Doc = $("#Editdocumentname").val();
+                var id = $("#EditIDDocLocation").val();
+                var url = "/Masters/UpdateDocumentsLocation"
+                Swal.fire({
+                    title: 'Do you really want to update this Document?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post(url, { id: id, pro: Pro, docu: Doc }, function (data) {
+                            if (data == "updateddoclocation") {
+                                Swal.fire(
+                                    'Document successfully Update!',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This Document was not updated', '', 'info').then(function () {
+                            location.reload();
+                        })
+                    }
+                })                
+            });
+            //Delete Documents Location
+            //$(".toDeleteDocument").click(function () {
+            //    var id = this.id;
+            //    Swal.fire({
+            //        title: 'Do you really want to Delete this Document location?',
+            //        showDenyButton: true,
+            //        confirmButtonText: 'Yes',
+            //        denyButtonText: `No`,
+            //    }).then((result) => {
+            //        if (result.isConfirmed) {
+            //            var url = "/Masters/DeleteDocumentsLocation"
+            //            $.post(url, { id: id }, function (data) {
+            //                if (data == "deletedocumentslocation") {
+            //                    Swal.fire(
+            //                        'Record was successfully deleted.',
+            //                        '',
+            //                        'success'
+            //                    ).then(function () {
+            //                        location.reload();
+            //                    });
+            //                }
+            //            });
+            //        } else if (result.isDenied) {
+            //            Swal.fire('This Document location was not Deleted', '', 'info').then(function () {
+            //                location.reload();
+            //            });
+            //        }
+            //    })
+            //});
+            //Datatable RDLocation
+            $('#rdlocation').DataTable();
+            $('#financing').DataTable();
+            $('#location').DataTable();
+            $('#assesslocation').DataTable();
+            $('#project').DataTable();
+            $('#account').DataTable();
+            $('#developer').DataTable();
+            $('#adddocument').DataTable();
+            //Save Financing
+            $("#saveFinancing").click(function () {
+                var Finan = $("#Financing").val();
+                if (Finan != "") {
+                    var url = "/Masters/Save_Financing"
+                    $.post(url, { fin: Finan }, function (data) {
+                        if (data == "savefinancing") {
+                            Swal.fire(
+                                'Financing successfully Saved!',
+                                '',
+                                'success'
+                            ).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            Swal.fire(
+                                'This financing was already exist.',
+                                '',
+                                'error'
+                            );
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!',
+                    }).then(function () {
+                        if ($("#Financing").val() == "") {
+                            document.getElementById("warningfieldfinancing").style.display = "block";
+                        }
+                    })
+                }
+            });
+            $(".getfinancing").click(function () {
+                var id = this.id;
+                var splits = id.split('*');
+                var EditFinancing = splits[0];
+                var EditIDFinancing = splits[1];
+                $("#EditFinancing").val(EditFinancing);
+                $("#EditIDFinancing").val(EditIDFinancing);
+            });
+            //Update Financing
+            $("#updatefinancing").click(function () {
+                var Finan = $("#EditFinancing").val();
+                var id = $("#EditIDFinancing").val();
+                var url = "/Masters/Updatefinancing"
+                Swal.fire({
+                    title: 'Do you really want to Update this Financing?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post(url, { id: id, fin: Finan }, function (data) {
+                            if (data == "updatedfinancing") {
+                                Swal.fire(
+                                    'Financing successfully Update!',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This Financing was not updated', '', 'info').then(function () {
+                            location.reload();
+                        })
+                    }
+                })
+            });
+            //Delete Financing
+            $(".toDeleteFinancing").click(function () {
+                var idfinancing = this.id;
+                var splitter = idfinancing.split('~');
+                var idz = splitter[0];
+                var financing = splitter[1];
+                Swal.fire({
+                    title: 'Do you really want to Delete this financing?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var url = "/Masters/DeleteFinancing"
+                        $.post(url, { id: idz, financing: financing }, function (data) {
+                            if (data == "deleteFinancing") {
+                                Swal.fire(
+                                    'Record was successfully deleted.',
+                                    '',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                Swal.fire(
+                                    'This financing already exists.',
+                                    '',
+                                    'error'
+                                );
+                            }
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This financing was not Deleted', '', 'info').then(function () {
+                            location.reload();
+                        });
+                    }
+                })
+            });
+            //after click add or edit in turnover checklist.. dapat naka view ra japon sa kana nga tab
+            if (location.hash) {
+                $("a[href='" + location.hash + "']").tab("show");
+            }
+            $(document.body).on("click", "a[data-toggle='tab']", function (event) {
+                location.hash = this.getAttribute("href");
+            });
+
+        }); //end from document.ready
+
+        //TableManageButtons.init();
+
+        //kani sumpay sa open tab after load sa page.
+        $(window).on("popstate", function () {
+            var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
+            $("a[href='" + anchor + "']").tab("show");
+        });
+
+    </script>
+}

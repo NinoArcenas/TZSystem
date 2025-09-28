@@ -1,0 +1,981 @@
+﻿@model TADTitleConversion.Models.ClientInfoStatus
+
+@{
+    ViewBag.Title = "ClientInfo";
+
+    var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+    var stringChars = new char[20];
+    var random = new Random();
+
+    for (int i = 0; i < stringChars.Length; i++)
+    {
+        stringChars[i] = chars[random.Next(chars.Length)];
+    }
+    var finalString = new String(stringChars);
+
+}
+
+<body class="background-White" style="background-color:white">
+    <div class="widget-body" style="background-color:white">
+        <input type="text" value="@finalString" id="controlnumbergenerated" style="display:none">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                        <li class="active">
+                            <a data-toggle="tab" href="#home4">Account Process</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#profile4">For Process</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="home4" class="tab-pane in active">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="widget-box widget-color-blue3">
+                                        <div class="widget-header widget-header-flat">
+                                            <div class="widget-title">
+                                                Select Required Field
+                                                <div class="widget-toolbar">
+                                                    <div class="pull-center">
+                                                        <button type="button" class="btn btn-xs btn-white btn-primary no-hover" id="SaveAccount">
+                                                            <i class="ace-icon fa fa-floppy-o bigger-125"></i>
+                                                            <span class="bigger-110">Submit</span>
+                                                        </button>
+                                                    </div>
+                                                </div>                                                
+                                            </div>
+                                        </div>
+                                         
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <form class="form-horizontal" role="form">
+                                                    <div class="col-sm-6">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-12">
+                                                                <div class="widget-box">
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main">
+                                                                            <div>
+                                                                                <b for="form-field-mask-1">
+                                                                                    <label style="color:red">*</label>Account Name:
+                                                                                </b>
+                                                                                <div class="input-group">
+                                                                                    @Html.DropDownListFor(model => model.location, new SelectList(ViewBag.account, "Value", "Text"), "---Select Account Name---", new { @class = "chosen-select form-control", id = "Customer_fullname", style = "color: black; width: 100%" })
+                                                                                    <span class="pull-center input-group-btn no-hover">
+                                                                                        <a class="btn btn-xs btn-info no-hover" data-toggle="modal" data-target="#AddAccountModal" style="width: 100%">
+                                                                                            <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                                                            <span class="bigger-115">ADD</span>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <label id="warningfieldAccountName" style="color:red; display:none">Please select this field!</label>
+                                                                            </div>
+                                                                            <div>
+                                                                                <b for="form-field-mask-1">
+                                                                                    <label style="color:red">*</label>Project Code:
+                                                                                </b>
+                                                                                <div class="input-group">
+                                                                                    @Html.DropDownListFor(model => model.location, new SelectList(ViewBag.proj, "Value", "Text"), "---Select Project Code---", new { @class = "chosen-select form-control", id = "Project", style = "color: black; width: 100%" })
+                                                                                    <span class="pull-center input-group-btn no-hover">
+                                                                                        <a class="btn btn-xs btn-info no-hover" data-toggle="modal" data-target="#AddProjectModal">
+                                                                                            <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                                                            <span class="bigger-115">ADD</span>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <label id="warningfieldProjectCode" style="color:red; display:none">Please select this field!</label>
+                                                                            </div>
+                                                                            <div>
+                                                                                <b for="form-field-mask-1">
+                                                                                    <label style="color:red">*</label>Company Name:
+                                                                                </b>
+                                                                                <div class="input-group">
+                                                                                    @Html.DropDownListFor(model => model.location, new SelectList(ViewBag.development, "Value", "Text"), "---Select Company Name---", new { @class = "chosen-select form-control input-mask-product", id = "Developer", style = "color: black; width: 100%" })
+                                                                                    <span class="pull-center input-group-btn no-hover">
+                                                                                        <a class="btn btn-xs btn-info no-hover" data-toggle="modal" data-target="#ModalSaveDeveloper">
+                                                                                            <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                                                            <span class="bigger-115">ADD</span>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <label id="warningfieldCompanyName" style="color:red; display:none">Please select this field!</label>
+                                                                            </div>
+                                                                            <div>
+                                                                                <b for="form-field-mask-1">
+                                                                                    <label style="color:red">*</label>Financing:
+                                                                                </b>
+                                                                                <div class="input-group select2">
+                                                                                    @Html.DropDownListFor(model => model.location, new SelectList(ViewBag.financ, "Value", "Text"), "---Select Financing---", new { @class = "chosen-select form-control input-mask-product", id = "Financing", style = "color: black; width: 100%" })
+                                                                                    <span class="pull-center input-group-btn no-hover">
+                                                                                        <a class="btn btn-xs btn-info no-hover" data-toggle="modal" data-target="#AddAFinancingModal">
+                                                                                            <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                                                            <span class="bigger-115">ADD</span>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <label id="warningfieldFinancing" style="color:red; display:none">Please select this field!</label>
+                                                                            </div>
+
+                                                                            <div>
+                                                                                <b for="form-field-mask-1">
+                                                                                    <label style="color:red">*</label>Notice of Full Payment Date:
+                                                                                </b>
+                                                                                <div class="input-group select2">
+                                                                                    <div class="input-group has-info col-xs-12">
+                                                                                        <input class="width-100" type="text" name="datepicker6" id="datepicker6" autocomplete="off" readonly="readonly" />
+                                                                                    </div>
+                                                                                </div>
+                                                                                <label id="warningfieldNoticeOfFullPaymentDate" style="color:red; display:none">Please select date!</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-12">
+                                                                <div class="widget-box">
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main">
+                                                                            <div>
+                                                                                <b for="form-field-mask-1">
+                                                                                    <label style="color:red">*</label>BIR Location:
+                                                                                </b>
+                                                                                <div class="input-group">
+                                                                                    @Html.DropDownListFor(model => model.location, new SelectList(ViewBag.location, "Value", "Text"), "---Select BIR Location---", new { @class = "chosen-select form-control input-mask-product", id = "BIRLocation", style = "color: black; width: 100%" })
+                                                                                    <span class="pull-center input-group-btn no-hover">
+                                                                                        <a class="btn btn-xs btn-info no-hover" data-toggle="modal" data-target="#AddBIRLocationModal">
+                                                                                            <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                                                            <span class="bigger-115">ADD</span>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <label id="warningfieldBirLocation" style="color:red; display:none">Please select this field!</label>
+                                                                            </div>
+                                                                            <div>
+                                                                                <b for="form-field-mask-1">
+                                                                                    <label style="color:red">*</label>RD Location:
+                                                                                </b>
+                                                                                <div class="input-group">
+                                                                                    @Html.DropDownListFor(model => model.location, new SelectList(ViewBag.rdlocation, "Value", "Text"), "---Select RD Location---", new { @class = "chosen-select form-control input-mask-product", id = "RDLocation", style = "color: black; width: 100%" })
+                                                                                    <span class="pull-center input-group-btn no-hover">
+                                                                                        <a class="btn btn-xs btn-info no-hover" data-toggle="modal" data-target="#AddRDLocationModal">
+                                                                                            <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                                                            <span class="bigger-115">ADD</span>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <label id="warningfieldRodLocation" style="color:red; display:none">Please select this field!</label>
+                                                                            </div>
+                                                                            <div>
+                                                                                <b for="form-field-mask-1">
+                                                                                    <label style="color:red">*</label>Assessor Location:
+                                                                                </b>
+                                                                                <div class="input-group">
+                                                                                    @Html.DropDownListFor(model => model.location, new SelectList(ViewBag.assesslocation, "Value", "Text"), "---Select Assessor Location---", new { @class = "chosen-select form-control input-mask-product", id = "AssessorLocation", style = "color: black; width: 100%" })
+                                                                                    <span class="pull-center input-group-btn no-hover">
+                                                                                        <a class="btn btn-xs btn-info no-hover" data-toggle="modal" data-target="#AddAssessorLocationModal">
+                                                                                            <i class="ace-icon glyphicon glyphicon-plus"></i>
+                                                                                            <span class="bigger-115">ADD</span>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <label id="warningfieldAssessorLocation" style="color:red; display:none">Please select this field!</label>
+                                                                            </div>
+                                                                            <div>
+                                                                                <b for="form-field-mask-1">
+                                                                                    <label style="color:red">*</label>Unit No: (<small>Select Account Name</small>)
+                                                                                </b>
+                                                                                <div class="input-group" style="width:100%">
+                                                                                    <input type="text" class="form-control col-sm-12" id="unit_no" style="color:black" readonly>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                    <br />
+                                                </form>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <br />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- /.col -->
+                            </div>
+                        </div>
+
+                        <div id="profile4" class="tab-pane">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="widget-box widget-color-blue3">
+                                        <div class="widget-header widget-header-flat">
+                                            <h4 class="widget-title">Summary</h4>
+                                        </div>
+                                        <div>
+                                            <table id="datatable" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="center" hidden></th>
+                                                        <th class="center" style="color: black; background-color: cornflowerblue">Account Name</th>
+                                                        <th class="center" style="color: black; background-color: cornflowerblue">Unit No</th>
+                                                        <th class="center" style="color: black; background-color: cornflowerblue">Project</th>
+                                                        <th class="center" style="color: black; background-color: cornflowerblue">Company Name</th>
+                                                        <th class="center" style="color: black; background-color: cornflowerblue">Financing</th>
+                                                        <th class="center" style="color: black; background-color: cornflowerblue">Notice of Full Payment Date</th>
+                                                        <th class="center" style="color: black; background-color: cornflowerblue">BIR Location</th>
+                                                        <th class="center" style="color: black; background-color: cornflowerblue">RD Location</th>
+                                                        <th class="center" style="color: black; background-color: cornflowerblue">Assesor Location</th>
+                                                        <th class="center" style="color: black; background-color: cornflowerblue">ACTION STATUS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        int count = 100000;
+                                                        foreach (var cis in ViewBag.CIS)
+                                                        {
+                                                            count += cis.id;
+                                                            <tr>
+                                                                <td class="center" hidden>
+                                                                    <label>
+                                                                        @count
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align:left">
+                                                                    <label>
+                                                                        @cis.account
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.unit_no
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.project
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.company_name
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.financing
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @{
+                                                                            if (cis.notice_of_fullpayment_date != null)
+                                                                            {
+                                                                                @String.Format("{0:MMM dd, yyyy}", cis.notice_of_fullpayment_date)
+                                                                            }
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.location
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.rd_location
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.ass_location
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <div class="pull-center">
+                                                                        <a href="../Masters/Master?id=@cis.id" class="btn btn-xs btn btn-pink btn-round no-hover">
+                                                                            <i class="ace-icon fa fa-cogs bigger-110"></i>
+                                                                            For Process
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.span -->
+    <!--Modal Save Account-->
+    <div class="modal fade" id="AddAccountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Account Name</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"><label style="color:red">*</label>First Name:</label>
+                            <input type="text" placeholder="Enter First Name" class="form-control" id="Firstname" autocomplete="off" />
+                            <label id="warningfieldfirstname" style="color:red; display:none">Please input this field!</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Middle Name:</label>
+                            <input type="text" placeholder="Enter Middle Name" class="form-control" id="Middlename" autocomplete="off" />
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"><label style="color:red">*</label>Last Name:</label>
+                            <input type="text" placeholder="Enter Last Name" class="form-control" id="Lastname" autocomplete="off" />
+                            <label id="warningfieldlastname" style="color:red; display:none">Please input this field!</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"><label style="color:red">*</label>Unit No:</label>
+                            <input type="text" placeholder="Enter Unit No" class="form-control" id="Unitno" autocomplete="off" />
+                            <label id="warningfieldunitno" style="color:red; display:none">Please input this field!</label>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary no-hover" id="SaveClient_name">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Save Developer-->
+    <div class="modal fade" id="ModalSaveDeveloper" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Developer</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"><label style="color:red">*</label>Developer:</label>
+                            <input type="text" placeholder="Enter Company Name" class="form-control" id="developer" autocomplete="off" />
+                            <label id="warningfielddeveloper" style="color:red; display:none">Please input this field!</label>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary no-hover" id="savedeveloper">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Save Project-->
+    <div class="modal fade" id="AddProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Project Code</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"><label style="color:red">*</label>Project Code:</label>
+                            <input type="text" placeholder="Enter Project Code" class="form-control" id="Project1" autocomplete="off" />
+                            <label id="warningfieldproject" style="color:red; display:none">Please input this field!</label>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary no-hover" id="saveProject">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Save BIR Location-->
+    <div class="modal fade" id="AddBIRLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Add BIR Location</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"><label style="color:red">*</label>Location:</label>
+                            <input type="text" placeholder="Enter BIR Location" class="form-control" id="LOC" autocomplete="off" />
+                            <label id="warningfieldbirlocation" style="color:red; display:none">Please input this field!</label>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary no-hover" id="saveLocation">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Save Assessor Location-->
+    <div class="modal fade" id="AddAssessorLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Assessor Location</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"><label style="color:red">*</label>Location:</label>
+                            <input type="text" placeholder="Enter Assessor Location" class="form-control" id="AssessLOC" autocomplete="off" />
+                            <label id="warningfieldassessorlocation" style="color:red; display:none">Please input this field!</label>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary no-hover" id="saveAssesLocation">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Save RD Location-->
+    <div class="modal fade" id="AddRDLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Add RD Location</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"><label style="color:red">*</label>Location:</label>
+                            <input type="text" placeholder="Enter RD Location" class="form-control" id="RDLOC" autocomplete="off" />
+                            <label id="warningfieldrodlocation" style="color:red; display:none">Please input this field!</label>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary no-hover" id="saveRDLocation">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Save Financing-->
+    <div class="modal fade" id="AddAFinancingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Financing</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"><label style="color:red">*</label>Financing:</label>
+                            <input type="text" placeholder="Enter Financing" class="form-control" id="financing" autocomplete="off" />
+                            <label id="warningfieldfinancing" style="color:red; display:none">Please input this field!</label>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary no-hover" id="saveFinancing">SAVE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>      
+
+        $(document).ready(function () {
+            //Save Master
+            $("#SaveAccount").click(function () {
+                var Customer = $("#Customer_fullname").val();
+                var GenCode = $("#controlnumbergenerated").val();
+                var Project = $("#Project").val();
+                var Developer = $("#Developer").val();
+                var Location = $("#BIRLocation").val();
+                var RdLocation = $("#RDLocation").val();
+                var AssLocation = $("#AssessorLocation").val();
+                var Financing = $("#Financing").val();
+                var NoticeofFullPayDate = $("#datepicker6").val();
+                var Unit = $("#unit_no").val();
+                var slip = Customer.split("*"); 
+                var id = slip[1];
+
+                if (Customer != "" && Project != "" && Developer != "" && Location != "" && RdLocation != "" && AssLocation != "" && Financing != "" && NoticeofFullPayDate != "" && Unit != "") {
+                    var url = "/Masters/Save_Account"
+                    $.post(url, { Acc: slip[0], gencode: GenCode, Pro: Project, Com_name: Developer, Locat: Location, rdloct: RdLocation, assloct: AssLocation, Financ: Financing, fullpay: NoticeofFullPayDate, unit: Unit }, function (data) {
+                        if (data == "saveaccount") {
+                            var url = "/Masters/Export"
+                            $.post(url, { genecode: GenCode, name: slip[0], UnitNo: Unit, Project: Project, Financing: Financing, fullpay: NoticeofFullPayDate }, function (data) {
+                                if (data == "ExportSavePreBir") {
+                                    var url = "/Masters/Save_PreBIRAgingReportIHFBIR"
+                                    $.post(url, { name: slip[0], genecode: GenCode, unit: Unit, finans: Financing, Notice: NoticeofFullPayDate, MonNotice: NoticeofFullPayDate, YerNotice: NoticeofFullPayDate }, function (data1) {
+                                        if (data1 == "saveagingprebir") {
+                                            Swal.fire(
+                                                'Successfully Saved!',
+                                                'Please clicked the button!',
+                                                'success'
+                                            ).then(function () {
+                                                location.reload();
+                                            });
+                                        }
+                                        else {
+                                            alert(data1);
+                                        }
+                                    });
+                                }
+                                else {
+                                    alert(data);
+                                }
+                            });
+                            window.location.href = "../Masters/ClientInfo#profile4";
+                        }
+                        else {
+                            Swal.fire(
+                                'Account already created for this unit.',
+                                'Please clicked the button!',
+                                'error'
+                            );
+                        }
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!', 
+                    }).then(function () {
+                        if ($("#Customer_fullname").val() == "") {
+                            document.getElementById("warningfieldAccountName").style.display = "block";
+                        }
+                        if ($("#Project").val() == "") {
+                            document.getElementById("warningfieldProjectCode").style.display = "block";
+                        }
+                        if ($("#Developer").val() == "") {
+                            document.getElementById("warningfieldCompanyName").style.display = "block";
+                        }
+                        if ($("#Financing").val() == "") {
+                            document.getElementById("warningfieldFinancing").style.display = "block";
+                        }
+                        if ($("#datepicker6").val() == "") {
+                            document.getElementById("warningfieldNoticeOfFullPaymentDate").style.display = "block";
+                        }
+                        if ($("#BIRLocation").val() == "") {
+                            document.getElementById("warningfieldBirLocation").style.display = "block";
+                        }
+                        if ($("#RDLocation").val() == "") {
+                            document.getElementById("warningfieldRodLocation").style.display = "block";
+                        }
+                        if ($("#AssessorLocation").val() == "") {
+                            document.getElementById("warningfieldAssessorLocation").style.display = "block";
+                        }
+                    })
+                }
+            });
+
+            $("#Customer_fullname").change(function () {
+                if ($("#Customer_fullname").val() == "") {
+                    document.getElementById("warningfieldAccountName").style.display = "block";
+                }
+                else {
+                    document.getElementById("warningfieldAccountName").style.display = "none";
+                }
+            });
+            $("#Project").change(function () {
+                if ($("#Project").val() == "") {
+                    document.getElementById("warningfieldProjectCode").style.display = "block";
+                }
+                else {
+                    document.getElementById("warningfieldProjectCode").style.display = "none";
+                }
+            });
+            $("#Developer").change(function () {
+                if ($("#Developer").val() == "") {
+                    document.getElementById("warningfieldCompanyName").style.display = "block";
+                }
+                else {
+                    document.getElementById("warningfieldCompanyName").style.display = "none";
+                }
+            });
+            $("#Financing").change(function () {
+                if ($("#Financing").val() == "") {
+                    document.getElementById("warningfieldFinancing").style.display = "block";
+                }
+                else {
+                    document.getElementById("warningfieldFinancing").style.display = "none";
+                }
+            });
+            $("#datepicker6").change(function () {
+                if ($("#Financing").val() == "") {
+                    document.getElementById("warningfieldNoticeOfFullPaymentDate").style.display = "block";
+                }
+                else {
+                    document.getElementById("warningfieldNoticeOfFullPaymentDate").style.display = "none";
+                }
+            });
+            $("#BIRLocation").change(function () {
+                if ($("#BIRLocation").val() == "") {
+                    document.getElementById("warningfieldBirLocation").style.display = "block";
+                }
+                else {
+                    document.getElementById("warningfieldBirLocation").style.display = "none";
+                }
+            });
+            $("#RDLocation").change(function () {
+                if ($("#RDLocation").val() == "") {
+                    document.getElementById("warningfieldRodLocation").style.display = "block";
+                }
+                else {
+                    document.getElementById("warningfieldRodLocation").style.display = "none";
+                }
+            });
+            $("#AssessorLocation").change(function () {
+                if ($("#AssessorLocation").val() == "") {
+                    document.getElementById("warningfieldAssessorLocation").style.display = "block";
+                }
+                else {
+                    document.getElementById("warningfieldAssessorLocation").style.display = "none";
+                }
+            });
+
+            $("#Customer_fullname").change(function () {
+                var Customer_fullname = $("#Customer_fullname").val();
+                var split = Customer_fullname.split("*");
+                $("#unit_no").val(split[2]);
+            });
+
+            //Get RD Location
+            $(".getRDlocation").click(function () {
+                var id = this.id;
+                var splits = id.split('*');
+                var Customer_fullname = splits[0];
+                var EditIDAccount = splits[1];
+                $("#Customer_fullname").val(Customer_fullname);
+                $("#EditIDAccount").val(EditIDAccount);
+            });
+
+            //Save Account
+            $("#SaveClient_name").click(function () {
+                var FirstName = $("#Firstname").val();
+                var MiddleName = $("#Middlename").val();
+                var LastName = $("#Lastname").val();
+                var UnitNo = $("#Unitno").val();
+
+                if (FirstName != "" && LastName != "" && UnitNo != "") {
+                var url = "/Masters/Save_Client"
+                    $.post(url, { First: FirstName, Middle: MiddleName, Last: LastName, Unit: UnitNo }, function (data) {
+                        if (data == "saveclient_name") {
+                            Swal.fire(
+                                'Master successfully Saved!',
+                                'Please clicked the button!',
+                                'success'
+                            ).then(function () {
+                                location.reload();
+                            });
+                        }
+                        else {
+                            alert(data);
+                        }                    
+                    });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!',
+                    }).then(function () {
+                        if ($("#Firstname").val() == "") {
+                            document.getElementById("warningfieldfirstname").style.display = "block";
+                        }
+                        if ($("#Lastname").val() == "") {
+                            document.getElementById("warningfieldlastname").style.display = "block";
+                        }
+                        if ($("#Unitno").val() == "") {
+                            document.getElementById("warningfieldunitno").style.display = "block";
+                        }
+                    })
+                }
+            });
+
+            //Save Developer
+            $("#savedeveloper").click(function () {
+                var developer = $("#developer").val();
+                if (developer != "") {
+                var url = "/Masters/Save_Docs"
+                $.post(url, { Dev: developer }, function (data) {
+                    if (data == "savedeveloper") {
+                        Swal.fire(
+                            'Master successfully Saved!',
+                            'Please clicked the button!',
+                            'success'
+                        ).then(function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        alert(data);
+                    }
+                });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!', 
+                    }).then(function () {
+                        if ($("#developer").val() == "") {
+                            document.getElementById("warningfielddeveloper").style.display = "block";
+                        }
+                    })
+                }
+            });
+            //Save Project
+            $("#saveProject").click(function () {
+                var Project = $("#Project1").val();
+                if (Project != "") {
+                var url = "/Masters/Save_Project"
+                $.post(url, { pro: Project }, function (data) {
+                    if (data == "save") {
+                        Swal.fire(
+                            'Master successfully Saved!',
+                            'Please clicked the button!',
+                            'success'
+                        ).then(function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        alert(data);
+                    }
+                });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!', 
+                    }).then(function () {
+                        if ($("#Project1").val() == "") {
+                            document.getElementById("warningfieldproject").style.display = "block";
+                        }
+                    })
+                }
+            });
+            //Save BIR Location
+            $("#saveLocation").click(function () {
+                var LOC = $("#LOC").val();
+                if (LOC != "") {
+                var url = "/Masters/Save_Location"
+                $.post(url, { loc: LOC }, function (data) {
+                    if (data == "savelocation") {
+                        Swal.fire(
+                            'Master successfully Saved!',
+                            'Please clicked the button!',
+                            'success'
+                        ).then(function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        alert(data);
+                    }
+                });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!', 
+                    }).then(function () {
+                        if ($("#LOC").val() == "") {
+                            document.getElementById("warningfieldbirlocation").style.display = "block";
+                        }
+                    })
+                }
+            });
+            //Save Assessor Location
+            $("#saveAssesLocation").click(function () {
+                var Asses = $("#AssessLOC").val();
+                if (Asses != "") {
+                var url = "/Masters/Save_Assesslocation"
+                $.post(url, { Ass: Asses }, function (data) {
+                    if (data == "saveasselocation") {
+                        Swal.fire(
+                            'Master successfully Saved!',
+                            'Please clicked the button!',
+                            'success'
+                        ).then(function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        alert(data);
+                    }
+                });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!', 
+                    }).then(function () {
+                        if ($("#AssessLOC").val() == "") {
+                            document.getElementById("warningfieldassessorlocation").style.display = "block";
+                        }
+                    })
+                }
+            });
+            //Save RD Location
+            $("#saveRDLocation").click(function () {
+                var RDloc = $("#RDLOC").val();
+                if (RDloc != "") {
+                var url = "/Masters/Save_RDlocation"
+                $.post(url, { rdloc: RDloc }, function (data) {
+                    if (data == "saverdlocation") {
+                        Swal.fire(
+                            'Master successfully Saved!',
+                            'Please clicked the button!',
+                            'success'
+                        ).then(function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        alert(data);
+                    }
+                });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!', 
+                    }).then(function () {
+                        if ($("#RDLOC").val() == "") {
+                            document.getElementById("warningfieldrodlocation").style.display = "block";
+                        }
+                    })
+                }
+            });
+            //Save Financing
+            $("#saveFinancing").click(function () {
+                var Finan = $("#financing").val();
+                if (Finan != "") {
+                var url = "/Masters/Save_Financing"
+                $.post(url, { fin: Finan }, function (data) {
+                    if (data == "savefinancing") {
+                        Swal.fire(
+                            'Master successfully Saved!',
+                            'Please clicked the button!',
+                            'success'
+                        ).then(function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        alert(data);
+                    }
+                });
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Dont empty this field!', 
+                    }).then(function () {
+                        if ($("#financing").val() == "") {
+                            document.getElementById("warningfieldfinancing").style.display = "block";
+                        }
+                    })
+                }
+            });
+
+            //DataTable
+            $('#datatable').DataTable();
+
+            if (!ace.vars['touch']) {
+                $('.chosen-select').chosen({ allow_single_deselect: true });
+                $(document).on('settings.ace.chosen', function (e, event_name, event_val) {
+                    if (event_name != 'sidebar_collapsed') return;
+                    $('.chosen-select').each(function () {
+                        var $this = $(this);
+                        $this.next().css({ 'width': $this.parent().width() });
+                    })
+                });
+            }
+
+            //after click add or edit in turnover checklist.. dapat naka view ra japon sa kana nga tab
+            if (location.hash) {
+                $("a[href='" + location.hash + "']").tab("show");
+            }
+            $(document.body).on("click", "a[data-toggle='tab']", function (event) {
+                location.hash = this.getAttribute("href");
+            });
+
+            $("#datepicker6").datepicker({
+                dateFormat: "yy-mm-dd",
+                changeYear: true,
+                changeMonth: true,
+            });
+
+        }); //end from document.ready
+
+        TableManageButtons.init();
+
+        //kani sumpay sa open tab after load sa page.
+        $(window).on("popstate", function () {
+            var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
+            $("a[href='" + anchor + "']").tab("show");
+        });
+    </script>
+}

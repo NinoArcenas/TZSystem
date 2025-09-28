@@ -1,0 +1,431 @@
+﻿
+@{
+    ViewBag.Title = "DocumentApprov";
+
+    string name = "";
+    int status = 0;
+    int id = 0;
+    string Gencode = "";
+    foreach (var cis in ViewBag.prebir)
+    {
+        id = cis.id;
+        name = cis.name;
+        status = cis.status;
+        Gencode = cis.generatedcode;
+    }
+}
+
+<body class="background-White" style="background-color:white">
+    <div class="widget-body" style="background-color:white">
+        <div class="row">
+            <div class="page-header">
+                <h1>
+                    Approval Listing
+                </h1>
+            </div>
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="widget-box widget-color-blue3">
+                            <div class="widget-header">
+                                <div class="widget-title">
+                                    Documents
+                                </div>
+                            </div>
+                            <div>
+                                <table id="documents" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="center" style="color: black; background-color:cornflowerblue" hidden>Customer Name</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Select to Approve</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Customer Name</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Block</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Full Payment Date</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">TCP</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Title NO</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Tax Dec No</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">DOAS Date</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">DST</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Notarized Doas Date</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Transfer Tax Date</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">EWT Date</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">CTS Date</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Receipts Date</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Created By</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">ACTION STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int count = 100000;
+                                            foreach (var cis in ViewBag.prebir)
+                                            {
+                                                var GetFname = TADTitleConversion.Controllers.MastersController.GetFname(cis.added_by);
+                                                count += cis.id;
+                                                <tr>
+                                                    <td class="center">
+                                                        <label class="pos-rel">
+                                                            <input id="@cis.id" type="checkbox" name="sacheckboxni" class="ace" />
+                                                            <span class="lbl"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left" hidden>
+                                                        <label>
+                                                            @cis.name
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @cis.name
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @cis.block
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @if (cis.unit_no != null)
+                                                            {
+                                                                @String.Format("{0:MM/dd/yyyy}", cis.unit_no)
+                                                            }
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @cis.tcp
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @cis.title_no
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @cis.tax_dec_no
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @if (cis.doas != null)
+                                                            {
+                                                                @String.Format("{0:MM/dd/yyyy}", cis.doas)
+                                                            }
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @if (cis.dst != null)
+                                                            {
+                                                                @String.Format("{0:MM/dd/yyyy}", cis.dst)
+                                                            }
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @if (cis.notarized_doas != null)
+                                                            {
+                                                                @String.Format("{0:MM/dd/yyyy}", cis.notarized_doas)
+                                                            }
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @if (cis.transfer_tax != null)
+                                                            {
+                                                                @String.Format("{0:MM/dd/yyyy}", cis.transfer_tax)
+                                                            }
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @if (cis.ewt != null)
+                                                            {
+                                                                @String.Format("{0:MM/dd/yyyy}", cis.ewt)
+                                                            }
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @if (cis.cts != null)
+                                                            {
+                                                                @String.Format("{0:MM/dd/yyyy}", cis.cts)
+                                                            }
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @if (cis.receipts != null)
+                                                            {
+                                                                @String.Format("{0:MM/dd/yyyy}", cis.receipts)
+                                                            }
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align:center" class="text-warning smaller-90 orange">
+                                                        <label>
+                                                            @GetFname
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align:center">
+                                                        <div class="pull-center">
+                                                            @*<a class="badge btn btn-xs btn btn-success btn-round btn-bold no-hover" onclick="functionToExecute(@cis.id)">
+                                                                <i class="ace-icon glyphicon glyphicon-ok"></i>
+                                                                Approve
+                                                            </a>*@
+                                                            <a class="badge btn btn-xs btn btn-danger btn-round btn-bold no-hover" data-toggle="modal" data-target="#ModalCancel" onclick="functionToExecuteCanceled()">
+                                                                <i class="ace-icon glyphicon glyphicon-remove"></i>
+                                                                Cancel
+                                                            </a>
+                                                            <a class="badge btn btn-xs btn btn-info btn-round btn-bold no-hover" data-toggle="modal" data-target="#ModalPullOut" onclick="functionToExecutePullOut()">
+                                                                <i class="ace-icon glyphicon glyphicon-share"></i>
+                                                                Pull Out
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+
+            <div class="center">
+                <button type="button" class="btn btn-success btn-round btn-sm no-hover" id="submitapprove">Approve</button>
+            </div>
+
+            <!--Modal Cancelled Account-->
+            <div class="modal fade" id="ModalCancel" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5 class="modal-title" id="exampleModalLabel">Cancelled Account</h5>
+                        </div>
+                        <div class="modal-body">
+                            @using (Html.BeginForm("Cancelled", "Masters", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <div class="col-xs-12 col-sm-4" style="display:none">
+                                    <label for="form-field-select-3">Gencode:</label>
+                                    <b for="form-field-select-2"></b>
+                                    <input type="text" id="Gencode" name="Gencode" value="@Gencode" class="width-100" />
+                                </div>
+                                <div class="col-xs-12 col-sm-4" style="display:none">
+                                    <label for="form-field-select-3">ID:</label>
+                                    <b for="form-field-select-2"></b>
+                                    <input type="text" id="id" name="id" value="@id" class="width-100" />
+                                </div>
+                                <div class="col-xs-12 col-sm-4" style="display:none">
+                                    <label for="form-field-select-3">Status:</label>
+                                    <b for="form-field-select-2"></b>
+                                    <input type="text" id="status" name="status" value="@status" class="width-100" />
+                                </div>
+                                <div class="form-group has-info" hidden>
+                                    <b for="inputInfo" class="col-sm-9 control-label no-padding-right">Account Name:</b>
+                                    <div class="col-xs-12 col-sm-12">
+                                        <input type="text" value="@name" name="name" id="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label no-padding-right"><label style="color: red">*</label>File Upload:</label>
+                                    <div class="col-xs-12">
+                                        <input class="form-control input-sm" name="file" type="file" id="file">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-group has-info col-xs-12">
+                                        <label for="form-field-8"><label style="color: red">*</label>Comments:</label>
+                                        <div class="input-group has-info col-xs-12">
+                                            <textarea class="form-control limited" name="commentFile" id="commentFile"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-round btn-sm no-hover cancel" id="savecancelledfield">Save</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Modal Pull Out Account-->
+            <div class="modal fade" id="ModalPullOut" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5 class="modal-title" id="exampleModalLabel">Pull Out Account</h5>
+                        </div>
+                        <div class="modal-body">
+                            @using (Html.BeginForm("PullOut", "Masters", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <div class="col-xs-12 col-sm-4" style="display:none">
+                                    <label for="form-field-select-3">Gencode:</label>
+                                    <b for="form-field-select-2"></b>
+                                    <input type="text" id="Gencode" name="Gencode" value="@Gencode" class="width-100" />
+                                </div>
+                                <div class="col-xs-12 col-sm-4" style="display:none">
+                                    <label for="form-field-select-3">ID:</label>
+                                    <b for="form-field-select-2"></b>
+                                    <input type="text" id="id" name="id" value="@id" class="width-100" />
+                                </div>
+                                <div class="col-xs-12 col-sm-4" style="display:none">
+                                    <label for="form-field-select-3">Status:</label>
+                                    <b for="form-field-select-2"></b>
+                                    <input type="text" id="status" name="status" value="@status" class="width-100" />
+                                </div>
+                                <div class="form-group has-info" hidden>
+                                    <b for="inputInfo" class="col-sm-9 control-label no-padding-right">Account Name:</b>
+                                    <div class="col-xs-12 col-sm-12">
+                                        <input type="text" value="@name" name="name" id="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label no-padding-right"><label style="color: red">*</label>File Upload:</label>
+                                    <div class="col-xs-12">
+                                        <input class="form-control input-sm" name="file" type="file" id="file">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-group has-info col-xs-12">
+                                        <label for="form-field-8"><label style="color: red">*</label>Comments:</label>
+                                        <div class="input-group has-info col-xs-12">
+                                            <textarea class="form-control limited" name="commentFile" id="commentFile"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-round btn-sm no-hover pullout" id="savepullout">Save</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+      
+        //function functionToExecute(id) {
+        //    Swal.fire({
+        //        title: 'Do you really want to Approve?',
+        //        showDenyButton: true,
+        //        confirmButtonText: 'Yes',
+        //        denyButtonText: `No`,
+        //    }).then((result) => {
+        //        if (result.isConfirmed) {
+        //            var url = "/Masters/UpdateClientAprrove"
+        //            $.post(url, { id: id }, function (data) {                     
+        //                Swal.fire('Successfully approved!', '', 'success')
+        //                    .then(function () {
+        //                        window.location.href = "../Masters/DocumentApprov";
+        //                });
+        //            });                   
+        //        } else if (result.isDenied) {
+        //            Swal.fire('This Account was not Approved', '', 'info')
+        //        }
+        //    })
+        //}
+
+        function functionToExecuteCanceled() {
+            Swal.fire({
+                title: 'Do you really want to Cancel this Account? Please Upload Files',
+                showDenyButton: true,
+                confirmButtonText: 'Okay',
+                denyButtonText: `Cancel`,
+            }).then((result) => {
+                if (result.isConfirmed) {                    
+                } else if (result.isDenied) {
+                    Swal.fire('This Account was not Cancelled', '', 'info').then(function () {
+                        location.reload();
+                    })
+                }
+            })
+        }
+
+        function functionToExecutePullOut() {
+            Swal.fire({
+                title: 'Do you really want to Pull Out this Account? Please Upload Files',
+                showDenyButton: true,
+                confirmButtonText: 'Okay',
+                denyButtonText: `Cancel`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                } else if (result.isDenied) {
+                    Swal.fire('This Account was not Pull Out', '', 'info').then(function () {
+                        location.reload();
+                    })
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            //Datatable Financing
+            $('#documents').DataTable({
+                scrollY: '550px', // Set the maximum height of the table body
+                scrollX: true, // Enable horizontal scrolling
+                scrollCollapse: true, // Allow the table to collapse if fewer rows are displayed
+                paging: true, // Disable pagination
+                fixedHeader: true // Enable fixed header
+            });
+
+            $("#submitapprove").click(function () {
+                if ($("input[name='sacheckboxni']:checked").length === 0) {
+                    Swal.fire('Please select at least one item to approve.', '', 'info');
+                    return;
+                }
+                Swal.fire({
+                    title: 'Do you really want to Approve?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.each($("input[name='sacheckboxni']:checked"), function () {
+                            var url = "/Masters/UpdateClientAprrove"
+                            $.post(url, { id: this.id }, function (data) {
+                                Swal.fire(
+                                    'Record was successfully approved.',
+                                    'Please clicked the button!',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            });
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This Account was not Approved', '', 'info')
+                    }
+                })                
+            });
+
+        });
+    </script>
+}

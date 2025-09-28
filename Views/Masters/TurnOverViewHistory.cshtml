@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "TurnOverViewHistory";
+}
+
+<body class="background-White" style="background-color:white">
+    <div class="widget-body" style="background-color:white">
+        <div class="row">
+            <div class="page-header">
+                <h1>
+                    Turn-Over History
+                </h1>
+            </div>
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="widget-box widget-color-blue3">
+                            <div class="widget-header">
+                                <div class="widget-title">
+                                    ACCOUNTS
+                                </div>
+                            </div>
+                            <div>
+                                <table id="documentfilehistory" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="center" hidden></th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Customer Name</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Unit No</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Company Name</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Project</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">Financing</th>
+                                            <th class="center" style="color: black; background-color:cornflowerblue">ACTION STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var cis in ViewBag.CIS)
+                                            {
+                                                <tr>
+                                                    <td class="center" hidden>
+                                                        <label>
+                                                            @cis.account
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @cis.account
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @cis.unit_no
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @cis.company_name
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @cis.project
+                                                        </label>
+                                                    </td>
+                                                    <td style="text-align: left">
+                                                        <label>
+                                                            @cis.financing
+                                                        </label>
+                                                    </td>                                                    
+                                                    <td style="text-align:center">
+                                                        <div class="pull-center">
+                                                            <a href="../Masters/AccountHistory?id=@cis.id" class="btn btn-white btn-primary btn-round btn-xs no-hover">
+                                                                <i class="ace-icon fa fa-eye"></i>
+                                                                View
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('#documentfilehistory').DataTable();           
+        });
+    </script>
+}

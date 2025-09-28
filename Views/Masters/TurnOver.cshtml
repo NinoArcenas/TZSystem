@@ -1,0 +1,606 @@
+﻿@model TADTitleConversion.Models.ClientInfoStatus
+@{
+    ViewBag.Title = "TurnOver";
+
+    string account = "";
+    string generatedcode = "";
+    string unitno = "";
+    string project = "";
+    string turnOverBy = "";
+    int status = 0;
+    int id = 0;
+    foreach (var cis in ViewBag.forprocess)
+    {
+        id = cis.id;
+        account = cis.account;
+        status = cis.status;
+        generatedcode = cis.generatedcode;
+        unitno = cis.unit_no;
+        project = cis.project;
+        turnOverBy = cis.updated_by_TurnOver;
+    }
+
+    string account1 = "";
+    string gencode = "";
+    int status1 = 0;
+    int id1 = 0;
+    foreach (var cis in ViewBag.TurnOver)
+    {
+        id1 = cis.id;
+        account1 = cis.account;
+        gencode = cis.generatedcode;
+        status1 = cis.status;
+    }
+
+    //ROD
+    var TitlenoROD = "";
+    int idrod = 0;
+    foreach (var ROD in ViewBag.rod)
+    {
+        if (ROD.generatedcode == generatedcode)
+        {
+            idrod = ROD.id;
+            TitlenoROD = ROD.title_no;
+        }
+    }
+
+    //Assessor
+    var TaxdecnoAss = "";
+    int idassessor = 0;
+    foreach (var Ass in ViewBag.ass)
+    {
+        if (Ass.generatedcode == generatedcode)
+        {
+            idassessor = Ass.id;
+            TaxdecnoAss = Ass.tax_dec_no;
+        }
+    }
+
+    //Export
+    int idexport = 0;
+    foreach (var EXPORT in ViewBag.exportprebir)
+    {
+        if (EXPORT.generatedcode == generatedcode)
+        {
+            idexport = EXPORT.id;
+        }
+    }
+
+}
+
+<body class="background-White" style="background-color:white">
+    <div class="widget-body" style="background-color:white">
+        <div class="col-xs-12 col-sm-4" style="display:none">
+            <label for="form-field-select-3">ID:</label>
+            <b for="form-field-select-2">@id</b>
+            <input type="text" id="id" value="@id" class="width-100" />
+            <br />
+        </div>
+        <div class="col-xs-12 col-sm-4" style="display:none">
+            <label for="form-field-select-3">ID:</label>
+            <b for="form-field-select-2">@status</b>
+            <input type="text" id="IDstatus" value="@status" class="width-100" />
+            <br />
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                        <li class="active">
+                            <a data-toggle="tab" href="#home4">Documents for Turn Over</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#profile4">Turn Over List</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="home4" class="tab-pane in active">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="widget-box widget-color-blue3">
+                                        <div class="widget-header">
+                                            <div class="widget-title">
+                                                Documents
+                                            </div>
+                                            <div class="widget-title" style="display:none">
+                                                <input type="text" id="compalted" value="Completed" />
+                                            </div>
+                                            <div class="form-group has-info col-xs-12" style="display:none">
+                                                <label for="inputInfo" class="col-xs-12 col-sm-5 control-label no-padding-right">ID</label>
+                                                <div class="col-xs-12 col-sm-7">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" id="idexport" value="@idexport" class="width-100" />
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <table id="forprocess" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Customer Name</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Unit No</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Project</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Company Name</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Financing</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Document Status</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">ACTION STATUS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="forprocessBody">
+                                                    @{
+                                                        foreach (var cis in ViewBag.forprocess)
+                                                        {
+                                                            <tr>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.account
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.unit_no
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.project
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.company_name
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.financing
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <label>
+                                                                        @if (cis.status == 7)
+                                                                        {
+                                                                            if (cis.updated_by_TurnOver == "" && cis.status == 7)
+                                                                            {
+                                                                                <span class="label label-sm label-pink arrowed-right">Docs for Turn Over</span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <span class="label label-sm label-info arrowed-right">for Turn Over</span>
+                                                                            }
+                                                                        }
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    @if (cis.status == 7 && cis.updated_by_TurnOver != "")
+                                                                    {
+                                                                        <button class="btn btn-xs btn-white btn-success btn-round no-hover done" id="@cis.generatedcode">
+                                                                            <i class="ace-icon glyphicon glyphicon-ok"></i>
+                                                                            Done
+                                                                        </button>
+                                                                    }
+
+                                                                    <a class="btn btn-white btn-info btn-round btn-xs no-hover getdata" data-toggle="modal" data-target="#ModalTurnOver" id="@cis.account*@cis.generatedcode*@cis.unit_no*@cis.project*@cis.id">
+                                                                        <i class="ace-icon fa fa-cogs"></i>
+                                                                        Turn-Over Docs
+                                                                    </a>
+                                                                    <a href="../Masters/UploadFile?id=@cis.id" class="btn btn-white btn-warning btn-round btn-xs no-hover">
+                                                                        <i class="ace-icon fa fa-eye"></i>
+                                                                        View
+                                                                    </a>
+
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="profile4" class="tab-pane">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="widget-box widget-color-blue3">
+                                        <div class="widget-header">
+                                            <div class="widget-title">
+                                                Documents
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <table id="turnover" class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue" hidden>Account Name</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Account Name</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Unit No</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Project</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Documents</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Title No</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Tax Dec No</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Date Forwarded</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Received By</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Turn-over By</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Remarks</th>
+                                                        <th class="center" style="color: black; background-color:cornflowerblue">Document Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        foreach (var cis in ViewBag.TurnOver)
+                                                        {
+                                                            <tr>
+                                                                <td style="text-align:center" hidden>
+                                                                    <label>
+                                                                        @cis.account
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.account
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.unit_no
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.project
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.document_name
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.title_no
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.tax_dec_no
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @String.Format("{0:MMMM dd, yyyy}", cis.date_forwarded)
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.received_by
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.turn_over_by
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <label>
+                                                                        @cis.remarks
+                                                                    </label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <label>
+                                                                        @if (cis.status == 1)
+                                                                        {<span class="label label-sm label-info arrowed arrowed-righ">Completed</span>}
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modal Save Account-->
+        <div class="modal fade" id="ModalTurnOver" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" style="text-align:left" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h5 class="modal-title" id="exampleModalLabel">Turn-Over</h5>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("Save_TurnOver", "Masters", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="col-xs-12 col-sm-4" style="display:none">
+                                <label for="form-field-select-3">ID:</label>
+                                <b for="form-field-select-2"></b>
+                                <input type="text" name="txtID" id="txtID" class="width-100" />
+                                <br />
+                            </div>
+                            <div class="col-xs-12 col-sm-4" hidden>
+                                <label for="form-field-select-3">Status:</label>
+                                <b for="form-field-select-2">@status.ToString()</b>
+                                <input type="text" name="IDStatus" id="IDStatus" class="width-100" />
+                                <br />
+                            </div>
+                            <div class="form-group" hidden>
+                                <label for="recipient-name" class="col-form-label">Account:</label>
+                                <input type="text" name="txtaccount" id="txtaccount" class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group" hidden>
+                                <label for="recipient-name" class="col-form-label">Gencode:</label>
+                                <input type="text" name="txtgencode" id="txtgencode" class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group" hidden>
+                                <label for="recipient-name" class="col-form-label">Unit:</label>
+                                <input type="text" name="txtunit" id="txtunit" class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group" hidden>
+                                <label for="recipient-name" class="col-form-label">Project:</label>
+                                <input type="text" name="txtproject" id="txtproject" class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group has-info col-sm-12">
+                                <label for="inputInfo" class="col-sm-3 control-label no-padding-right"><label style="color: red">*</label>Document Name:</label>
+                                <div class="col-sm-7">
+                                    <select id="documentname" name="documentname" data-placeholder="BOTH" class="form-control input-xlarge">
+                                        <option> </option>
+                                        <option value="BOTH">BOTH</option>
+                                        <option value="TITLE">TITLE</option>
+                                        <option value="TAX DEC">TAX DEC</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="TitleNo" style="display:none">
+                                <div class="form-group">
+                                    <label for="recipient-name">Title No:</label>
+                                    <input type="text" placeholder="Enter Title No." class="width-100" name="titlenorod" id="titlenorod" value="@TitlenoROD" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div id="TaxDec" style="display:none">
+                                <div class="form-group">
+                                    <label for="inputInfo">Tax Dec No:</label>
+                                    <input type="text" placeholder="Enter Tax Dec No." class="width-100" name="taxdecnoass" id="taxdecnoass" value="@TaxdecnoAss" autocomplete="off" />
+                                </div>
+                            </div>
+                            <label for="inputInfo"><label style="color: red">*</label>Date Forwarded:</label>
+                            <div class="input-group">
+                                <input class="width-100" type="text" name="dateforwarded" id="dateforwarded" data-date-format="dd-mm-yyyy" autocomplete="off" readonly/>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar bigger-110"></i>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputInfo"><label style="color: red">*</label>Received By:</label>
+                                <input type="text" placeholder="Enter Received By" class="width-100" name="receivedby" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="inputInfo"><label style="color: red">*</label>Turn-over By:</label>
+                                <input type="text" placeholder="Enter Turn-over By" class="width-100" name="turnoverby" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="inputInfo" class="col-xs-12 col-sm-2 control-label no-padding-right"><label style="color: red">*</label>UploadFile:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <div class="col-sm-12">
+                                            <input class="form-control input-sm" style="width:176%" type="file" name="file" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputInfo"><label style="color: red">*</label>Remarks:</label>
+                                <textarea class="form-control limited" name="Remarks" maxlength="50"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary no-hover" id="SaveTurnOver">Save</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(document).ready(function () {
+            //Datatable Financing
+            $('#turnover').DataTable();
+            $('#forprocess').DataTable();
+
+            $("#documentname").click(function () {
+                if ($("#documentname").val() == "BOTH") {
+                    document.getElementById("TitleNo").style.display = "block";
+                    document.getElementById("TaxDec").style.display = "block";
+                }
+                else if ($("#documentname").val() == "TITLE") {
+                    document.getElementById("TitleNo").style.display = "block";
+                    document.getElementById("TaxDec").style.display = "none";
+                    $("#taxdecnoass").val("");
+                }
+                else if ($("#documentname").val() == "TAX DEC") {
+                    document.getElementById("TitleNo").style.display = "none";
+                    document.getElementById("TaxDec").style.display = "block";
+                    $("#titlenorod").val("");
+                }
+                else {
+                    document.getElementById("TitleNo").style.display = "none";
+                    document.getElementById("TaxDec").style.display = "none";
+                }
+            });
+
+            //$(".getdata").click(function () {
+            $(".forprocessBody").on("click", ".getdata", function () {
+                var id = this.id;
+                var spl = id.split('*');
+                var account = spl[0];
+                var gencode = spl[1];
+                var unitno = spl[2];
+                var project = spl[3];
+                var ID = spl[4];
+                $("#txtgencode").val(gencode);
+                $("#txtaccount").val(account);
+                $("#txtunit").val(unitno);
+                $("#txtproject").val(project);
+                $("#txtID").val(ID);
+            });
+
+            //Save TurnOver
+            $("#SaveTurnOver").click(function () {
+                var account = $("#txtaccount").val();
+                var gencode = $("#txtgencode").val();
+                var Unit = $("#txtunit").val();
+                var Project = $("#txtproject").val();
+                var DocName = $("#documentname").val();
+                var Datefor = $("#dateforwarded").val();
+                var Recby = $("#receivedby").val();
+                var Turby = $("#turnoverby").val();
+                var Remar = $("#Remarks").val();
+                var Taxdec = $("#taxdecno").val();
+                var Title = $("#titleno").val();
+                var f = document.getElementById("documentname").innerHTML;
+                if (DocName != "" && Datefor != "" && Recby != "" && Turby != "") {
+                    if ($("#documentname").val() == "BOTH") {
+                        var url = "/Masters/Save_TurnOver"
+                        $.post(url, { acc: account, gencode: gencode, UnitNo: Unit, Project: Project, docname: DocName, datefor: Datefor, titleno: Title, taxdecno: Taxdec, recby: Recby, turnoverby: Turby, remark: Remar }, function (data) {
+                            if (data == "saveturnover") {
+                                alert("Save Successfully.");
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                        var url = "/Masters/UpdateTurnOverClient"
+                        $.post(url, { generatedcode: gencode }, function (data) {
+                            if (data == "updatedclientstatus") {
+                                alert("Save Successfully.");
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                    }
+                    else if ($("#documentname").val() == "TITLE") {
+                        var url = "/Masters/Save_TurnOver"
+                        $.post(url, { acc: account, gencode: gencode, UnitNo: Unit, Project: Project, docname: DocName, datefor: Datefor, titleno: Title, recby: Recby, turnoverby: Turby, remark: Remar }, function (data) {
+                            if (data == "saveturnover") {
+                                alert("Save Successfully.");
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                        var url = "/Masters/UpdateTurnOverClient"
+                        $.post(url, { generatedcode: gencode }, function (data) {
+                            if (data == "updatedclientstatus") {
+                                alert("Save Successfully.");
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                    }
+                    else if ($("#documentname").val() == "TAX DEC") {
+                        var url = "/Masters/Save_TurnOver"
+                        $.post(url, { acc: account, gencode: gencode, UnitNo: Unit, Project: Project, docname: DocName, datefor: Datefor, taxdecno: Taxdec, recby: Recby, turnoverby: Turby, remark: Remar }, function (data) {
+                            if (data == "saveturnover") {
+                                alert("Save Successfully.");
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                        var url = "/Masters/UpdateTurnOverClient"
+                        $.post(url, { generatedcode: gencode }, function (data) {
+                            if (data == "updatedclientstatus") {
+                                alert("Save Successfully.");
+                            }
+                            else {
+                                alert(data);
+                            }
+                        });
+                    }
+                }
+                else {
+                    alert("Don't empty this field.");
+                }
+            });
+
+            $(function () {
+                $("#dateforwarded").datepicker({
+                    dateFormat: "yy-mm-dd",
+                    changeYear: true,
+                    changeMonth: true,
+                });
+            });
+
+            $(".forprocessBody").on("click", ".done", function () {
+                var Generated = this.id;
+                var Compalted = $("#compalted").val();
+                var IDexport = $("#idexport").val();
+                Swal.fire({
+                    title: 'Do you really want to Turn-Over this Account?',
+                    showDenyButton: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: `No`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var url = "/Masters/UpdateClientSatatusTurnOver"
+                        $.post(url, { Generated: Generated }, function (data) {
+                            Swal.fire(
+                                'Successfully Turn-Over!',
+                                'Please clicked the button!',
+                                'success'
+                            ).then(function () {
+                                location.reload();
+                            });
+                        });
+                        var url = "/Masters/UpdateAgingStatusReport"
+                        $.post(url, { Generated: Generated }, function (data) {
+                        });
+                        var url = "/Masters/SaveStatusExportBIR"
+                        $.post(url, { id: IDexport, BirDocs: Compalted }, function (data1) {
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire('This Account is still for Turn-Over', '', 'info')
+                    }
+                })
+            });
+
+            //after click add or edit in turnover checklist.. dapat naka view ra japon sa kana nga tab
+            if (location.hash) {
+                $("a[href='" + location.hash + "']").tab("show");
+            }
+            $(document.body).on("click", "a[data-toggle='tab']", function (event) {
+                location.hash = this.getAttribute("href");
+            });
+
+        }); //end from document.ready
+
+        TableManageButtons.init();
+
+        //kani sumpay sa open tab after load sa page.
+        $(window).on("popstate", function () {
+            var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
+            $("a[href='" + anchor + "']").tab("show");
+        });
+
+    </script>
+}

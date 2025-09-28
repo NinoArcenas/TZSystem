@@ -1,0 +1,141 @@
+﻿@model TADTitleConversion.Models.ClientInfoStatus
+@{
+    ViewBag.Title = "Pullout";
+
+    int id = 0;
+    string Gencode = "";
+    foreach (var cis in ViewBag.ClientAccounts)
+    {
+        id = cis.id;
+        Gencode = cis.generatedcode;
+    }
+}
+
+<body class="background-White" style="background-color:white">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="widget-box widget-color-blue3">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        Pull Out Data
+                    </div>
+                </div>
+                <table id="documentfile" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th class="center">Account Name</th>
+                            <th class="center">Document</th>
+                            <th class="center">Remarks</th>
+                            <th class="center">Date Pull Out</th>
+                            <th class="center">Pull Out By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int count = 100000;
+                            foreach (var ciss in ViewBag.PullOut)
+                            {
+                                var GetFname = TADTitleConversion.Controllers.MastersController.GetFname(ciss.added_by);
+                                count += ciss.id;
+                                if (ciss.generatedcode == Gencode)
+                                {
+                                    <tr>
+                                        <td style="text-align:center">
+                                            <label>
+                                                @ciss.accountname
+                                            </label>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <label>
+                                                <a href="@ciss.document_attach"><img src="~/Images/pdf(1).jpg" /></a>
+                                            </label>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <label>
+                                                @ciss.remarks
+                                            </label>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <label>
+                                                @String.Format("{0:MMMM dd, yyyy}", ciss.dateadded)
+                                            </label>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <label style="color:darkseagreen">
+                                                @GetFname
+                                            </label>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="row">
+        <div class="col-xs-12">
+            <div class="widget-box widget-color-red">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        Cancelled Data
+                    </div>
+                </div>
+                <table id="documentfile" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th class="center">Account Name</th>
+                            <th class="center">Document</th>
+                            <th class="center">Remarks</th>
+                            <th class="center">Date Cancelled</th>
+                            <th class="center">Cancelled By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int count1 = 100000;
+                            foreach (var ciss in ViewBag.Cancells)
+                            {
+                                var GetFname = TADTitleConversion.Controllers.MastersController.GetFname(ciss.added_by);
+                                count1 += ciss.id;
+                                if (ciss.generatedcode == Gencode)
+                                {
+                                    <tr>
+                                        <td style="text-align:center">
+                                            <label>
+                                                @ciss.accountname
+                                            </label>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <label>
+                                                <a href="@ciss.document_attach"><img src="~/Images/pdf(1).jpg" /></a>
+                                            </label>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <label>
+                                                @ciss.remarks
+                                            </label>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <label>
+                                                @String.Format("{0:MMMM dd, yyyy}", ciss.dateadded)
+                                            </label>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <label style="color:indianred">
+                                                @GetFname
+                                            </label>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>*@
+</body>
+
